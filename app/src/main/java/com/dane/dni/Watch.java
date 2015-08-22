@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,6 +28,13 @@ public class Watch extends Activity {
         dniDateTime = new DniDateTime();
         display = (TextView) findViewById(R.id.display);
         watch = (PolarView)  findViewById(R.id.watch);
+        List<DniDateTime.Unit> hands = new LinkedList<DniDateTime.Unit>();
+        hands.add(DniDateTime.Unit.PAHRTAHVO);
+        hands.add(DniDateTime.Unit.TAHVO);
+        hands.add(DniDateTime.Unit.GORAHN);
+        hands.add(DniDateTime.Unit.PRORAHN);
+        watch.addHands(hands);
+        watch.addClock(dniDateTime);
 
         Timer myTimer = new Timer();
         myTimer.schedule(new TimerTask() {
@@ -42,6 +51,7 @@ public class Watch extends Activity {
         public void run() {
             dniDateTime.setTimeInMillis(System.currentTimeMillis());
             display.setText(dniDateTime.getFormattedString());
+            watch.invalidate();
         }
     };
 

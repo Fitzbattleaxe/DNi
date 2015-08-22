@@ -5,7 +5,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,22 +15,19 @@ import java.util.Map;
  * Created by Dane on 8/21/2015.
  */
 public class PolarView extends RelativeLayout {
-
-    private Map<DniDateTime.Unit, HandView> hands;
+    private LinkedHashMap<DniDateTime.Unit, HandView> hands;
 
 
     public PolarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        addHands();
     }
 
     public PolarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        addHands();
     }
 
-    private void addHands() {
-        hands = new HashMap<DniDateTime.Unit, HandView>();
+    public void addHands(List<DniDateTime.Unit> desiredUnits) {
+        hands = new LinkedHashMap<DniDateTime.Unit, HandView>();
         for (DniDateTime.Unit unit : DniDateTime.Unit.values()) {
             HandView handView = new HandView(this.getContext(), unit);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(

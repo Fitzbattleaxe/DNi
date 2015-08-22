@@ -15,6 +15,7 @@ public class Watch extends Activity {
 
     DniDateTime dniDateTime;
     TextView display;
+    PolarView watch;
     final Handler myHandler = new Handler();
 
     @Override
@@ -24,6 +25,7 @@ public class Watch extends Activity {
 
         dniDateTime = new DniDateTime();
         display = (TextView) findViewById(R.id.display);
+        watch = (PolarView)  findViewById(R.id.watch);
 
         Timer myTimer = new Timer();
         myTimer.schedule(new TimerTask() {

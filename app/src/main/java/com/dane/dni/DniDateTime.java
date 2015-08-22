@@ -27,6 +27,16 @@ public class DniDateTime {
             "Leenovoo"
     };
 
+    enum Unit {
+        HAHR,
+        VAILEE,
+        YAHR,
+        PAHRTAHVO,
+        TAHVO,
+        GORAHN,
+        PRORAHN
+    }
+
     private boolean isTimeSet;
 
     private long timeInMillis;

@@ -85,6 +85,46 @@ public class DniDateTime {
         prorahntee = (int) (timeInProrahntee % ONE_GORAHN);
     }
 
+    public int getMax(Unit unit) {
+        switch (unit) {
+            case VAILEE:
+                return 10;
+            case YAHR:
+                return 29;
+            case PAHRTAHVO:
+                return 25;
+            case TAHVO:
+                return 5;
+            case GORAHN:
+                return 25;
+            case PRORAHN:
+                return 25;
+            default:
+                return -1;
+        }
+    }
+
+    public int getNum(Unit unit) {
+        switch (unit) {
+            case HAHR:
+                return hahrtee;
+            case VAILEE:
+                return vaileetee;
+            case YAHR:
+                return yahrtee;
+            case PAHRTAHVO:
+                return pahrtahvotee;
+            case TAHVO:
+                return tahvotee;
+            case GORAHN:
+                return gorahntee;
+            case PRORAHN:
+                return prorahntee;
+            default:
+                return -1;
+        }
+    }
+
     public int getProrahntee() {
         return prorahntee;
     }

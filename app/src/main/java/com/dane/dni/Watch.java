@@ -51,7 +51,7 @@ public class Watch extends Activity {
         public void run() {
             dniDateTime.setTimeInMillis(System.currentTimeMillis());
             display.setText(dniDateTime.getFormattedString());
-            watch.invalidate();
+            watch.updateTime();
         }
     };
 

@@ -17,6 +17,7 @@ import java.util.Map;
 public class PolarView extends RelativeLayout {
     private LinkedHashMap<DniDateTime.Unit, HandView> hands =
             new LinkedHashMap<DniDateTime.Unit, HandView>();
+    private PolarChromeView chrome;
 
 
     public PolarView(Context context, AttributeSet attrs) {
@@ -29,16 +30,19 @@ public class PolarView extends RelativeLayout {
 
     public void addHands(List<DniDateTime.Unit> desiredUnits) {
         hands = new LinkedHashMap<DniDateTime.Unit, HandView>();
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         for (DniDateTime.Unit unit : desiredUnits) {
             HandView handView = new HandView(this.getContext(), unit);
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                    LayoutParams.MATCH_PARENT,
-                    LayoutParams.MATCH_PARENT);
-            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
             handView.setLayoutParams(layoutParams);
             this.addView(handView);
             hands.put(unit, handView);
         }
+        chrome = new PolarChromeView(this.getContext());
+        chrome.setLayoutParams(layoutParams);
+        this.addView(chrome);
     }
 
     public void addClock(DniDateTime dniDateTime) {
@@ -56,13 +60,21 @@ public class PolarView extends RelativeLayout {
             return;
         }
         int innerCircleRadius = side / 10;
+        int chromeCircleRadius = ( 4 * innerCircleRadius) / (8 * numHands);
+        int chromeLineOvershoot = chromeCircleRadius;
+        int chromeLineWidth = chromeCircleRadius;
         int circleSpacing = (side / 40 * 4) / numHands;
-        int circleWidth = (side / 2 - innerCircleRadius - circleSpacing * (numHands + 1)) / numHands;
+        int circleWidth = (side / 2 - chromeLineOvershoot - innerCircleRadius
+                - circleSpacing * (numHands + 1)) / numHands;
         int curInner = innerCircleRadius;
         for (HandView hand : hands.values()) {
             hand.setRadii(curInner, curInner + circleWidth);
             curInner = curInner + circleWidth + circleSpacing;
         }
+        chrome.setSizeParams(chromeCircleRadius,
+                innerCircleRadius + numHands*circleWidth + (numHands - 1)*circleSpacing
+                        + chromeLineOvershoot,
+                chromeLineWidth);
     }
 
     public void updateTime() {

@@ -56,7 +56,7 @@ public class PolarView extends RelativeLayout {
             return;
         }
         int innerCircleRadius = side / 10;
-        int circleSpacing = side / 40;
+        int circleSpacing = (side / 40 * 4) / numHands;
         int circleWidth = (side / 2 - innerCircleRadius - circleSpacing * (numHands + 1)) / numHands;
         int curInner = innerCircleRadius;
         for (HandView hand : hands.values()) {

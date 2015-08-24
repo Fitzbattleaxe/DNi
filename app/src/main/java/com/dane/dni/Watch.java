@@ -34,13 +34,13 @@ public class Watch extends Activity {
         hands.add(DniDateTime.Unit.PRORAHN);
         hands.add(DniDateTime.Unit.GORAHN);
         hands.add(DniDateTime.Unit.TAHVO);
-        hands.add(DniDateTime.Unit.PAHRTAHVO);
 
         watch2.addHands(hands);
         watch2.addClock(dniDateTime);
 
         watch1 = (PolarView)  findViewById(R.id.watch1);
         hands = new LinkedList<DniDateTime.Unit>();
+        hands.add(DniDateTime.Unit.PAHRTAHVO);
         hands.add(DniDateTime.Unit.GAHRTAHVOTEE);
         hands.add(DniDateTime.Unit.YAHR);
         hands.add(DniDateTime.Unit.VAILEE);

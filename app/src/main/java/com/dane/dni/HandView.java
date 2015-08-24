@@ -34,7 +34,7 @@ public class HandView extends View {
 
     private void init() {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.parseColor("#8b7758"));//getResources().getColor(R.color.holo_green_light));
+        paint.setColor(Color.rgb(89, 75, 59));
         paint.setStyle(Paint.Style.FILL);
     }
 

@@ -1,6 +1,7 @@
 package com.dane.dni;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -16,9 +17,12 @@ import java.util.TimerTask;
 public class Watch extends Activity {
 
     DniDateTime dniDateTime;
-    TextView display;
+    TimeDisplay yearDisplay;
+    TimeDisplay monthDisplay;
+    TimeDisplay timeDisplay;
     PolarView watch1;
     PolarView watch2;
+    Typeface dniTypeface;
     final Handler myHandler = new Handler();
 
     @Override
@@ -26,8 +30,35 @@ public class Watch extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch);
 
+        dniTypeface = Typeface.createFromAsset(getAssets(), "fonts/D_NI_SCR.TTF");
+
         dniDateTime = new DniDateTime();
-        display = (TextView) findViewById(R.id.display);
+
+        yearDisplay = (TimeDisplay) findViewById(R.id.year_display);
+        yearDisplay.setClock(dniDateTime);
+        List<DniDateTime.Unit> displayUnits = new LinkedList<DniDateTime.Unit>();
+        displayUnits.add(DniDateTime.Unit.HAHR);
+        yearDisplay.setUnits(displayUnits, "%s  DE");
+        yearDisplay.setTypeface(dniTypeface);
+
+        monthDisplay = (TimeDisplay) findViewById(R.id.month_display);
+        monthDisplay.setClock(dniDateTime);
+        displayUnits = new LinkedList<DniDateTime.Unit>();
+        displayUnits.add(DniDateTime.Unit.NAMED_VAILEE);
+        displayUnits.add(DniDateTime.Unit.YAHR);
+        displayUnits.add(DniDateTime.Unit.GAHRTAHVOTEE);
+        displayUnits.add(DniDateTime.Unit.PAHRTAHVO);
+        monthDisplay.setUnits(displayUnits, "%s  %s , %s - %s ");
+        monthDisplay.setTypeface(dniTypeface);
+
+        timeDisplay = (TimeDisplay) findViewById(R.id.time_display);
+        timeDisplay.setClock(dniDateTime);
+        displayUnits = new LinkedList<DniDateTime.Unit>();
+        displayUnits.add(DniDateTime.Unit.TAHVO);
+        displayUnits.add(DniDateTime.Unit.GORAHN);
+        displayUnits.add(DniDateTime.Unit.PRORAHN);
+        timeDisplay.setUnits(displayUnits, "%s - %s - %s ");
+        timeDisplay.setTypeface(dniTypeface);
 
         watch2 = (PolarView)  findViewById(R.id.watch2);
         List<DniDateTime.Unit> hands = new LinkedList<DniDateTime.Unit>();
@@ -61,7 +92,9 @@ public class Watch extends Activity {
     final Runnable myRunnable = new Runnable() {
         public void run() {
             dniDateTime.setTimeInMillis(System.currentTimeMillis());
-            display.setText(dniDateTime.getFormattedString());
+            yearDisplay.updateDisplay();
+            monthDisplay.updateDisplay();
+            timeDisplay.updateDisplay();
             watch1.updateTime();
             watch2.updateTime();
         }

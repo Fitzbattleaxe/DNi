@@ -31,6 +31,7 @@ public class DniDateTime {
     enum Unit {
         HAHR,
         VAILEE,
+        NAMED_VAILEE,
         YAHR,
         GAHRTAHVOTEE,
         PAHRTAHVO,

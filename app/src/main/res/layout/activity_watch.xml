@@ -28,23 +28,57 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="7" />
 
-        <EditText
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/display"
-            android:layout_gravity="top|center_horizontal"
-            android:textSize="20sp"
-            android:text="This is a test!"
-            android:editable="false"
-            android:inputType="none"
-            android:textColor="#3f3329"
-            android:textAlignment="center"
-            android:singleLine="false"
-            android:background="@android:color/transparent"
-            android:clickable="false"
-            android:textIsSelectable="false"
             android:layout_weight="4"
-            android:gravity="center" />
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="0dp"
+                android:orientation="vertical"
+                android:layout_weight="4"
+                android:layout_gravity="center_vertical"
+                android:baselineAligned="false"
+                android:textAlignment="gravity">
+
+                <com.dane.dni.TimeDisplay
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/month_display"
+                    android:textColor="#3f3329"
+                    android:textSize="18sp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1" />
+
+                <com.dane.dni.TimeDisplay
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/time_display"
+                    android:textColor="#3f3329"
+                    android:textSize="18sp"
+                    android:textIsSelectable="false"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:textAlignment="gravity" />
+            </LinearLayout>
+
+            <com.dane.dni.TimeDisplay
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/year_display"
+                android:textColor="#3f3329"
+                android:layout_weight="3"
+                android:layout_gravity="center_vertical|right"
+                android:textSize="27sp"
+                android:textIsSelectable="false"
+                android:textAlignment="gravity"
+                android:gravity="right" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

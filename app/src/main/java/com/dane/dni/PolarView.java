@@ -49,11 +49,15 @@ public class PolarView extends RelativeLayout {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        int side = Math.min(w, h);
         super.onSizeChanged(w, h, oldw, oldh);
         int numHands = hands.size();
-        int innerCircleRadius = w / 10;
-        int circleSpacing = w / 50;
-        int circleWidth = (w / 2 - innerCircleRadius - circleSpacing * (numHands + 1)) / numHands;
+        if (numHands == 0) {
+            return;
+        }
+        int innerCircleRadius = side / 10;
+        int circleSpacing = side / 40;
+        int circleWidth = (side / 2 - innerCircleRadius - circleSpacing * (numHands + 1)) / numHands;
         int curInner = innerCircleRadius;
         for (HandView hand : hands.values()) {
             hand.setRadii(curInner, curInner + circleWidth);
@@ -68,7 +72,14 @@ public class PolarView extends RelativeLayout {
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        if (MeasureSpec.getSize(widthMeasureSpec) < MeasureSpec.getSize(heightMeasureSpec)) {
+//            super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+//        } else {
+//            super.onMeasure(heightMeasureSpec, heightMeasureSpec);
+//        }
 //        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
 //        int h = resolveSizeAndState(parentWidth, heightMeasureSpec, 0);
 //        for (HandView handView : hands.values()) {

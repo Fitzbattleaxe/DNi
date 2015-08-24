@@ -10,7 +10,8 @@ public class DniDateTime {
     private static final int ONE_GORAHN = 25;
     private static final int ONE_TAHVO = 25 * ONE_GORAHN;
     private static final int ONE_PAHRTAHVO = 5 * ONE_TAHVO;
-    private static final int ONE_YAHR = 25 * ONE_PAHRTAHVO;
+    private static final int ONE_GAHRTAHVO = 5 *  ONE_PAHRTAHVO;
+    private static final int ONE_YAHR = 5 * ONE_GAHRTAHVO;
     private static final int ONE_VAILEE = 29 * ONE_YAHR;
     private static final int ONE_HAHR = 10 * ONE_VAILEE;
 
@@ -31,6 +32,7 @@ public class DniDateTime {
         HAHR,
         VAILEE,
         YAHR,
+        GAHRTAHVOTEE,
         PAHRTAHVO,
         TAHVO,
         GORAHN,
@@ -46,6 +48,7 @@ public class DniDateTime {
     private int gorahntee;
     private int tahvotee;
     private int pahrtahvotee;
+    private int gahrtahvotee;
     private int yahrtee;
     private int vaileetee;
     private int hahrtee;
@@ -72,14 +75,15 @@ public class DniDateTime {
     }
 
     private static long toProrahntee(long millis) {
-        return Math.round(millis / SECS_TO_PRORAHN / 1000 + EPOCH_OFFSET);
+        return (long) Math.floor(millis / SECS_TO_PRORAHN / 1000 + EPOCH_OFFSET);
     }
 
     protected void computeFields() {
         hahrtee = (int) (timeInProrahntee / ONE_HAHR);
         vaileetee = (int) ((timeInProrahntee % ONE_HAHR) / ONE_VAILEE);
         yahrtee = (int) ((timeInProrahntee % ONE_VAILEE) / ONE_YAHR);
-        pahrtahvotee = (int) ((timeInProrahntee % ONE_YAHR) / ONE_PAHRTAHVO);
+        gahrtahvotee = (int) ((timeInProrahntee % ONE_YAHR) / ONE_GAHRTAHVO);
+        pahrtahvotee = (int) ((timeInProrahntee % ONE_GAHRTAHVO) / ONE_PAHRTAHVO);
         tahvotee = (int) ((timeInProrahntee % ONE_PAHRTAHVO) / ONE_TAHVO);
         gorahntee = (int) ((timeInProrahntee % ONE_TAHVO) / ONE_GORAHN);
         prorahntee = (int) (timeInProrahntee % ONE_GORAHN);
@@ -91,8 +95,10 @@ public class DniDateTime {
                 return 10;
             case YAHR:
                 return 29;
+            case GAHRTAHVOTEE:
+                return 5;
             case PAHRTAHVO:
-                return 25;
+                return 5;
             case TAHVO:
                 return 5;
             case GORAHN:
@@ -112,6 +118,8 @@ public class DniDateTime {
                 return vaileetee;
             case YAHR:
                 return yahrtee;
+            case GAHRTAHVOTEE:
+                return gahrtahvotee;
             case PAHRTAHVO:
                 return pahrtahvotee;
             case TAHVO:
@@ -141,6 +149,8 @@ public class DniDateTime {
         return pahrtahvotee;
     }
 
+    public int getGahrtahvotee() { return gahrtahvotee; }
+
     public int getYahrtee() {
         return yahrtee + 1;
     }
@@ -158,13 +168,22 @@ public class DniDateTime {
     }
 
     public String getFormattedString() {
-        return String.format("%02d:%02d:%02d:%02d, %s %d, %d DE",
+        return String.format("%d DE\n%02d %s %d\n%d:%d:%02d:%02d",
+                getHahrtee(),
+                getYahrtee(),
+                getVaileeName(),
+                getGahrtahvotee(),
                 getPahrtahvotee(),
                 getTahvotee(),
                 getGorahntee(),
-                getProrahntee(),
-                getVaileeName(),
-                getYahrtee(),
-                getHahrtee());
+                getProrahntee());
+//        return String.format("%02d:%02d:%02d:%02d, %s %d, %d DE",
+//                getPahrtahvotee(),
+//                getTahvotee(),
+//                getGorahntee(),
+//                getProrahntee(),
+//                getVaileeName(),
+//                getYahrtee(),
+//                getHahrtee());
     }
 }

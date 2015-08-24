@@ -17,7 +17,8 @@ public class Watch extends Activity {
 
     DniDateTime dniDateTime;
     TextView display;
-    PolarView watch;
+    PolarView watch1;
+    PolarView watch2;
     final Handler myHandler = new Handler();
 
     @Override
@@ -27,14 +28,24 @@ public class Watch extends Activity {
 
         dniDateTime = new DniDateTime();
         display = (TextView) findViewById(R.id.display);
-        watch = (PolarView)  findViewById(R.id.watch);
+
+        watch2 = (PolarView)  findViewById(R.id.watch2);
         List<DniDateTime.Unit> hands = new LinkedList<DniDateTime.Unit>();
-        hands.add(DniDateTime.Unit.PAHRTAHVO);
-        hands.add(DniDateTime.Unit.TAHVO);
-        hands.add(DniDateTime.Unit.GORAHN);
         hands.add(DniDateTime.Unit.PRORAHN);
-        watch.addHands(hands);
-        watch.addClock(dniDateTime);
+        hands.add(DniDateTime.Unit.GORAHN);
+        hands.add(DniDateTime.Unit.TAHVO);
+        hands.add(DniDateTime.Unit.PAHRTAHVO);
+
+        watch2.addHands(hands);
+        watch2.addClock(dniDateTime);
+
+        watch1 = (PolarView)  findViewById(R.id.watch1);
+        hands = new LinkedList<DniDateTime.Unit>();
+        hands.add(DniDateTime.Unit.GAHRTAHVOTEE);
+        hands.add(DniDateTime.Unit.YAHR);
+        hands.add(DniDateTime.Unit.VAILEE);
+        watch1.addHands(hands);
+        watch1.addClock(dniDateTime);
 
         Timer myTimer = new Timer();
         myTimer.schedule(new TimerTask() {
@@ -51,7 +62,8 @@ public class Watch extends Activity {
         public void run() {
             dniDateTime.setTimeInMillis(System.currentTimeMillis());
             display.setText(dniDateTime.getFormattedString());
-            watch.updateTime();
+            watch1.updateTime();
+            watch2.updateTime();
         }
     };
 

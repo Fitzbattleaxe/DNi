@@ -40,7 +40,7 @@ public class HandView extends View {
         paint.setStyle(Paint.Style.FILL);
         textPaint = new Paint(
                 Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setTextAlign(Paint.Align.LEFT);
         textPaint.setColor(Color.parseColor("#e5e2e1"));
         textPaint.setTypeface(
                 Typeface.createFromAsset(this.getContext().getAssets(), "fonts/D_NI_SCR.TTF"));
@@ -80,7 +80,7 @@ public class HandView extends View {
         path.close();
         path.offset(bounds.centerX(), bounds.centerY());
         canvas.drawPath(path, paint);
-        float textX = bounds.centerX() + textPaint.getTextSize() * 0.8f;
+        float textX = bounds.centerX() + textPaint.getTextSize() * 0.4f;
         float textY = bounds.centerY() - innerRadius - (outerRadius - innerRadius) * 0.2f;
         canvas.drawText(DniNumberUtil.convertToDni(unitNum), textX, textY, textPaint);
     }

@@ -22,6 +22,7 @@ public class TimeDisplay extends TextView {
 
     public TimeDisplay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/EBGaramond-Regular.ttf"));
     }
 
     public void setUnits(List<DniDateTime.Unit> units, String displayFormat) {
@@ -34,14 +35,14 @@ public class TimeDisplay extends TextView {
     }
 
     public void updateDisplay() {
-        String[] formatArgs = new String[units.size()];
+        Object[] formatArgs = new Object[units.size()];
         int i = 0;
         for (DniDateTime.Unit unit : units) {
-            String arg;
+            Object arg;
             if (unit.equals(DniDateTime.Unit.NAMED_VAILEE)) {
                 arg = clock.getVaileeName();
             } else {
-                arg = DniNumberUtil.convertToDni(clock.getNum(unit));
+                arg = clock.getNum(unit);
             }
             formatArgs[i] = arg;
             i++;

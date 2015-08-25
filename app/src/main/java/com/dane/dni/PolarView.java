@@ -59,7 +59,7 @@ public class PolarView extends RelativeLayout {
         if (numHands == 0) {
             return;
         }
-        int innerCircleRadius = side / 10;
+        int innerCircleRadius = side / 15;
         int chromeCircleRadius = ( 4 * innerCircleRadius) / (8 * numHands);
         int chromeLineOvershoot = chromeCircleRadius;
         int chromeLineWidth = chromeCircleRadius;

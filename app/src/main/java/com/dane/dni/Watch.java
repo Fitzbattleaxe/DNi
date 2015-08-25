@@ -1,5 +1,6 @@
 package com.dane.dni;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,17 +31,13 @@ public class Watch extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch);
 
-        dniTypeface = Typeface.createFromAsset(getAssets(), "fonts/D_NI_SCR.TTF");
-
         dniDateTime = new DniDateTime();
 
         yearDisplay = (TimeDisplay) findViewById(R.id.year_display);
         yearDisplay.setClock(dniDateTime);
         List<DniDateTime.Unit> displayUnits = new LinkedList<DniDateTime.Unit>();
         displayUnits.add(DniDateTime.Unit.HAHR);
-        yearDisplay.setUnits(displayUnits, "%s  DE");
-        yearDisplay.setTypeface(dniTypeface);
-
+        yearDisplay.setUnits(displayUnits, "%d DE");
         monthDisplay = (TimeDisplay) findViewById(R.id.month_display);
         monthDisplay.setClock(dniDateTime);
         displayUnits = new LinkedList<DniDateTime.Unit>();
@@ -48,8 +45,7 @@ public class Watch extends Activity {
         displayUnits.add(DniDateTime.Unit.YAHR);
         displayUnits.add(DniDateTime.Unit.GAHRTAHVOTEE);
         displayUnits.add(DniDateTime.Unit.PAHRTAHVO);
-        monthDisplay.setUnits(displayUnits, "%s  %s , %s - %s ");
-        monthDisplay.setTypeface(dniTypeface);
+        monthDisplay.setUnits(displayUnits, "%s %02d, %d:%d");
 
         timeDisplay = (TimeDisplay) findViewById(R.id.time_display);
         timeDisplay.setClock(dniDateTime);
@@ -57,8 +53,7 @@ public class Watch extends Activity {
         displayUnits.add(DniDateTime.Unit.TAHVO);
         displayUnits.add(DniDateTime.Unit.GORAHN);
         displayUnits.add(DniDateTime.Unit.PRORAHN);
-        timeDisplay.setUnits(displayUnits, "%s - %s - %s ");
-        timeDisplay.setTypeface(dniTypeface);
+        timeDisplay.setUnits(displayUnits, "%d:%02d:%02d");
 
         watch2 = (PolarView)  findViewById(R.id.watch2);
         List<DniDateTime.Unit> hands = new LinkedList<DniDateTime.Unit>();

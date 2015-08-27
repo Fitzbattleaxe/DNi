@@ -114,21 +114,21 @@ public class DniDateTime {
     public int getNum(Unit unit) {
         switch (unit) {
             case HAHR:
-                return hahrtee;
+                return getHahrtee();
             case VAILEE:
-                return vaileetee;
+                return getVaileetee();
             case YAHR:
-                return yahrtee;
+                return getYahrtee();
             case GAHRTAHVOTEE:
-                return gahrtahvotee;
+                return getGahrtahvotee();
             case PAHRTAHVO:
-                return pahrtahvotee;
+                return getPahrtahvotee();
             case TAHVO:
-                return tahvotee;
+                return getTahvotee();
             case GORAHN:
-                return gorahntee;
+                return getGorahntee();
             case PRORAHN:
-                return prorahntee;
+                return getProrahntee();
             default:
                 return -1;
         }
@@ -157,7 +157,7 @@ public class DniDateTime {
     }
 
     public int getVaileetee() {
-        return vaileetee;
+        return vaileetee + 1;
     }
 
     public String getVaileeName() {

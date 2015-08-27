@@ -51,6 +51,12 @@ public class PolarView extends RelativeLayout {
         }
     }
 
+    public void setUpEasing(Float[] easingValues, int easingPoints) {
+        for (HandView handView : hands.values()) {
+            handView.setUpEasing(easingValues, easingPoints);
+        }
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         int side = Math.min(w, h);

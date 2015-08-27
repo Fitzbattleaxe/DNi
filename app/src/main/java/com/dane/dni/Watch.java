@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -55,13 +56,17 @@ public class Watch extends Activity {
         displayUnits.add(DniDateTime.Unit.PRORAHN);
         timeDisplay.setUnits(displayUnits, "%d:%02d:%02d");
 
+       Float[] easingValues =
+                new DampedHarmonicOscillator(-1.0f, 0.005f, 0.01f, 1.0f)
+                    .getCachedFunctionValues(0, 1500);
+
         watch2 = (PolarView)  findViewById(R.id.watch2);
         List<DniDateTime.Unit> hands = new LinkedList<DniDateTime.Unit>();
         hands.add(DniDateTime.Unit.PRORAHN);
         hands.add(DniDateTime.Unit.GORAHN);
         hands.add(DniDateTime.Unit.TAHVO);
-
         watch2.addHands(hands);
+        watch2.setUpEasing(easingValues, 1500);
         watch2.addClock(dniDateTime);
 
         watch1 = (PolarView)  findViewById(R.id.watch1);
@@ -71,13 +76,15 @@ public class Watch extends Activity {
         hands.add(DniDateTime.Unit.YAHR);
         hands.add(DniDateTime.Unit.VAILEE);
         watch1.addHands(hands);
+        watch1.setUpEasing(easingValues, 1500);
         watch1.addClock(dniDateTime);
 
-        Timer myTimer = new Timer();
-        myTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {updateGUI();}
-        }, 0, 100);
+//        Timer myTimer = new Timer();
+//        myTimer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {updateGUI();}
+//        }, 0, 50);
+        myHandler.post(myRunnable);
     }
 
     private void updateGUI() {
@@ -86,12 +93,17 @@ public class Watch extends Activity {
 
     final Runnable myRunnable = new Runnable() {
         public void run() {
-            dniDateTime.setTimeInMillis(System.currentTimeMillis());
-            yearDisplay.updateDisplay();
-            monthDisplay.updateDisplay();
-            timeDisplay.updateDisplay();
-            watch1.updateTime();
-            watch2.updateTime();
+            try {
+                dniDateTime.setTimeInMillis(System.currentTimeMillis());
+                yearDisplay.updateDisplay();
+                monthDisplay.updateDisplay();
+                timeDisplay.updateDisplay();
+                watch1.updateTime();
+                watch2.updateTime();
+            } catch (Exception e) {
+                System.exit(-1);
+            }
+            myHandler.postDelayed(this, 20);
         }
     };
 

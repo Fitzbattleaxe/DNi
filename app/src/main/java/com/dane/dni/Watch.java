@@ -38,7 +38,8 @@ public class Watch extends Activity {
         yearDisplay.setClock(dniDateTime);
         List<DniDateTime.Unit> displayUnits = new LinkedList<DniDateTime.Unit>();
         displayUnits.add(DniDateTime.Unit.HAHR);
-        yearDisplay.setUnits(displayUnits, "%d DE");
+        yearDisplay.setUnits(displayUnits, "%dDE");
+
         monthDisplay = (TimeDisplay) findViewById(R.id.month_display);
         monthDisplay.setClock(dniDateTime);
         displayUnits = new LinkedList<DniDateTime.Unit>();

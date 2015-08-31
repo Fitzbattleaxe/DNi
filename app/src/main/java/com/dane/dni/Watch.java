@@ -38,7 +38,7 @@ public class Watch extends Activity {
         yearDisplay.setClock(dniDateTime);
         List<DniDateTime.Unit> displayUnits = new LinkedList<DniDateTime.Unit>();
         displayUnits.add(DniDateTime.Unit.HAHR);
-        yearDisplay.setUnits(displayUnits, "%dDE");
+        yearDisplay.setUnits(displayUnits, "%d DE");
 
         monthDisplay = (TimeDisplay) findViewById(R.id.month_display);
         monthDisplay.setClock(dniDateTime);
@@ -47,7 +47,7 @@ public class Watch extends Activity {
         displayUnits.add(DniDateTime.Unit.YAHR);
         displayUnits.add(DniDateTime.Unit.GAHRTAHVOTEE);
         displayUnits.add(DniDateTime.Unit.PAHRTAHVO);
-        monthDisplay.setUnits(displayUnits, "%s %02d, %d:%d");
+        monthDisplay.setUnits(displayUnits, "%s %02d, %d : %d");
 
         timeDisplay = (TimeDisplay) findViewById(R.id.time_display);
         timeDisplay.setClock(dniDateTime);
@@ -55,7 +55,7 @@ public class Watch extends Activity {
         displayUnits.add(DniDateTime.Unit.TAHVO);
         displayUnits.add(DniDateTime.Unit.GORAHN);
         displayUnits.add(DniDateTime.Unit.PRORAHN);
-        timeDisplay.setUnits(displayUnits, "%d:%02d:%02d");
+        timeDisplay.setUnits(displayUnits, "%d : %02d : %02d");
 
        Float[] easingValues =
                 new DampedHarmonicOscillator(-1.0f, 0.005f, 0.01f, 1.0f)

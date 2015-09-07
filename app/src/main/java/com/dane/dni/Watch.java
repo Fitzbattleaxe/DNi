@@ -58,26 +58,26 @@ public class Watch extends Activity {
         timeDisplay.setUnits(displayUnits, "%d : %02d : %02d");
 
        Float[] easingValues =
-                new DampedHarmonicOscillator(-1.0f, 0.005f, 0.01f, 1.0f)
-                    .getCachedFunctionValues(0, 1500);
+                new DampedHarmonicOscillator(-1.0f, 0.01f, 0.00f, 1.0f)
+                    .getCachedFunctionValues(0, 800);
 
         watch2 = (PolarView)  findViewById(R.id.watch2);
-        List<DniDateTime.Unit> hands = new LinkedList<DniDateTime.Unit>();
-        hands.add(DniDateTime.Unit.PRORAHN);
-        hands.add(DniDateTime.Unit.GORAHN);
-        hands.add(DniDateTime.Unit.TAHVO);
-        watch2.addHands(hands);
-        watch2.setUpEasing(easingValues, 1500);
+//        List<DniDateTime.Unit> hands = new LinkedList<DniDateTime.Unit>();
+//        hands.add(DniDateTime.Unit.PRORAHN);
+//        hands.add(DniDateTime.Unit.GORAHN);
+//        hands.add(DniDateTime.Unit.TAHVO);
+//        watch2.addHands(hands);
+        watch2.setUpEasing(easingValues, 800);
         watch2.addClock(dniDateTime);
 
         watch1 = (PolarView)  findViewById(R.id.watch1);
-        hands = new LinkedList<DniDateTime.Unit>();
-        hands.add(DniDateTime.Unit.PAHRTAHVO);
-        hands.add(DniDateTime.Unit.GAHRTAHVOTEE);
-        hands.add(DniDateTime.Unit.YAHR);
-        hands.add(DniDateTime.Unit.VAILEE);
-        watch1.addHands(hands);
-        watch1.setUpEasing(easingValues, 1500);
+//        hands = new LinkedList<DniDateTime.Unit>();
+//        hands.add(DniDateTime.Unit.PAHRTAHVO);
+//        hands.add(DniDateTime.Unit.GAHRTAHVOTEE);
+//        hands.add(DniDateTime.Unit.YAHR);
+//        hands.add(DniDateTime.Unit.VAILEE);
+//        watch1.addHands(hands);
+        watch1.setUpEasing(easingValues, 800);
         watch1.addClock(dniDateTime);
 
 //        Timer myTimer = new Timer();

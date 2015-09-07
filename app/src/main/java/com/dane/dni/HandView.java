@@ -18,8 +18,8 @@ import java.util.Map;
  */
 public class HandView extends View {
 
-    private int outerRadius;
-    private int innerRadius;
+    private float outerRadius;
+    private float innerRadius;
     private DniDateTime.Unit unit;
     private DniDateTime dniDateTime;
 
@@ -67,10 +67,10 @@ public class HandView extends View {
                 Typeface.createFromAsset(this.getContext().getAssets(), "fonts/D_NI_SCR.TTF"));
     }
 
-    public void setRadii(int innerRadius, int outerRadius) {
+    public void setRadii(float innerRadius, float outerRadius, float textSize) {
         this.innerRadius = innerRadius;
         this.outerRadius = outerRadius;
-        textPaint.setTextSize((outerRadius - innerRadius) * 0.5f);
+        textPaint.setTextSize(textSize);
 
         outerOval = new RectF();
         outerOval.set(-outerRadius, -outerRadius, outerRadius, outerRadius);

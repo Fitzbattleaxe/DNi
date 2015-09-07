@@ -45,10 +45,11 @@ public class DampedHarmonicOscillator {
 
     public Float[] getCachedFunctionValues(int tStart, int tEnd) {
         Float[] rv = new Float[tEnd - tStart + 1];
-        for (int t = tStart; t <= tEnd; t ++) {
+        for (int t = tStart; t <= tEnd - 1; t ++) {
             float val = x(t);
             rv[t] = val;
         }
+        rv[tEnd] = 0.0f;
         return rv;
     }
 }

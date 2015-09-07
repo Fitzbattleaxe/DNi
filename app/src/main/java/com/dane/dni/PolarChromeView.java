@@ -14,9 +14,9 @@ import android.view.View;
  */
 public class PolarChromeView extends View {
 
-    private int circleRadius;
-    private int lineRadius;
-    private int lineWidth;
+    private float circleRadius;
+    private float lineRadius;
+    private float lineWidth;
     private Paint paint;
 
     public PolarChromeView(Context context) {
@@ -25,7 +25,7 @@ public class PolarChromeView extends View {
         paint.setColor(Color.rgb(153, 149, 147));
     }
 
-    public void setSizeParams(int circleRadius, int lineRadius, int lineWidth) {
+    public void setSizeParams(float circleRadius, float lineRadius, float lineWidth) {
         this.circleRadius = circleRadius;
         this.lineRadius = lineRadius;
         this.lineWidth = lineWidth;

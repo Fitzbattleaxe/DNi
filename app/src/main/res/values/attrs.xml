@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="PolarView">
+        <attr name="centerCircleRadius" format="dimension"/>
+        <attr name="ringWidth" format="dimension"/>
+        <attr name="ringGap" format="dimension"/>
+        <attr name="chromeCircleRadius" format="dimension"/>
+        <attr name="chromeBarRadius" format="dimension"/>
+        <attr name="chromeBarWidth" format="dimension"/>
+        <attr name="counterSize" format="dimension"/>
+        <attr name="units" format="string" />
+    </declare-styleable>
+</resources>

@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.util.AttributeSet;
+import android.graphics.RectF;
 import android.view.View;
 
 /**
@@ -17,31 +17,103 @@ public class PolarChromeView extends View {
     private float circleRadius;
     private float lineRadius;
     private float lineWidth;
-    private Paint paint;
+    private float outerRingPadding;
+    private float backgroundPadding;
+    private int numRings;
+    private float innerCircleRadius;
+    private float ringWidth;
+    private  float ringGap;
+
+    private Paint smallCirclePaint;
+    private Paint largerCirclePaint;
+    private Paint ringPaint;
+    private Paint backgroundPaint1;
+    private Paint backgroundPaint2;
 
     public PolarChromeView(Context context) {
         super(context);
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.rgb(153, 149, 147));
+        smallCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        smallCirclePaint.setColor(Color.rgb(153, 149, 147));
+        largerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        largerCirclePaint.setColor(Color.rgb(196, 196, 191));
+        ringPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        ringPaint.setColor(Color.rgb(209, 207, 205));
+        backgroundPaint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
+        backgroundPaint1.setColor(Color.rgb(244, 244, 244));
+        backgroundPaint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+        backgroundPaint2.setColor(Color.rgb(191, 189, 186));
     }
 
-    public void setSizeParams(float circleRadius, float lineRadius, float lineWidth) {
+    public void setSizeParams(float circleRadius, float lineRadius, float lineWidth,
+                              float outerRingPadding, float backgroundPadding,
+                              int numRings, float innerCircleRadius, float ringWidth, float ringGap) {
         this.circleRadius = circleRadius;
         this.lineRadius = lineRadius;
         this.lineWidth = lineWidth;
+        this.outerRingPadding = outerRingPadding;
+        this.backgroundPadding = backgroundPadding;
+        this.numRings = numRings;
+        this.innerCircleRadius = innerCircleRadius;
+        this.ringWidth = ringWidth;
+        this.ringGap = ringGap;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         Rect bounds = canvas.getClipBounds();
+
+        float backgroundMinorAxis = innerCircleRadius + numRings*ringWidth
+                + (numRings - 1)*ringGap + outerRingPadding;
+        float backgroundMajorAxis = backgroundMinorAxis + backgroundPadding;
+
+        RectF minorOval = new RectF();
+        minorOval.set(-backgroundMinorAxis, -backgroundMinorAxis,
+                backgroundMinorAxis, backgroundMinorAxis);
+        RectF majorOval = new RectF();
+        majorOval.set(-backgroundMinorAxis, -backgroundMajorAxis,
+                backgroundMinorAxis, backgroundMajorAxis);
+
         Path path = new Path();
+        path.arcTo(majorOval, -180, 180);
+        path.arcTo(minorOval, 0, -180);
+        path.close();
+        path.offset(bounds.centerX(), bounds.centerY());
+        canvas.drawPath(path, backgroundPaint1);
+
+        path = new Path();
+        path.arcTo(minorOval, 180, -180);
+        path.arcTo(majorOval, 0, 180);
+        path.close();
+        path.offset(bounds.centerX(), bounds.centerY());
+        canvas.drawPath(path, backgroundPaint2);
+
+
+        path = new Path();
+        path.addCircle(0, 0, innerCircleRadius - ringGap, Path.Direction.CCW);
+        path.offset(bounds.centerX(), bounds.centerY());
+        canvas.drawPath(path, largerCirclePaint);
+
+        float curInner = innerCircleRadius;
+        for (int i = 0; i < numRings; i++) {
+            path = new Path();
+            float padding = (i == numRings - 1) ? outerRingPadding : 0.0f;
+            path.addCircle(0, 0, curInner + ringWidth + padding, Path.Direction.CCW);
+            path.addCircle(0, 0, curInner, Path.Direction.CW);
+            path.offset(bounds.centerX(), bounds.centerY());
+            canvas.drawPath(path, ringPaint);
+
+            curInner = curInner + ringWidth + ringGap;
+        }
+
+        path = new Path();
         path.addCircle(0, 0, circleRadius, Path.Direction.CCW);
         path.offset(bounds.centerX(), bounds.centerY());
-        canvas.drawPath(path, paint);
+        canvas.drawPath(path, smallCirclePaint);
         path = new Path();
         path.addRect(-lineWidth / 2, -lineRadius, lineWidth / 2, 0, Path.Direction.CCW);
         path.offset(bounds.centerX(), bounds.centerY());
-        canvas.drawPath(path, paint);
+        canvas.drawPath(path, smallCirclePaint);
     }
 }

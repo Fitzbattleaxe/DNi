@@ -7,6 +7,8 @@
         <attr name="chromeCircleRadius" format="dimension"/>
         <attr name="chromeBarRadius" format="dimension"/>
         <attr name="chromeBarWidth" format="dimension"/>
+        <attr name="chromeOuterRingPadding" format="dimension" />
+        <attr name="chromeBackgroundPadding" format="dimension" />
         <attr name="counterSize" format="dimension"/>
         <attr name="units" format="string" />
     </declare-styleable>

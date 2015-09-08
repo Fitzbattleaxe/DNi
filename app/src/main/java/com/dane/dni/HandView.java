@@ -62,7 +62,7 @@ public class HandView extends View {
         textPaint = new Paint(
                 Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
         textPaint.setTextAlign(Paint.Align.LEFT);
-        textPaint.setColor(Color.parseColor("#e5e2e1"));
+        textPaint.setColor(Color.rgb(229, 228, 227));
         textPaint.setTypeface(
                 Typeface.createFromAsset(this.getContext().getAssets(), "fonts/D_NI_SCR.TTF"));
     }

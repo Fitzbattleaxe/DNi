@@ -45,6 +45,8 @@ public class PolarView extends RelativeLayout {
                     a.getDimension(R.styleable.PolarView_chromeCircleRadius, 0.0f),
                     a.getDimension(R.styleable.PolarView_chromeBarRadius, 0.0f),
                     a.getDimension(R.styleable.PolarView_chromeBarWidth, 0.0f),
+                    a.getDimension(R.styleable.PolarView_chromeOuterRingPadding, 0.0f),
+                    a.getDimension(R.styleable.PolarView_chromeBackgroundPadding, 0.0f),
                     a.getDimension(R.styleable.PolarView_counterSize, 0.0f));
         } finally {
             a.recycle();
@@ -58,22 +60,30 @@ public class PolarView extends RelativeLayout {
                           float chromeCircleRadius,
                           float chromeBarRadius,
                           float chromeBarWidth,
+                          float chromeOuterRingPadding,
+                          float chromeBackgroundPadding,
                           float numberSize) {
         addHands(units);
+
+        chrome.setSizeParams(chromeCircleRadius, chromeBarRadius, chromeBarWidth,
+                chromeOuterRingPadding, chromeBackgroundPadding,
+                units.size(), innerCircleRadius, ringWidth, ringGap);
 
         float curInner = innerCircleRadius;
         for (HandView hand : hands.values()) {
             hand.setRadii(curInner, curInner + ringWidth, numberSize);
             curInner = curInner + ringWidth + ringGap;
         }
-        chrome.setSizeParams(chromeCircleRadius, chromeBarRadius, chromeBarWidth);
     }
 
     public void addHands(List<DniDateTime.Unit> desiredUnits) {
-        hands = new LinkedHashMap<DniDateTime.Unit, HandView>();
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);
+        chrome = new PolarChromeView(this.getContext());
+        chrome.setLayoutParams(layoutParams);
+        this.addView(chrome);
+        hands = new LinkedHashMap<DniDateTime.Unit, HandView>();
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         for (DniDateTime.Unit unit : desiredUnits) {
             HandView handView = new HandView(this.getContext(), unit);
@@ -81,9 +91,6 @@ public class PolarView extends RelativeLayout {
             this.addView(handView);
             hands.put(unit, handView);
         }
-        chrome = new PolarChromeView(this.getContext());
-        chrome.setLayoutParams(layoutParams);
-        this.addView(chrome);
     }
 
     public void addClock(DniDateTime dniDateTime) {

@@ -37,16 +37,8 @@ public class TimeDisplay extends TextView {
         super(context, attrs);
         setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/EBGaramond-Regular.ttf"));
         secondaryColor = Color.rgb(107, 102, 98);
-        secondarySizeScale = 0.6f;
-        tertiarySizeScale = 0.3f;
-    }
-
-    public TimeDisplay(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/EBGaramond-Regular.ttf"));
-        secondaryColor = Color.rgb(107, 102, 98);
-        secondarySizeScale = 0.6f;
-        tertiarySizeScale = 0.3f;
+        secondarySizeScale = 0.7f;
+        tertiarySizeScale = 0.35f;
     }
 
     public void setUnits(List<DniDateTime.Unit> units, String displayFormat) {

@@ -117,8 +117,8 @@ public class HandView extends View {
             angleMultiplier = 1.0f;
         }
         float angleDiff = angle - lastAngle;
-        angleDiff = angleDiff >= 0 ? angleDiff : 360 + angleDiff;
-        float drawAngle = (lastAngle + angleMultiplier*angleDiff) % 360.0f;
+       // angleDiff = angleDiff >= 0 ? angleDiff : 360 + angleDiff;
+        float drawAngle = (lastAngle + angleMultiplier*angleDiff)/* % 360.0f*/;
         path.arcTo(innerOval, -90 + drawAngle, -drawAngle);
         path.arcTo(outerOval, -90, drawAngle);
         path.close();

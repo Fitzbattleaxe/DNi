@@ -52,67 +52,96 @@
             custom:units="PRORAHN,GORAHN,TAHVO" />
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
             android:layout_margin="5dp"
-            android:background="#f4f4f4"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:gravity="bottom">
-
+            android:layout_marginTop="10dp">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#ffffff">
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="0dp"
-                android:orientation="vertical"
-                android:layout_weight="4"
-                android:layout_gravity="center_vertical"
-                android:baselineAligned="false"
-                android:textAlignment="gravity"
-                android:gravity="center_vertical"
-                android:animationCache="false">
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="#f4f4f4"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:gravity="bottom">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_vertical"
+                    android:baselineAligned="false"
+                    android:textAlignment="gravity"
+                    android:gravity="center_vertical"
+                    android:animationCache="false">
+
+                    <com.dane.dni.TimeDisplay
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/month_display"
+                        android:textColor="#3f3329"
+                        android:textSize="25dp"
+                        android:gravity="bottom"
+                        android:textAlignment="gravity"
+                        android:includeFontPadding="false"
+                        android:textIsSelectable="false"
+                        android:shadowDx="2"
+                        android:shadowDy="3"
+                        android:shadowRadius="1"
+                        android:shadowColor="#dfdfde" />
+
+                    <com.dane.dni.TimeDisplay
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/time_display"
+                        android:textColor="#3f3329"
+                        android:textSize="25dp"
+                        android:gravity="top"
+                        android:textAlignment="gravity"
+                        android:includeFontPadding="false"
+                        android:layout_marginTop="-5dp"
+                        android:shadowDx="2"
+                        android:shadowDy="4"
+                        android:shadowRadius="1"
+                        android:shadowColor="#dfdfde" />
+                </LinearLayout>
 
                 <com.dane.dni.TimeDisplay
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/month_display"
+                    android:id="@+id/year_display"
                     android:textColor="#3f3329"
-                    android:textSize="25dp"
-                    android:gravity="bottom"
+                    android:layout_weight="3"
+                    android:layout_gravity="center_vertical|right"
+                    android:textSize="50dp"
+                    android:textIsSelectable="false"
                     android:textAlignment="gravity"
-                    android:includeFontPadding="false"
-                    android:textIsSelectable="false" />
+                    android:gravity="right"
+                    android:layout_marginTop="-7dp"
+                    android:shadowDx="2"
+                    android:shadowDy="4"
+                    android:shadowRadius="1"
+                    android:shadowColor="#dfdfde" />
 
-                <com.dane.dni.TimeDisplay
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/time_display"
-                    android:textColor="#3f3329"
-                    android:textSize="25dp"
-                    android:gravity="top"
-                    android:textAlignment="gravity"
-                    android:includeFontPadding="false"
-                    android:layout_marginTop="-5dp" />
             </LinearLayout>
 
-            <com.dane.dni.TimeDisplay
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/year_display"
-                android:textColor="#3f3329"
-                android:layout_weight="3"
-                android:layout_gravity="center_vertical|right"
-                android:textSize="50dp"
-                android:textIsSelectable="false"
-                android:textAlignment="gravity"
-                android:gravity="right"
-                android:layout_marginTop="-7dp" />
-
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#c8cfcd"></LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

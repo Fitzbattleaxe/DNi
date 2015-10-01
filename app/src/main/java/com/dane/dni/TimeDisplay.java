@@ -17,6 +17,8 @@ import java.util.List;
  */
 public class TimeDisplay extends TextView {
 
+    private static final float DEVELOPMENT_WIDTH = 384.0f;
+
     private static final String[] secondarySubstrings = new String[] {
             " : ",
             ",",

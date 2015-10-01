@@ -3,6 +3,7 @@ package com.dane.dni;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -21,9 +22,15 @@ public class PolarView extends RelativeLayout {
             new LinkedHashMap<DniDateTime.Unit, HandView>();
     private PolarChromeView chrome;
 
+    private static final float DEVELOPMENT_WIDTH = 384.0f;
 
     public PolarView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+
+        float scale = dpWidth  / DEVELOPMENT_WIDTH;
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
@@ -39,15 +46,15 @@ public class PolarView extends RelativeLayout {
                 }
             }
             addHands(units,
-                    a.getDimension(R.styleable.PolarView_centerCircleRadius, 0.0f),
-                    a.getDimension(R.styleable.PolarView_ringWidth, 0.0f),
-                    a.getDimension(R.styleable.PolarView_ringGap, 0.0f),
-                    a.getDimension(R.styleable.PolarView_chromeCircleRadius, 0.0f),
-                    a.getDimension(R.styleable.PolarView_chromeBarRadius, 0.0f),
-                    a.getDimension(R.styleable.PolarView_chromeBarWidth, 0.0f),
-                    a.getDimension(R.styleable.PolarView_chromeOuterRingPadding, 0.0f),
-                    a.getDimension(R.styleable.PolarView_chromeBackgroundPadding, 0.0f),
-                    a.getDimension(R.styleable.PolarView_counterSize, 0.0f));
+                    scale * a.getDimension(R.styleable.PolarView_centerCircleRadius, 0.0f),
+                    scale * a.getDimension(R.styleable.PolarView_ringWidth, 0.0f),
+                    scale * a.getDimension(R.styleable.PolarView_ringGap, 0.0f),
+                    scale * a.getDimension(R.styleable.PolarView_chromeCircleRadius, 0.0f),
+                    scale * a.getDimension(R.styleable.PolarView_chromeBarRadius, 0.0f),
+                    scale * a.getDimension(R.styleable.PolarView_chromeBarWidth, 0.0f),
+                    scale * a.getDimension(R.styleable.PolarView_chromeOuterRingPadding, 0.0f),
+                    scale * a.getDimension(R.styleable.PolarView_chromeBackgroundPadding, 0.0f),
+                    scale * a.getDimension(R.styleable.PolarView_counterSize, 0.0f));
         } finally {
             a.recycle();
         }

@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">D\'Ni</string>
+    <string name="app_name">Gorayan</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string-array name="drawer_options">
+        <item>About</item>
+    </string-array>
 </resources>

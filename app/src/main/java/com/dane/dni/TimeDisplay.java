@@ -8,6 +8,9 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
@@ -35,12 +38,34 @@ public class TimeDisplay extends TextView {
     private float secondarySizeScale;
     private float tertiarySizeScale;
 
+    private float scale;
+
     public TimeDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
         setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/EBGaramond-Regular.ttf"));
         secondaryColor = Color.rgb(107, 102, 98);
         secondarySizeScale = 0.7f;
         tertiarySizeScale = 0.35f;
+
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+
+        scale = dpWidth  / DEVELOPMENT_WIDTH;
+
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, this.getTextSize() * scale);
+        this.setShadowLayer(this.getShadowRadius() * scale, this.getShadowDx() * scale,
+                this.getShadowDy() * scale, this.getShadowColor());
+    }
+
+    @Override
+    public void setLayoutParams(ViewGroup.LayoutParams layoutParams) {
+        ViewGroup.MarginLayoutParams marginLayoutParams =
+                (ViewGroup.MarginLayoutParams) layoutParams;
+        marginLayoutParams.setMargins(Math.round(marginLayoutParams.leftMargin * scale),
+                Math.round(marginLayoutParams.topMargin * scale),
+                Math.round(marginLayoutParams.rightMargin * scale),
+                Math.round(marginLayoutParams.bottomMargin * scale));
+        super.setLayoutParams(layoutParams);
     }
 
     public void setUnits(List<DniDateTime.Unit> units, String displayFormat) {

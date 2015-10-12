@@ -89,13 +89,13 @@ public class Watch extends Activity {
         tickHandler.post(myRunnable);
 
 
-        drawerOptions = getResources().getStringArray(R.array.drawer_options);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
-
-        // Set the adapter for the list view
-        drawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, drawerOptions));
+//        drawerOptions = getResources().getStringArray(R.array.drawer_options);
+//        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawerList = (ListView) findViewById(R.id.left_drawer);
+//
+//        // Set the adapter for the list view
+//        drawerList.setAdapter(new ArrayAdapter<String>(this,
+//                R.layout.drawer_list_item, drawerOptions));
         // Set the list's click listener
      //   drawerList.setOnItemClickListener(new DrawerItemClickListener());
     }

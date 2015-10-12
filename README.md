@@ -1,6 +1,6 @@
-# Gorayan
+# DNi
 ## A D'ni Timepiece App for Android
 
 Keep track of time and date with the method used by the ancient D'ni!
 
-Based on the methods explained by RAWA and described in Myst Online. Thanks to RIUM+ for his help interpreting D'ni horology.
+Based on the methods explained by RAWA and described in Myst Online.

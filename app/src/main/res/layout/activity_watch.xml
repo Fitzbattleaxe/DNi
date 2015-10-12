@@ -29,7 +29,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent">
-
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:id="@+id/spacer1"></RelativeLayout>
         <com.dane.dni.PolarView
             android:layout_width="fill_parent"
             android:layout_height="0dp"
@@ -37,8 +41,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="11"
             custom:centerCircleRadius="17dp"
-            custom:ringGap="6dp"
-            custom:ringWidth="19dp"
+            custom:ringGap="7dp"
+            custom:ringWidth="24.7dp"
             custom:chromeBarRadius="114dp"
             custom:chromeBarWidth="1dp"
             custom:counterSize="9dp"
@@ -54,8 +58,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="7"
             custom:centerCircleRadius="10dp"
-            custom:ringGap="5dp"
-            custom:ringWidth="16dp"
+            custom:ringGap="5.6dp"
+            custom:ringWidth="16.8dp"
             custom:chromeBarRadius="70dp"
             custom:chromeBarWidth="1dp"
             custom:counterSize="8dp"
@@ -67,8 +71,8 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/spacer"></RelativeLayout>
+            android:layout_weight="0"
+            android:id="@+id/spacer2"></RelativeLayout>
 
         <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
@@ -118,8 +122,8 @@
                         android:textIsSelectable="false"
                         android:layout_marginLeft="10dp"
                         android:shadowDx="0"
-                        android:shadowDy="3"
-                        android:shadowRadius="1"
+                        android:shadowDy="2"
+                        android:shadowRadius="2"
                         android:shadowColor="#b9b8b5" />
 
                     <com.dane.dni.TimeDisplay
@@ -134,8 +138,8 @@
                         android:layout_marginTop="-5dp"
                         android:layout_marginLeft="10dp"
                         android:shadowDx="0"
-                        android:shadowDy="3"
-                        android:shadowRadius="1"
+                        android:shadowDy="2"
+                        android:shadowRadius="2"
                         android:shadowColor="#b9b8b5" />
                 </LinearLayout>
 
@@ -153,8 +157,8 @@
                     android:layout_marginTop="-7dp"
                     android:layout_marginRight="10dp"
                     android:shadowDx="0"
-                    android:shadowDy="3"
-                    android:shadowRadius="1"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"
                     android:shadowColor="#b9b8b5" />
             </LinearLayout>
             <RelativeLayout

@@ -53,7 +53,7 @@ public class TimeDisplay extends TextView {
         scale = dpWidth  / DEVELOPMENT_WIDTH;
 
         this.setTextSize(TypedValue.COMPLEX_UNIT_PX, this.getTextSize() * scale);
-        this.setShadowLayer(this.getShadowRadius() * scale, this.getShadowDx() * scale,
+        this.setShadowLayer(this.getShadowRadius(), this.getShadowDx() * scale,
                 this.getShadowDy() * scale, this.getShadowColor());
     }
 

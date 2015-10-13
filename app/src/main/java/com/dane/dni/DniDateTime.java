@@ -111,6 +111,27 @@ public class DniDateTime {
         }
     }
 
+    public Unit getLarger(Unit unit) {
+        switch (unit) {
+            case VAILEE:
+                return Unit.HAHR;
+            case YAHR:
+                return Unit.VAILEE;
+            case GAHRTAHVOTEE:
+                return Unit.YAHR;
+            case PAHRTAHVO:
+                return Unit.GAHRTAHVOTEE;
+            case TAHVO:
+                return Unit.PAHRTAHVO;
+            case GORAHN:
+                return Unit.TAHVO;
+            case PRORAHN:
+                return Unit.GORAHN;
+            default:
+                throw new RuntimeException("no larger unit");
+        }
+    }
+
     public int getNum(Unit unit) {
         switch (unit) {
             case HAHR:

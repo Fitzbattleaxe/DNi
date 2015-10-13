@@ -11,5 +11,6 @@
         <attr name="chromeBackgroundPadding" format="dimension" />
         <attr name="counterSize" format="dimension"/>
         <attr name="units" format="string" />
+        <attr name="colors" format="string" />
     </declare-styleable>
 </resources>

@@ -2,6 +2,9 @@ package com.dane.dni;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -46,6 +49,7 @@ public class PolarView extends RelativeLayout {
                 }
             }
             addHands(units,
+                    a.getString(R.styleable.PolarView_colors).split(","),
                     scale * a.getDimension(R.styleable.PolarView_centerCircleRadius, 0.0f),
                     scale * a.getDimension(R.styleable.PolarView_ringWidth, 0.0f),
                     scale * a.getDimension(R.styleable.PolarView_ringGap, 0.0f),
@@ -61,6 +65,7 @@ public class PolarView extends RelativeLayout {
     }
 
     private void addHands(List<DniDateTime.Unit> units,
+                          String[] colorParams,
                           float innerCircleRadius,
                           float ringWidth,
                           float ringGap,
@@ -70,7 +75,7 @@ public class PolarView extends RelativeLayout {
                           float chromeOuterRingPadding,
                           float chromeBackgroundPadding,
                           float numberSize) {
-        addHands(units);
+        addHands(units, colorParams);
 
         chrome.setSizeParams(chromeCircleRadius, chromeBarRadius, chromeBarWidth,
                 chromeOuterRingPadding, chromeBackgroundPadding,
@@ -83,7 +88,7 @@ public class PolarView extends RelativeLayout {
         }
     }
 
-    public void addHands(List<DniDateTime.Unit> desiredUnits) {
+    public void addHands(List<DniDateTime.Unit> desiredUnits, String[] colorParams) {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);
@@ -92,11 +97,15 @@ public class PolarView extends RelativeLayout {
         this.addView(chrome);
         hands = new LinkedHashMap<DniDateTime.Unit, HandView>();
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        int index = 0;
         for (DniDateTime.Unit unit : desiredUnits) {
             HandView handView = new HandView(this.getContext(), unit);
             handView.setLayoutParams(layoutParams);
+            String colorString = colorParams[index];
+            handView.setupColor(colorString);
             this.addView(handView);
             hands.put(unit, handView);
+            index++;
         }
     }
 

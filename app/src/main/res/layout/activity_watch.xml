@@ -43,13 +43,14 @@
             custom:centerCircleRadius="17dp"
             custom:ringGap="7dp"
             custom:ringWidth="24.7dp"
-            custom:chromeBarRadius="114dp"
+            custom:chromeBarRadius="138dp"
             custom:chromeBarWidth="1dp"
-            custom:counterSize="9dp"
+            custom:counterSize="12dp"
             custom:chromeCircleRadius="1.5dp"
             custom:chromeOuterRingPadding="3dp"
             custom:chromeBackgroundPadding="3dp"
-            custom:units="PAHRTAHVO,GAHRTAHVOTEE,YAHR,VAILEE" />
+            custom:units="PAHRTAHVO,GAHRTAHVOTEE,YAHR,VAILEE"
+            custom:colors="s(#12285e:0.0;#38131f:0.1;#6d0606:0.15;#9b3a10:0.2;#bc5827:0.24;#ea852a:0.3;#f4b17a:0.5;#ea852a:0.7;#bc5827:0.76;#9b3a10:0.8;#6d0606:0.85;#38131f:0.9;#12285e:1.0),g(#12285e:0.0;#38131f:0.1;#6d0606:0.15;#9b3a10:0.2;#bc5827:0.24;#ea852a:0.3;#f4b17a:0.5;#ea852a:0.7;#bc5827:0.76;#9b3a10:0.8;#6d0606:0.85;#38131f:0.9;#12285e:1.0),c(#776d6b),c(#99938f)"/>
 
         <com.dane.dni.PolarView
             android:layout_width="fill_parent"
@@ -60,13 +61,14 @@
             custom:centerCircleRadius="10dp"
             custom:ringGap="5.6dp"
             custom:ringWidth="16.8dp"
-            custom:chromeBarRadius="70dp"
+            custom:chromeBarRadius="73dp"
             custom:chromeBarWidth="1dp"
             custom:counterSize="8dp"
             custom:chromeCircleRadius="1.5dp"
             custom:chromeOuterRingPadding="3dp"
             custom:chromeBackgroundPadding="3dp"
-            custom:units="PRORAHN,GORAHN,TAHVO" />
+            custom:units="PRORAHN,GORAHN,TAHVO"
+            custom:colors="c(#39849e),c(#2b5d82),c(#1b3b6d)"/>
 
         <RelativeLayout
             android:layout_width="fill_parent"

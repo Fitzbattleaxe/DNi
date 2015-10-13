@@ -3,10 +3,12 @@ package com.dane.dni;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.view.View;
 import android.R;
@@ -27,6 +29,8 @@ public class HandView extends View {
 
     private Paint paint;
     private Paint textPaint;
+    private Matrix gradientMatrix;
+    private GradientShiftingColor gradientShiftingColor;
 
     RectF outerOval;
     RectF innerOval;
@@ -38,6 +42,8 @@ public class HandView extends View {
     private boolean ticking;
     private float angle;
     private float lastAngle;
+    private float colorPosition;
+    private float lastColorPosition;
 
     public HandView(Context context, DniDateTime.Unit unit) {
         super(context);
@@ -56,9 +62,6 @@ public class HandView extends View {
     }
 
     private void init() {
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.rgb(89, 75, 59));
-        paint.setStyle(Paint.Style.FILL);
         textPaint = new Paint(
                 Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
         textPaint.setTextAlign(Paint.Align.LEFT);
@@ -90,7 +93,17 @@ public class HandView extends View {
             lastTime = curTime;
             tickStartMsec = curTimeMsec;
             lastAngle = angle;
-            angle = 360.0f * lastTime / (1.0f * dniDateTime.getMax(unit));
+            float arcProgress = lastTime / (1.0f * dniDateTime.getMax(unit));
+            angle = 360.0f * arcProgress;
+
+            if (gradientShiftingColor != null) {
+                lastColorPosition = colorPosition;
+                DniDateTime.Unit largerUnit = dniDateTime.getLarger(unit);
+                int largerCurTime = dniDateTime.getNum(largerUnit);
+                int largerMaxTime = dniDateTime.getMax(largerUnit);
+                colorPosition = (largerCurTime + arcProgress) / (1.0f * largerMaxTime);
+            }
+
             msecSinceTick = curTimeMsec - tickStartMsec;
             this.invalidate();
         } else if (ticking) {
@@ -123,9 +136,52 @@ public class HandView extends View {
         path.arcTo(outerOval, -90, drawAngle);
         path.close();
         path.offset(bounds.centerX(), bounds.centerY());
+
+        if (paint.getShader() instanceof SweepGradient && gradientMatrix == null) {
+            gradientMatrix = new Matrix();
+
+            gradientMatrix.preRotate(-90.0f, 0, 0);
+            gradientMatrix.postTranslate(bounds.centerX(), bounds.centerY());
+            paint.getShader().setLocalMatrix(gradientMatrix);
+        } else if (gradientShiftingColor != null) {
+            float colorDiff = colorPosition - lastColorPosition;
+            float drawColorPosition = lastColorPosition + angleMultiplier*colorDiff;
+            paint.setColor(gradientShiftingColor.getColor(drawColorPosition));
+        }
+
         canvas.drawPath(path, paint);
+
         float textX = bounds.centerX() + textPaint.getTextSize() * 0.4f;
         float textY = bounds.centerY() - innerRadius - (outerRadius - innerRadius) * 0.2f;
         canvas.drawText(DniNumberUtil.convertToDni(lastTime), textX, textY, textPaint);
+    }
+
+    public void setupColor(String colorString) {
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        if (colorString.startsWith("c")) {
+            String trimmedColorString = colorString.substring(2, colorString.length() - 1);
+            paint.setColor(Color.parseColor(trimmedColorString));
+        } else if (colorString.startsWith("g") || colorString.startsWith("s")) {
+            String trimmedColorString = colorString.substring(2, colorString.length() - 1);
+            String[] colorSegments = trimmedColorString.split(";");
+            int[] colors = new int[colorSegments.length];
+            float[] positions = new float[colorSegments.length];
+            int index = 0;
+            for (String colorSegment : colorSegments) {
+                String[] colorPair = colorSegment.split(":");
+                int color = Color.parseColor(colorPair[0]);
+                float position = Float.parseFloat(colorPair[1]);
+                colors[index] = color;
+                positions[index] = position;
+                index++;
+            }
+            if (colorString.startsWith("g")) {
+                SweepGradient sweepGradient = new SweepGradient(0, 0, colors, positions);
+                paint.setShader(sweepGradient);
+            } else {
+                gradientShiftingColor = new GradientShiftingColor(colors, positions);
+            }
+        }
+        paint.setStyle(Paint.Style.FILL);
     }
 }

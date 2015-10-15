@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class TimeDisplay extends TextView {
 
-    private static final float DEVELOPMENT_WIDTH = 384.0f;
+    private static final float DEVELOPMENT_HEIGHT = 632.0f;
 
     private static final String[] secondarySubstrings = new String[] {
             " : ",
@@ -48,9 +48,9 @@ public class TimeDisplay extends TextView {
         tertiarySizeScale = 0.35f;
 
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
 
-        scale = dpWidth  / DEVELOPMENT_WIDTH;
+        scale = dpHeight  / DEVELOPMENT_HEIGHT;
 
         this.setTextSize(TypedValue.COMPLEX_UNIT_PX, this.getTextSize() * scale);
         this.setShadowLayer(this.getShadowRadius(), this.getShadowDx() * scale,

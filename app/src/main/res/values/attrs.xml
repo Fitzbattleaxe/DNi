@@ -9,7 +9,14 @@
         <attr name="chromeBarWidth" format="dimension"/>
         <attr name="chromeOuterRingPadding" format="dimension" />
         <attr name="chromeBackgroundPadding" format="dimension" />
-        <attr name="counterSize" format="dimension"/>
+        <attr name="counterSize" format="dimension" />
+        <attr name="counterColor" format="color" />
+        <attr name="chromeRingColor" format="color" />
+        <attr name="chromeGapColor" format="color" />
+        <attr name="chromeBackgroundColor1" format="color" />
+        <attr name="chromeBackgroundColor2" format="color" />
+        <attr name="chromeSmallCircleColor" format="color" />
+        <attr name="chromeLargeCircleColor" format="color" />
         <attr name="units" format="string" />
         <attr name="colors" format="string" />
     </declare-styleable>

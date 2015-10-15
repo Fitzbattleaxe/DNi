@@ -15,7 +15,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".Watch"
-    android:background="#e5e2e1">
+    android:background="#E2DFD9">
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -46,9 +46,16 @@
             custom:chromeBarRadius="138dp"
             custom:chromeBarWidth="1dp"
             custom:counterSize="12dp"
+            custom:counterColor="#ffffff"
             custom:chromeCircleRadius="1.5dp"
             custom:chromeOuterRingPadding="3dp"
             custom:chromeBackgroundPadding="3dp"
+            custom:chromeSmallCircleColor="#918C88"
+            custom:chromeLargeCircleColor="#B2AEA6"
+            custom:chromeRingColor="#C4C2BC"
+            custom:chromeGapColor="#D6D3D0"
+            custom:chromeBackgroundColor1="#F4F2EF"
+            custom:chromeBackgroundColor2="#B2B1AD"
             custom:units="PAHRTAHVO,GAHRTAHVOTEE,YAHR,VAILEE"
             custom:colors="s(#12285e:0.0;#38131f:0.1;#6d0606:0.15;#9b3a10:0.2;#bc5827:0.24;#ea852a:0.3;#f4b17a:0.5;#ea852a:0.7;#bc5827:0.76;#9b3a10:0.8;#6d0606:0.85;#38131f:0.9;#12285e:1.0),g(#12285e:0.0;#38131f:0.1;#6d0606:0.15;#9b3a10:0.2;#bc5827:0.24;#ea852a:0.3;#f4b17a:0.5;#ea852a:0.7;#bc5827:0.76;#9b3a10:0.8;#6d0606:0.85;#38131f:0.9;#12285e:1.0),c(#776d6b),c(#99938f)"/>
 
@@ -64,9 +71,16 @@
             custom:chromeBarRadius="73dp"
             custom:chromeBarWidth="1dp"
             custom:counterSize="8dp"
+            custom:counterColor="#ffffff"
             custom:chromeCircleRadius="1.5dp"
             custom:chromeOuterRingPadding="3dp"
             custom:chromeBackgroundPadding="3dp"
+            custom:chromeSmallCircleColor="#918C88"
+            custom:chromeLargeCircleColor="#B2AEA6"
+            custom:chromeRingColor="#C4C2BC"
+            custom:chromeGapColor="#D6D3D0"
+            custom:chromeBackgroundColor1="#F4F2EF"
+            custom:chromeBackgroundColor2="#B2B1AD"
             custom:units="PRORAHN,GORAHN,TAHVO"
             custom:colors="c(#39849e),c(#2b5d82),c(#1b3b6d)"/>
 
@@ -86,59 +100,56 @@
                 app:layout_heightPercent="6%"
                 android:background="#ffffff">
             </RelativeLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/clockDisplayArea"
                 android:layout_below="@id/clockTopChrome"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 app:layout_heightPercent="92%"
                 android:layout_gravity="bottom|center_horizontal"
-                android:background="#f4f4f4"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:gravity="bottom">
+                android:background="#f4f2ef"
+                android:gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="0dp"
                     android:orientation="vertical"
-                    android:layout_weight="4"
                     android:layout_gravity="center_vertical"
                     android:baselineAligned="false"
                     android:textAlignment="gravity"
                     android:gravity="center_vertical"
-                    android:animationCache="false">
+                    android:animationCache="false"
+                    android:layout_alignParentLeft="true">
 
                     <com.dane.dni.TimeDisplay
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/month_display"
                         android:textColor="#3f3329"
-                        android:textSize="25dp"
+                        android:textSize="27dp"
                         android:gravity="bottom"
                         android:textAlignment="gravity"
                         android:includeFontPadding="false"
                         android:textIsSelectable="false"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="14dp"
                         android:shadowDx="0"
                         android:shadowDy="2"
                         android:shadowRadius="2"
-                        android:shadowColor="#b9b8b5" />
+                        android:shadowColor="#b9b8b5"
+                        android:layout_marginTop="-2dp" />
 
                     <com.dane.dni.TimeDisplay
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/time_display"
                         android:textColor="#3f3329"
-                        android:textSize="25dp"
+                        android:textSize="27dp"
                         android:gravity="top"
                         android:textAlignment="gravity"
                         android:includeFontPadding="false"
                         android:layout_marginTop="-5dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="14dp"
                         android:shadowDx="0"
                         android:shadowDy="2"
                         android:shadowRadius="2"
@@ -150,19 +161,19 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/year_display"
                     android:textColor="#3f3329"
-                    android:layout_weight="3"
                     android:layout_gravity="center_vertical|right"
-                    android:textSize="50dp"
+                    android:textSize="54dp"
                     android:textIsSelectable="false"
                     android:textAlignment="gravity"
                     android:gravity="right"
-                    android:layout_marginTop="-7dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="-17dp"
+                    android:layout_marginRight="14dp"
                     android:shadowDx="0"
                     android:shadowDy="2"
                     android:shadowRadius="2"
-                    android:shadowColor="#b9b8b5" />
-            </LinearLayout>
+                    android:shadowColor="#b9b8b5"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_below="@id/clockDisplayArea"
                 android:layout_width="match_parent"

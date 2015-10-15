@@ -53,7 +53,6 @@ public class HandView extends View {
         tickStartMsec = 0;
         msecSinceTick = 0;
         ticking = false;
-        init();
     }
 
     public void setUpEasing(Float[] easingValues, int easingPoints) {
@@ -61,13 +60,8 @@ public class HandView extends View {
         this.easingPoints = easingPoints;
     }
 
-    private void init() {
-        textPaint = new Paint(
-                Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        textPaint.setTextAlign(Paint.Align.LEFT);
-        textPaint.setColor(Color.rgb(229, 228, 227));
-        textPaint.setTypeface(
-                Typeface.createFromAsset(this.getContext().getAssets(), "fonts/D_NI_SCR.TTF"));
+    public void setTextPaint(Paint textPaint) {
+        this.textPaint = textPaint;
     }
 
     public void setRadii(float innerRadius, float outerRadius, float textSize) {

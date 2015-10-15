@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.SweepGradient;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -25,15 +26,15 @@ public class PolarView extends RelativeLayout {
             new LinkedHashMap<DniDateTime.Unit, HandView>();
     private PolarChromeView chrome;
 
-    private static final float DEVELOPMENT_WIDTH = 384.0f;
+    private static final float DEVELOPMENT_HEIGHT = 632.0f;
 
     public PolarView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
 
-        float scale = dpWidth  / DEVELOPMENT_WIDTH;
+        float scale = dpHeight  / DEVELOPMENT_HEIGHT;
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
@@ -48,57 +49,107 @@ public class PolarView extends RelativeLayout {
                     units.add(DniDateTime.Unit.valueOf(unit.toUpperCase()));
                 }
             }
+
+            Paint textPaint = new Paint(
+                    Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+            textPaint.setTextAlign(Paint.Align.LEFT);
+            textPaint.setColor(a.getColor(R.styleable.PolarView_counterColor, 0));
+            textPaint.setTypeface(
+                    Typeface.createFromAsset(this.getContext().getAssets(), "fonts/D_NI_SCR.TTF"));
+
+            float innerCircleRadius =
+                    scale * a.getDimension(R.styleable.PolarView_centerCircleRadius, 0.0f);
+            float ringWidth = scale * a.getDimension(R.styleable.PolarView_ringWidth, 0.0f);
+            float ringGap = scale * a.getDimension(R.styleable.PolarView_ringGap, 0.0f);
+            float chromeCircleRadius =
+                    scale * a.getDimension(R.styleable.PolarView_chromeCircleRadius, 0.0f);
+            float chromeBarRadius =
+                    scale * a.getDimension(R.styleable.PolarView_chromeBarRadius, 0.0f);
+            float chromeBarWidth =
+                    scale * a.getDimension(R.styleable.PolarView_chromeBarWidth, 0.0f);
+            float chromeOuterRingPadding =
+                    scale * a.getDimension(R.styleable.PolarView_chromeOuterRingPadding, 0.0f);
+            float chromeBackgroundPadding =
+                    scale * a.getDimension(R.styleable.PolarView_chromeBackgroundPadding, 0.0f);
+            float numberSize = scale * a.getDimension(R.styleable.PolarView_counterSize, 0.0f);
+
+            addChrome(units,
+                    innerCircleRadius,
+                    ringWidth,
+                    ringGap,
+                    chromeCircleRadius,
+                    chromeBarRadius,
+                    chromeBarWidth,
+                    chromeOuterRingPadding,
+                    chromeBackgroundPadding,
+                    a.getColor(R.styleable.PolarView_chromeSmallCircleColor, 0),
+                    a.getColor(R.styleable.PolarView_chromeLargeCircleColor, 0),
+                    a.getColor(R.styleable.PolarView_chromeRingColor, 0),
+                    a.getColor(R.styleable.PolarView_chromeGapColor, 0),
+                    a.getColor(R.styleable.PolarView_chromeBackgroundColor1, 0),
+                    a.getColor(R.styleable.PolarView_chromeBackgroundColor2, 0));
+
             addHands(units,
                     a.getString(R.styleable.PolarView_colors).split(","),
-                    scale * a.getDimension(R.styleable.PolarView_centerCircleRadius, 0.0f),
-                    scale * a.getDimension(R.styleable.PolarView_ringWidth, 0.0f),
-                    scale * a.getDimension(R.styleable.PolarView_ringGap, 0.0f),
-                    scale * a.getDimension(R.styleable.PolarView_chromeCircleRadius, 0.0f),
-                    scale * a.getDimension(R.styleable.PolarView_chromeBarRadius, 0.0f),
-                    scale * a.getDimension(R.styleable.PolarView_chromeBarWidth, 0.0f),
-                    scale * a.getDimension(R.styleable.PolarView_chromeOuterRingPadding, 0.0f),
-                    scale * a.getDimension(R.styleable.PolarView_chromeBackgroundPadding, 0.0f),
-                    scale * a.getDimension(R.styleable.PolarView_counterSize, 0.0f));
+                    textPaint,
+                    innerCircleRadius,
+                    ringWidth,
+                    ringGap,
+                    numberSize);
         } finally {
             a.recycle();
         }
     }
 
-    private void addHands(List<DniDateTime.Unit> units,
-                          String[] colorParams,
-                          float innerCircleRadius,
-                          float ringWidth,
-                          float ringGap,
-                          float chromeCircleRadius,
-                          float chromeBarRadius,
-                          float chromeBarWidth,
-                          float chromeOuterRingPadding,
-                          float chromeBackgroundPadding,
-                          float numberSize) {
-        addHands(units, colorParams);
-
-        chrome.setSizeParams(chromeCircleRadius, chromeBarRadius, chromeBarWidth,
-                chromeOuterRingPadding, chromeBackgroundPadding,
-                units.size(), innerCircleRadius, ringWidth, ringGap);
-
-        float curInner = innerCircleRadius;
-        for (HandView hand : hands.values()) {
-            hand.setRadii(curInner, curInner + ringWidth, numberSize);
-            curInner = curInner + ringWidth + ringGap;
-        }
-    }
-
-    public void addHands(List<DniDateTime.Unit> desiredUnits, String[] colorParams) {
+    private void addChrome(
+            List<DniDateTime.Unit> units,
+            float innerCircleRadius,
+            float ringWidth,
+            float ringGap,
+            float chromeCircleRadius,
+            float chromeBarRadius,
+            float chromeBarWidth,
+            float chromeOuterRingPadding,
+            float chromeBackgroundPadding,
+            int smallCircleColor,
+            int largeCircleColor,
+            int ringColor,
+            int gapColor,
+            int backgroundColor1,
+            int backgroundColor2) {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);
         chrome = new PolarChromeView(this.getContext());
         chrome.setLayoutParams(layoutParams);
         this.addView(chrome);
+
+        chrome.setSizeParams(chromeCircleRadius, chromeBarRadius, chromeBarWidth,
+                chromeOuterRingPadding, chromeBackgroundPadding,
+                units.size(), innerCircleRadius, ringWidth, ringGap);
+        chrome.setColors(
+                smallCircleColor,
+                largeCircleColor,
+                ringColor,
+                gapColor,
+                backgroundColor1,
+                backgroundColor2);
+    }
+
+    private void addHands(List<DniDateTime.Unit> units,
+                          String[] colorParams,
+                          Paint textPaint,
+                          float innerCircleRadius,
+                          float ringWidth,
+                          float ringGap,
+                          float numberSize) {
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
         hands = new LinkedHashMap<DniDateTime.Unit, HandView>();
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         int index = 0;
-        for (DniDateTime.Unit unit : desiredUnits) {
+        for (DniDateTime.Unit unit : units) {
             HandView handView = new HandView(this.getContext(), unit);
             handView.setLayoutParams(layoutParams);
             String colorString = colorParams[index];
@@ -106,6 +157,13 @@ public class PolarView extends RelativeLayout {
             this.addView(handView);
             hands.put(unit, handView);
             index++;
+        }
+
+        float curInner = innerCircleRadius;
+        for (HandView hand : hands.values()) {
+            hand.setTextPaint(textPaint);
+            hand.setRadii(curInner, curInner + ringWidth, numberSize);
+            curInner = curInner + ringWidth + ringGap;
         }
     }
 

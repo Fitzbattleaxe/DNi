@@ -27,21 +27,28 @@ public class PolarChromeView extends View {
     private Paint smallCirclePaint;
     private Paint largerCirclePaint;
     private Paint ringPaint;
+    private Paint gapPaint;
     private Paint backgroundPaint1;
     private Paint backgroundPaint2;
 
     public PolarChromeView(Context context) {
         super(context);
+    }
+
+    public void setColors(int smallCircleColor, int largeCircleColor, int ringColor, int gapColor,
+                          int backgroundColor1, int backgroundColor2) {
         smallCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        smallCirclePaint.setColor(Color.rgb(153, 149, 147));
+        smallCirclePaint.setColor(smallCircleColor);
         largerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        largerCirclePaint.setColor(Color.rgb(196, 196, 191));
+        largerCirclePaint.setColor(largeCircleColor);
         ringPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        ringPaint.setColor(Color.rgb(209, 207, 205));
+        ringPaint.setColor(ringColor);
+        gapPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        gapPaint.setColor(gapColor);
         backgroundPaint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        backgroundPaint1.setColor(Color.rgb(244, 244, 244));
+        backgroundPaint1.setColor(backgroundColor1);
         backgroundPaint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        backgroundPaint2.setColor(Color.rgb(191, 189, 186));
+        backgroundPaint2.setColor(backgroundColor2);
     }
 
     public void setSizeParams(float circleRadius, float lineRadius, float lineWidth,
@@ -97,6 +104,12 @@ public class PolarChromeView extends View {
 
         float curInner = innerCircleRadius;
         for (int i = 0; i < numRings; i++) {
+            path = new Path();
+            path.addCircle(0, 0, curInner, Path.Direction.CCW);
+            path.addCircle(0, 0, curInner - ringGap, Path.Direction.CW);
+            path.offset(bounds.centerX(), bounds.centerY());
+            canvas.drawPath(path, gapPaint);
+
             path = new Path();
             float padding = (i == numRings - 1) ? outerRingPadding : 0.0f;
             path.addCircle(0, 0, curInner + ringWidth + padding, Path.Direction.CCW);

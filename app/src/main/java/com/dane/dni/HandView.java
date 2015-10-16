@@ -42,6 +42,8 @@ public class HandView extends View {
     private boolean ticking;
     private float angle;
     private float lastAngle;
+    private float backAngle;
+    private float lastBackAngle;
     private float colorPosition;
     private float lastColorPosition;
 
@@ -90,6 +92,13 @@ public class HandView extends View {
             float arcProgress = lastTime / (1.0f * dniDateTime.getMax(unit));
             angle = 360.0f * arcProgress;
 
+            if (curTime == 1) {
+                backAngle = 360.0f;
+            } else {
+                lastBackAngle = 0;
+                backAngle = 0;
+            }
+
             if (gradientShiftingColor != null) {
                 lastColorPosition = colorPosition;
                 DniDateTime.Unit largerUnit = dniDateTime.getLarger(unit);
@@ -124,10 +133,22 @@ public class HandView extends View {
             angleMultiplier = 1.0f;
         }
         float angleDiff = angle - lastAngle;
-       // angleDiff = angleDiff >= 0 ? angleDiff : 360 + angleDiff;
-        float drawAngle = (lastAngle + angleMultiplier*angleDiff)/* % 360.0f*/;
-        path.arcTo(innerOval, -90 + drawAngle, -drawAngle);
-        path.arcTo(outerOval, -90, drawAngle);
+        angleDiff = angleDiff >= 0 ? angleDiff : 360 + angleDiff;
+        float drawAngle = (lastAngle + angleMultiplier*angleDiff) % 360.0f;
+
+        float backAngleDiff = backAngle - lastBackAngle;
+        float drawBackAngle = (lastBackAngle + angleMultiplier*backAngleDiff);
+
+        if (drawAngle > drawBackAngle) {
+            path.arcTo(innerOval, -90 + drawAngle, -(drawAngle - drawBackAngle));
+            path.arcTo(outerOval, -90 + drawBackAngle, drawAngle - drawBackAngle);
+        } else if (drawAngle < drawBackAngle) {
+            path.arcTo(innerOval, -90 + drawAngle, drawBackAngle - drawAngle - 360.0f);
+            path.arcTo(outerOval, -90 + drawBackAngle, 360.0f - drawBackAngle + drawAngle);
+        } else {
+            path.addOval(innerOval, Path.Direction.CW);
+            path.addOval(outerOval, Path.Direction.CCW);
+        }
         path.close();
         path.offset(bounds.centerX(), bounds.centerY());
 

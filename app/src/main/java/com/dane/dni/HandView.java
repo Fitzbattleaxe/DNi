@@ -25,7 +25,7 @@ public class HandView extends View {
     private DniDateTime.Unit unit;
     private DniDateTime dniDateTime;
 
-    private int lastTime;
+    private int lastTime = -1;
 
     private Paint paint;
     private Paint textPaint;

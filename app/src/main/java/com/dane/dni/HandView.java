@@ -9,11 +9,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
-import android.graphics.Typeface;
 import android.view.View;
-import android.R;
-
-import java.util.Map;
 
 /**
  * Created by Dane on 8/22/2015.
@@ -100,11 +96,15 @@ public class HandView extends View {
             }
 
             if (gradientShiftingColor != null) {
-                lastColorPosition = colorPosition;
+                lastColorPosition = colorPosition < 1.0 ? colorPosition : 0;
                 DniDateTime.Unit largerUnit = dniDateTime.getLarger(unit);
-                int largerCurTime = dniDateTime.getNum(largerUnit);
-                int largerMaxTime = dniDateTime.getMax(largerUnit);
-                colorPosition = (largerCurTime + arcProgress) / (1.0f * largerMaxTime);
+                if (gradientShiftingColor.useLargerUnitPosition()) {
+                    int largerCurTime = dniDateTime.getNum(largerUnit);
+                    int largerMaxTime = dniDateTime.getMax(largerUnit);
+                    colorPosition = (largerCurTime + arcProgress) / (1.0f * largerMaxTime);
+                } else {
+                    colorPosition = arcProgress > 0 ? arcProgress : 1.0f;
+                }
             }
 
             msecSinceTick = curTimeMsec - tickStartMsec;
@@ -176,7 +176,8 @@ public class HandView extends View {
         if (colorString.startsWith("c")) {
             String trimmedColorString = colorString.substring(2, colorString.length() - 1);
             paint.setColor(Color.parseColor(trimmedColorString));
-        } else if (colorString.startsWith("g") || colorString.startsWith("s")) {
+        } else if (colorString.startsWith("g") || colorString.startsWith("s")
+                || colorString.startsWith("t")) {
             String trimmedColorString = colorString.substring(2, colorString.length() - 1);
             String[] colorSegments = trimmedColorString.split(";");
             int[] colors = new int[colorSegments.length];
@@ -194,7 +195,8 @@ public class HandView extends View {
                 SweepGradient sweepGradient = new SweepGradient(0, 0, colors, positions);
                 paint.setShader(sweepGradient);
             } else {
-                gradientShiftingColor = new GradientShiftingColor(colors, positions);
+                gradientShiftingColor =
+                        new GradientShiftingColor(colors, positions, colorString.startsWith("s"));
             }
         }
         paint.setStyle(Paint.Style.FILL);

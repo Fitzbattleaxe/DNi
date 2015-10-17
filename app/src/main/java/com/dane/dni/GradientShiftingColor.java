@@ -9,10 +9,16 @@ import android.graphics.Shader;
 public class GradientShiftingColor {
     int[] colors;
     float[] positions;
+    boolean useLargerUnitPosition;
 
-    public GradientShiftingColor(int[] colors, float[] positions) {
+    public GradientShiftingColor(int[] colors, float[] positions, boolean useLargerUnitPosition) {
         this.colors = colors;
         this.positions = positions;
+        this.useLargerUnitPosition = useLargerUnitPosition;
+    }
+
+    public boolean useLargerUnitPosition() {
+        return useLargerUnitPosition;
     }
 
     public int getColor(float position) {

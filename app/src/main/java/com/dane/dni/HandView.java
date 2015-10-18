@@ -81,19 +81,20 @@ public class HandView extends View {
         int curTime = dniDateTime.getNum(unit);
         long curTimeMsec = System.currentTimeMillis();
         if (curTime != lastTime) {
+
+            if (curTime < lastTime) {
+                backAngle = 360.0f;
+            } else {
+                lastBackAngle = 0;
+                backAngle = 0;
+            }
+
             ticking = true;
             lastTime = curTime;
             tickStartMsec = curTimeMsec;
             lastAngle = angle;
             float arcProgress = lastTime / (1.0f * dniDateTime.getMax(unit));
             angle = 360.0f * arcProgress;
-
-            if (curTime == 1) {
-                backAngle = 360.0f;
-            } else {
-                lastBackAngle = 0;
-                backAngle = 0;
-            }
 
             if (gradientShiftingColor != null) {
                 lastColorPosition = colorPosition < 1.0 ? colorPosition : 0;
@@ -139,16 +140,16 @@ public class HandView extends View {
         float backAngleDiff = backAngle - lastBackAngle;
         float drawBackAngle = (lastBackAngle + angleMultiplier*backAngleDiff);
 
-        if (drawAngle > drawBackAngle) {
+        if (drawAngle >= drawBackAngle) {
             path.arcTo(innerOval, -90 + drawAngle, -(drawAngle - drawBackAngle));
             path.arcTo(outerOval, -90 + drawBackAngle, drawAngle - drawBackAngle);
-        } else if (drawAngle < drawBackAngle) {
+        } else /*if (drawAngle < drawBackAngle)*/ {
             path.arcTo(innerOval, -90 + drawAngle, drawBackAngle - drawAngle - 360.0f);
             path.arcTo(outerOval, -90 + drawBackAngle, 360.0f - drawBackAngle + drawAngle);
-        } else {
+        }/* else {
             path.addOval(innerOval, Path.Direction.CW);
             path.addOval(outerOval, Path.Direction.CCW);
-        }
+        }*/
         path.close();
         path.offset(bounds.centerX(), bounds.centerY());
 

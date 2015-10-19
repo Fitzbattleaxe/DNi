@@ -3,110 +3,49 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="1280px" height="720px" viewBox="0 0 1280 720" enable-background="new 0 0 1280 720" xml:space="preserve">
-<style type="text/css">
-<![CDATA[
-@font-face{font-family:'EBGaramond';src:url("data:;base64,\
-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\
-AAj/9gAN//YAD//2AAEABAAFAAsADAARAAA=")}
-]]>
-</style>
-<rect x="772" y="90" fill="#685C59" width="53" height="53"/>
-<rect x="845" y="90" fill="#6B625F" width="53" height="53"/>
-<rect x="917" y="91" fill="#77706D" width="53" height="53"/>
-<rect x="991" y="90" fill="#827B78" width="53" height="53"/>
-<rect x="1064" y="90" fill="#918C88" width="53" height="53"/>
-<rect x="1064" y="161" fill="#918C88" width="53" height="53"/>
-<rect x="335" y="90" fill="#30251D" width="53" height="53"/>
-<rect x="408" y="90" fill="#3F3329" width="53" height="53"/>
-<rect x="481" y="90" fill="#4F4136" width="53" height="53"/>
-<rect x="554" y="90" fill="#544339" width="53" height="53"/>
-<rect x="627" y="90" fill="#59483D" width="53" height="53"/>
-<rect x="700" y="90" fill="#66564E" width="53" height="53"/>
-<rect x="335" y="161" fill="#30251D" width="53" height="53"/>
-<rect x="700" y="161" fill="#66564E" width="53" height="53"/>
+<rect x="772" y="90.154" fill="#685C59" width="53" height="53"/>
+<rect x="845" y="90.154" fill="#6B625F" width="53" height="53"/>
+<rect x="917" y="90.154" fill="#77706D" width="53" height="53"/>
+<rect x="991" y="90.154" fill="#827B78" width="53" height="53"/>
+<rect x="991" y="158.419" fill="#827B78" width="53" height="53"/>
+<rect x="1064" y="90.154" fill="#918C88" width="53" height="53"/>
+<rect x="335" y="90.154" fill="#30251D" width="53" height="53"/>
+<rect x="408" y="90.154" fill="#3F3329" width="53" height="53"/>
+<rect x="481" y="90.154" fill="#4F4136" width="53" height="53"/>
+<rect x="554" y="90.154" fill="#544339" width="53" height="53"/>
+<rect x="627" y="90.154" fill="#59483D" width="53" height="53"/>
+<rect x="700" y="90.154" fill="#66564E" width="53" height="53"/>
 <g>
 	
 		<text transform="matrix(1 0 0 1 219.0015 129.9434)" fill="#3F3329" font-family="'EBGaramond'" font-size="50" letter-spacing="1">Date</text>
 </g>
-<rect x="772" y="510" fill="#2B5D82" width="53" height="53"/>
-<rect x="845" y="510" fill="#34718C" width="53" height="53"/>
-<rect x="918" y="510" fill="#39849E" width="53" height="53"/>
-<rect x="991" y="510" fill="#4899AF" width="53" height="53"/>
-<rect x="1136" y="91" fill="#99938F" width="53" height="53"/>
-<rect x="1210" y="90" fill="#A39F9B" width="53" height="53"/>
-<rect x="1137" y="510" fill="#65AEC4" width="53" height="53"/>
-<rect x="1210" y="510" fill="#76BCCC" width="53" height="53"/>
-<rect x="1064" y="510" fill="#56A3BA" width="53" height="53"/>
-<rect x="1064" y="581" fill="#56A3BA" width="53" height="53"/>
-<rect x="335" y="510" fill="#110033" width="53" height="53"/>
-<rect x="408" y="510" fill="#0B104F" width="53" height="53"/>
-<rect x="480" y="511" fill="#12285E" width="53" height="53"/>
-<rect x="554" y="510" fill="#103159" width="53" height="53"/>
-<rect x="627" y="510" fill="#1B3F66" width="53" height="53"/>
-<rect x="700" y="510" fill="#234977" width="53" height="53"/>
-<rect x="335" y="581" fill="#110033" width="53" height="53"/>
-<rect x="700" y="581" fill="#234977" width="53" height="53"/>
+<rect x="772" y="510" fill="#34718C" width="53" height="53"/>
+<rect x="845" y="510" fill="#39849E" width="53" height="53"/>
+<rect x="918" y="510" fill="#4899AF" width="53" height="53"/>
+<rect x="991" y="510" fill="#56A3BA" width="53" height="53"/>
+<rect x="1136" y="90.154" fill="#99938F" width="53" height="53"/>
+<rect x="1210" y="90.154" fill="#A39F9B" width="53" height="53"/>
+<rect x="772" y="158.419" fill="#685C59" width="53" height="53"/>
+<rect x="917" y="158.419" fill="#77706D" width="53" height="53"/>
+<rect x="1064" y="158.419" fill="#918C88" width="53" height="53"/>
+<rect x="335" y="158.419" fill="#30251D" width="53" height="53"/>
+<rect x="481" y="158.419" fill="#4F4136" width="53" height="53"/>
+<rect x="627" y="158.419" fill="#59483D" width="53" height="53"/>
+<rect x="700" y="158.419" fill="#66564E" width="53" height="53"/>
+<rect x="1210" y="158.419" fill="#A39F9B" width="53" height="53"/>
+<rect x="1137" y="510" fill="#76BCCC" width="53" height="53"/>
+<rect x="1210" y="510" fill="#85C3D6" width="53" height="53"/>
+<rect x="1064" y="510" fill="#65AEC4" width="53" height="53"/>
+<rect x="335" y="510" fill="#0B104F" width="53" height="53"/>
+<rect x="408" y="510" fill="#12285E" width="53" height="53"/>
+<rect x="480" y="510" fill="#103159" width="53" height="53"/>
+<rect x="554" y="510" fill="#1B3F66" width="53" height="53"/>
+<rect x="627" y="510" fill="#25527A" width="53" height="53"/>
+<rect x="700" y="510" fill="#2B5D82" width="53" height="53"/>
+<rect x="991" y="579.061" fill="#56A3BA" width="53" height="53"/>
+<rect x="1137" y="579.061" fill="#76BCCC" width="53" height="53"/>
+<rect x="408" y="579.061" fill="#12285E" width="53" height="53"/>
+<rect x="700" y="579.061" fill="#2B5D82" width="53" height="53"/>
 <g>
 	<text transform="matrix(1 0 0 1 10.9033 549.9434)" fill="#3F3329" font-family="'EBGaramond'" font-size="50" letter-spacing="1">Precision Time</text>
 </g>
@@ -117,8 +56,6 @@ AAj/9gAN//YAD//2AAEABAAFAAsADAARAAA=")}
 <rect x="554" y="297" fill="#7F230A" width="53" height="53"/>
 <rect x="627" y="297" fill="#9B3A10" width="53" height="53"/>
 <rect x="700" y="297" fill="#EA852A" width="53" height="53"/>
-<rect x="335" y="368" fill="#12285E" width="53" height="53"/>
-<rect x="700" y="368" fill="#EA852A" width="53" height="53"/>
 <g>
 	<text transform="matrix(1 0 0 1 52.0039 336.9434)" fill="#3F3329" font-family="'EBGaramond'" font-size="50" letter-spacing="1">Time-of-Day</text>
 </g>

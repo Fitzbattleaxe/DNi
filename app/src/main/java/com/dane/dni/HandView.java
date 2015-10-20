@@ -135,21 +135,25 @@ public class HandView extends View {
         }
         float angleDiff = angle - lastAngle;
         angleDiff = angleDiff >= 0 ? angleDiff : 360 + angleDiff;
-        float drawAngle = (lastAngle + angleMultiplier*angleDiff) % 360.0f;
+        float drawAngle = (lastAngle + angleMultiplier*angleDiff);
+        if (drawAngle > 360.0f) {
+            drawAngle = drawAngle - 360.0f;
+        }
 
         float backAngleDiff = backAngle - lastBackAngle;
         float drawBackAngle = (lastBackAngle + angleMultiplier*backAngleDiff);
 
-        if (drawAngle >= drawBackAngle) {
-            path.arcTo(innerOval, -90 + drawAngle, -(drawAngle - drawBackAngle));
-            path.arcTo(outerOval, -90 + drawBackAngle, drawAngle - drawBackAngle);
-        } else /*if (drawAngle < drawBackAngle)*/ {
-            path.arcTo(innerOval, -90 + drawAngle, drawBackAngle - drawAngle - 360.0f);
-            path.arcTo(outerOval, -90 + drawBackAngle, 360.0f - drawBackAngle + drawAngle);
-        }/* else {
+
+        if (drawAngle == 360.0f && drawBackAngle == 0.0f) {
             path.addOval(innerOval, Path.Direction.CW);
             path.addOval(outerOval, Path.Direction.CCW);
-        }*/
+        } else if (drawAngle >= drawBackAngle) {
+            path.arcTo(innerOval, -90 + drawAngle, -(drawAngle - drawBackAngle));
+            path.arcTo(outerOval, -90 + drawBackAngle, drawAngle - drawBackAngle);
+        } else {
+            path.arcTo(innerOval, -90 + drawAngle, drawBackAngle - drawAngle - 360.0f);
+            path.arcTo(outerOval, -90 + drawBackAngle, 360.0f - drawBackAngle + drawAngle);
+        }
         path.close();
         path.offset(bounds.centerX(), bounds.centerY());
 

@@ -16,6 +16,7 @@ import java.util.List;
 public class Watch extends Activity {
 
     DniDateTime dniDateTime;
+    DniDateTime offsetDniDateTime;
     TimeDisplay yearDisplay;
     TimeDisplay monthDisplay;
     TimeDisplay timeDisplay;
@@ -34,6 +35,7 @@ public class Watch extends Activity {
         setContentView(R.layout.activity_watch);
 
         dniDateTime = new DniDateTime();
+        offsetDniDateTime = new DniDateTime();
 
         yearDisplay = (TimeDisplay) findViewById(R.id.year_display);
         yearDisplay.setClock(dniDateTime);
@@ -70,6 +72,7 @@ public class Watch extends Activity {
 //        watch2.addHands(hands);
         watch2.setUpEasing(easingValues, 800);
         watch2.addClock(dniDateTime);
+        watch2.addOffsetClock(offsetDniDateTime);
 
         watch1 = (PolarView)  findViewById(R.id.watch1);
 //        hands = new LinkedList<DniDateTime.Unit>();
@@ -80,6 +83,7 @@ public class Watch extends Activity {
 //        watch1.addHands(hands);
         watch1.setUpEasing(easingValues, 800);
         watch1.addClock(dniDateTime);
+        watch1.addOffsetClock(offsetDniDateTime);
 
 //        Timer myTimer = new Timer();
 //        myTimer.schedule(new TimerTask() {
@@ -107,7 +111,9 @@ public class Watch extends Activity {
     final Runnable myRunnable = new Runnable() {
         public void run() {
             try {
-                dniDateTime.setTimeInMillis(System.currentTimeMillis());
+                long time = System.currentTimeMillis();
+                dniDateTime.setTimeInMillis(time);
+                offsetDniDateTime.setTimeInMillis(time + 275);
                 yearDisplay.updateDisplay();
                 monthDisplay.updateDisplay();
                 timeDisplay.updateDisplay();

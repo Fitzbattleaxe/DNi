@@ -173,6 +173,12 @@ public class PolarView extends RelativeLayout {
         }
     }
 
+    public void addOffsetClock(DniDateTime offsetDniDateTime) {
+        for (HandView handView : hands.values()) {
+            handView.setOffsetDniDateTime(offsetDniDateTime);
+        }
+    }
+
     public void setUpEasing(Float[] easingValues, int easingPoints) {
         for (HandView handView : hands.values()) {
             handView.setUpEasing(easingValues, easingPoints);

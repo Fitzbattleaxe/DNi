@@ -20,6 +20,7 @@ public class HandView extends View {
     private float innerRadius;
     private DniDateTime.Unit unit;
     private DniDateTime dniDateTime;
+    private DniDateTime offsetDniDateTime;
 
     private int lastTime = -1;
 
@@ -77,8 +78,13 @@ public class HandView extends View {
         this.dniDateTime = dniDateTime;
     }
 
+    public void setOffsetDniDateTime(DniDateTime offsetDniDateTime) {
+        this.offsetDniDateTime = offsetDniDateTime;
+    }
+
+
     public void updateTime() {
-        int curTime = dniDateTime.getNum(unit);
+        int curTime = offsetDniDateTime.getNum(unit);
         long curTimeMsec = System.currentTimeMillis();
         if (curTime != lastTime) {
 
@@ -173,7 +179,8 @@ public class HandView extends View {
 
         float textX = bounds.centerX() + textPaint.getTextSize() * 0.4f;
         float textY = bounds.centerY() - innerRadius - (outerRadius - innerRadius) * 0.2f;
-        canvas.drawText(DniNumberUtil.convertToDni(lastTime), textX, textY, textPaint);
+        canvas.drawText(DniNumberUtil.convertToDni(
+                dniDateTime.getNum(unit)), textX, textY, textPaint);
     }
 
     public void setupColor(String colorString) {

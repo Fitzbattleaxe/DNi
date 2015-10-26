@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Watch extends Activity {
+public class Watch extends FragmentActivity {
 
     DniDateTime dniDateTime;
     DniDateTime offsetDniDateTime;
@@ -22,12 +26,8 @@ public class Watch extends Activity {
     TimeDisplay timeDisplay;
     PolarView watch1;
     PolarView watch2;
-    Typeface dniTypeface;
+    ImageButton menuButton;
     final Handler tickHandler = new Handler();
-
-    private String[] drawerOptions;
-    private DrawerLayout drawerLayout;
-    private ListView drawerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,55 +65,36 @@ public class Watch extends Activity {
                     .getCachedFunctionValues(0, 800);
 
         watch2 = (PolarView)  findViewById(R.id.watch2);
-//        List<DniDateTime.Unit> hands = new LinkedList<DniDateTime.Unit>();
-//        hands.add(DniDateTime.Unit.PRORAHN);
-//        hands.add(DniDateTime.Unit.GORAHN);
-//        hands.add(DniDateTime.Unit.TAHVO);
-//        watch2.addHands(hands);
         watch2.setUpEasing(easingValues, 800);
         watch2.addClock(dniDateTime);
         watch2.addOffsetClock(offsetDniDateTime);
 
         watch1 = (PolarView)  findViewById(R.id.watch1);
-//        hands = new LinkedList<DniDateTime.Unit>();
-//        hands.add(DniDateTime.Unit.PAHRTAHVO);
-//        hands.add(DniDateTime.Unit.GAHRTAHVOTEE);
-//        hands.add(DniDateTime.Unit.YAHR);
-//        hands.add(DniDateTime.Unit.VAILEE);
-//        watch1.addHands(hands);
         watch1.setUpEasing(easingValues, 800);
         watch1.addClock(dniDateTime);
         watch1.addOffsetClock(offsetDniDateTime);
 
-//        Timer myTimer = new Timer();
-//        myTimer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {updateGUI();}
-//        }, 0, 50);
-        tickHandler.post(myRunnable);
+        menuButton = (ImageButton) findViewById(R.id.imageButton);
+        menuButton.setOnClickListener(myOnClickListener);
 
-
-//        drawerOptions = getResources().getStringArray(R.array.drawer_options);
-//        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawerList = (ListView) findViewById(R.id.left_drawer);
-//
-//        // Set the adapter for the list view
-//        drawerList.setAdapter(new ArrayAdapter<String>(this,
-//                R.layout.drawer_list_item, drawerOptions));
-        // Set the list's click listener
-     //   drawerList.setOnItemClickListener(new DrawerItemClickListener());
-    }
-
-    private void updateGUI() {
         tickHandler.post(myRunnable);
     }
+
+    final View.OnClickListener myOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager fm = getSupportFragmentManager();
+            MenuDialogFragment menuDialogFragment = new MenuDialogFragment();
+            menuDialogFragment.show(fm, "fragment_menu");
+        }
+    };
 
     final Runnable myRunnable = new Runnable() {
         public void run() {
             try {
                 long time = System.currentTimeMillis();
                 dniDateTime.setTimeInMillis(time);
-                offsetDniDateTime.setTimeInMillis(time + 275);
+                offsetDniDateTime.setTimeInMillis(time + 140);
                 yearDisplay.updateDisplay();
                 monthDisplay.updateDisplay();
                 timeDisplay.updateDisplay();

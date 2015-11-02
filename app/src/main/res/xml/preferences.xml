@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<CheckBoxPreference
+    android:key="dni_nums"
+    android:title="D'ni Numerals"
+    android:summary="Use D'ni numerals on clock hands."
+    android:defaultValue="true" />
+    <PreferenceScreen
+        android:key="date_time_category_key"
+        android:title="Date/Time"
+        android:summary="Date and time settings."
+        android:persistent="false">
+        <CheckBoxPreference
+            android:key="system_time"
+            android:title="Use System Time"
+            android:defaultValue="true"
+            />
+        </PreferenceScreen>
+</PreferenceScreen>

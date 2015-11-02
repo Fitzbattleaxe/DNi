@@ -44,6 +44,8 @@ public class HandView extends View {
     private float colorPosition;
     private float lastColorPosition;
 
+    private boolean useDniNums;
+
     public HandView(Context context, DniDateTime.Unit unit) {
         super(context);
         this.unit = unit;
@@ -59,14 +61,14 @@ public class HandView extends View {
         this.easingPoints = easingPoints;
     }
 
-    public void setTextPaint(Paint textPaint) {
+    public void setTextPaint(Paint textPaint, boolean useDniNums) {
         this.textPaint = textPaint;
+        this.useDniNums = useDniNums;
     }
 
-    public void setRadii(float innerRadius, float outerRadius, float textSize) {
+    public void setRadii(float innerRadius, float outerRadius) {
         this.innerRadius = innerRadius;
         this.outerRadius = outerRadius;
-        textPaint.setTextSize(textSize);
 
         outerOval = new RectF();
         outerOval.set(-outerRadius, -outerRadius, outerRadius, outerRadius);
@@ -127,6 +129,10 @@ public class HandView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (easingValues == null) {
+          return;
+        }
+
         super.onDraw(canvas);
         Rect bounds = canvas.getClipBounds();
 
@@ -177,10 +183,17 @@ public class HandView extends View {
 
         canvas.drawPath(path, paint);
 
-        float textX = bounds.centerX() + textPaint.getTextSize() * 0.4f;
-        float textY = bounds.centerY() - innerRadius - (outerRadius - innerRadius) * 0.2f;
-        canvas.drawText(DniNumberUtil.convertToDni(
-                dniDateTime.getNum(unit)), textX, textY, textPaint);
+        if (useDniNums) {
+            float textX = bounds.centerX() + textPaint.getTextSize() * 0.4f;
+            float textY = bounds.centerY() - innerRadius - (outerRadius - innerRadius) * 0.2f;
+            canvas.drawText(DniNumberUtil.convertToDni(
+                    dniDateTime.getNum(unit)), textX, textY, textPaint);
+        } else {
+            float textX = bounds.centerX() + textPaint.getTextSize() * 0.4f;
+            float textY = bounds.centerY() - innerRadius - (outerRadius - innerRadius) * 0.3f;
+            canvas.drawText(Integer.toString(dniDateTime.getNum(unit)),
+                    textX, textY, textPaint);
+        }
     }
 
     public void setupColor(String colorString) {

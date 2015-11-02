@@ -1,11 +1,13 @@
 package com.dane.dni;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.SweepGradient;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -25,6 +27,11 @@ public class PolarView extends RelativeLayout {
     private LinkedHashMap<DniDateTime.Unit, HandView> hands =
             new LinkedHashMap<DniDateTime.Unit, HandView>();
     private PolarChromeView chrome;
+
+    private Typeface dniTypeface;
+    private Typeface arabicTypeface;
+    private Paint textPaint;
+    private float dniNumberSize;
 
     private static final float DEVELOPMENT_HEIGHT = 632.0f;
 
@@ -50,12 +57,22 @@ public class PolarView extends RelativeLayout {
                 }
             }
 
-            Paint textPaint = new Paint(
+            textPaint = new Paint(
                     Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
             textPaint.setTextAlign(Paint.Align.LEFT);
             textPaint.setColor(a.getColor(R.styleable.PolarView_counterColor, 0));
-            textPaint.setTypeface(
-                    Typeface.createFromAsset(this.getContext().getAssets(), "fonts/D_NI_SCR.TTF"));
+
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean useDniNums = sharedPref.getBoolean("dni_nums", true);
+            dniTypeface = Typeface.createFromAsset(this.getContext().getAssets(),
+                    "fonts/D_NI_SCR.TTF");
+            arabicTypeface = Typeface.createFromAsset(context.getAssets(),
+                    "fonts/EBGaramond-Regular.ttf");
+            if (useDniNums) {
+                textPaint.setTypeface(dniTypeface);
+            } else {
+                textPaint.setTypeface(arabicTypeface);
+            }
 
             float innerCircleRadius =
                     scale * a.getDimension(R.styleable.PolarView_centerCircleRadius, 0.0f);
@@ -71,7 +88,13 @@ public class PolarView extends RelativeLayout {
                     scale * a.getDimension(R.styleable.PolarView_chromeOuterRingPadding, 0.0f);
             float chromeBackgroundPadding =
                     scale * a.getDimension(R.styleable.PolarView_chromeBackgroundPadding, 0.0f);
-            float numberSize = scale * a.getDimension(R.styleable.PolarView_counterSize, 0.0f);
+            dniNumberSize = scale * a.getDimension(R.styleable.PolarView_counterSize, 0.0f);
+
+            if (useDniNums) {
+                textPaint.setTextSize(dniNumberSize);
+            } else {
+                textPaint.setTextSize(dniNumberSize * 1.3f);
+            }
 
             addChrome(units,
                     innerCircleRadius,
@@ -95,7 +118,7 @@ public class PolarView extends RelativeLayout {
                     innerCircleRadius,
                     ringWidth,
                     ringGap,
-                    numberSize);
+                    useDniNums);
         } finally {
             a.recycle();
         }
@@ -142,7 +165,7 @@ public class PolarView extends RelativeLayout {
                           float innerCircleRadius,
                           float ringWidth,
                           float ringGap,
-                          float numberSize) {
+                          boolean useDniNums) {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);
@@ -161,8 +184,8 @@ public class PolarView extends RelativeLayout {
 
         float curInner = innerCircleRadius;
         for (HandView hand : hands.values()) {
-            hand.setTextPaint(textPaint);
-            hand.setRadii(curInner, curInner + ringWidth, numberSize);
+            hand.setTextPaint(textPaint, useDniNums);
+            hand.setRadii(curInner, curInner + ringWidth);
             curInner = curInner + ringWidth + ringGap;
         }
     }
@@ -215,6 +238,21 @@ public class PolarView extends RelativeLayout {
         for (HandView hand : hands.values()) {
             hand.updateTime();
         }
+    }
+
+    public void useDniNums(boolean useDniNums) {
+        if (useDniNums) {
+            textPaint.setTypeface(dniTypeface);
+            textPaint.setTextSize(dniNumberSize);
+        } else {
+            textPaint.setTypeface(arabicTypeface);
+            textPaint.setTextSize(dniNumberSize * 1.3f);
+        }
+
+        for (HandView handView : hands.values()) {
+            handView.setTextPaint(textPaint, useDniNums);
+        }
+        this.invalidate();
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

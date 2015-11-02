@@ -1,9 +1,12 @@
 package com.dane.dni;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +20,8 @@ import android.widget.ListView;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Watch extends FragmentActivity {
+public class Watch extends FragmentActivity
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     DniDateTime dniDateTime;
     DniDateTime offsetDniDateTime;
@@ -26,7 +30,7 @@ public class Watch extends FragmentActivity {
     TimeDisplay timeDisplay;
     PolarView watch1;
     PolarView watch2;
-    ImageButton menuButton;
+    MenuButton menuButton;
     final Handler tickHandler = new Handler();
 
     @Override
@@ -74,20 +78,18 @@ public class Watch extends FragmentActivity {
         watch1.addClock(dniDateTime);
         watch1.addOffsetClock(offsetDniDateTime);
 
-        menuButton = (ImageButton) findViewById(R.id.imageButton);
-        menuButton.setOnClickListener(myOnClickListener);
+        menuButton = (MenuButton) findViewById(R.id.menuButton);
 
         tickHandler.post(myRunnable);
+
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
-    final View.OnClickListener myOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FragmentManager fm = getSupportFragmentManager();
-            MenuDialogFragment menuDialogFragment = new MenuDialogFragment();
-            menuDialogFragment.show(fm, "fragment_menu");
-        }
-    };
+    public void openSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 
     final Runnable myRunnable = new Runnable() {
         public void run() {
@@ -106,4 +108,13 @@ public class Watch extends FragmentActivity {
             tickHandler.postDelayed(this, 20);
         }
     };
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals("dni_nums")) {
+            boolean useDniNums = sharedPreferences.getBoolean("dni_nums", true);
+            watch1.useDniNums(useDniNums);
+            watch2.useDniNums(useDniNums);
+        }
+    }
 }

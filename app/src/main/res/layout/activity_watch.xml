@@ -73,8 +73,7 @@
                 custom:chromeBackgroundColor1="#F4F2EF"
                 custom:chromeBackgroundColor2="#B2B1AD"
                 custom:units="PRORAHN,GORAHN,TAHVO"
-                custom:colors="t(#110033:0.0;#0b104f:0.0433;#12285e:0.0867;#103159:0.13;#1b3f66:0.1733;#234977:0.2167;#2b5d82:0.26;#34718c:0.3033;#39849e:0.3467;#4899af:0.39;#56aeba:0.4333;#65aec4:0.4768;#7bbccc:0.52;#65aec4:0.56;#56aeba:0.6;#4899af:0.64;#39849e:0.68;#34718c:0.72;#2b5d82:0.76;#234977:0.8;#1b3f66:0.84;#103159:0.88;#12285e:0.92;#0b104f:0.96;#110033:1.0),t(#110033:0.0;#0b104f:0.0433;#12285e:0.0867;#103159:0.13;#1b3f66:0.1733;#234977:0.2167;#2b5d82:0.26;#34718c:0.3033;#39849e:0.3467;#4899af:0.39;#56aeba:0.4333;#65aec4:0.4768;#7bbccc:0.52;#65aec4:0.56;#56aeba:0.6;#4899af:0.64;#39849e:0.68;#34718c:0.72;#2b5d82:0.76;#234977:0.8;#1b3f66:0.84;#103159:0.88;#12285e:0.92;#0b104f:0.96;#110033:1.0),t(#110033:0.0;#0b104f:0.0833;#12285e:0.1667;#103159:0.25;#1b3f66:0.3333;#234977:0.4167;#2b5d82:0.5;#34718c:0.5833;#39849e:0.6667;#4899af:0.75;#56aeba:0.8333;#65aec4:0.9167;#7bbccc:1.0)"/>
-
+                custom:colors="t(#0b104f:0.0;#12285e:0.0433;#103159:0.0867;#1b3f66:0.13;#25527a:0.1733;#2b5d82:0.2167;#34718c:0.26;#39849e:0.3033;#4899af:0.3467;#56a3ba:0.39;#65aec4:0.4333;#7bbccc:0.4768;#85c3d6:0.52;#7bbccc:0.56;#65aec4:0.6;#56a3ba:0.64;#4899af:0.68;#39849e:0.72;#34718c:0.76;#2b5d82:0.8;#25527a:0.84;#1b3f66:0.88;#103159:0.92;#12285e:0.96;#0b104f:1.0),t(#0b104f:0.0;#12285e:0.0433;#103159:0.0867;#1b3f66:0.13;#25527a:0.1733;#2b5d82:0.2167;#34718c:0.26;#39849e:0.3033;#4899af:0.3467;#56a3ba:0.39;#65aec4:0.4333;#7bbccc:0.4768;#85c3d6:0.52;#7bbccc:0.56;#65aec4:0.6;#56a3ba:0.64;#4899af:0.68;#39849e:0.72;#34718c:0.76;#2b5d82:0.8;#25527a:0.84;#1b3f66:0.88;#103159:0.92;#12285e:0.96;#0b104f:1.0),t(#0b104f:0.0;#12285e:0.0833;#103159:0.1667;#1b3f66:0.25;#25527a:0.3333;#2b5d82:0.4167;#34718c:0.5;#39849e:0.5833;#4899af:0.6667;#56a3ba:0.75;#65aec4:0.8333;#7bbccc:0.9167;#85c3d6:1.0)"/>
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
@@ -174,15 +173,14 @@
             </android.support.percent.PercentRelativeLayout>
         </LinearLayout>
     </FrameLayout>
-    <ImageButton
+    <com.dane.dni.MenuButton
         app:layout_marginLeftPercent="5%"
         app:layout_marginTopPercent="3%"
         app:layout_heightPercent="8%"
         app:layout_widthPercent="14%"
-        android:id="@+id/imageButton"
-        android:src="@drawable/menu_icon"
-        android:scaleType="fitCenter"
+        android:id="@+id/menuButton"
         android:background="@android:color/transparent"
         android:adjustViewBounds="false"
-        android:clickable="false" />
+        android:onClick="openSettings"
+        android:clickable="true" />
 </android.support.percent.PercentFrameLayout>

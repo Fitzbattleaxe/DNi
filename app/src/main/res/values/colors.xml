@@ -4,4 +4,5 @@
     <color name="background_material_light">#e2dfd9</color>
     <color name="primary_text_dni">#3f3329</color>
     <color name="accent_material_light">#6d0606</color>
+    <color name="dni_text_box_background">#f4f2ef</color>
 </resources>

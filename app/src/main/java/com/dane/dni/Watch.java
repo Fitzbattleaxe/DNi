@@ -31,6 +31,7 @@ public class Watch extends FragmentActivity
     PolarView watch1;
     PolarView watch2;
     MenuButton menuButton;
+    long preferenceTimeDelta = 0;
     final Handler tickHandler = new Handler();
 
     @Override
@@ -84,6 +85,15 @@ public class Watch extends FragmentActivity
 
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
+
+        boolean useTimeOffsetpreferenceTimeDelta =
+                !PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean("system_time", false);
+
+        if (useTimeOffsetpreferenceTimeDelta) {
+            preferenceTimeDelta = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getLong("custom_date_time", 0L);
+        }
     }
 
     public void openSettings(View view) {
@@ -95,8 +105,8 @@ public class Watch extends FragmentActivity
         public void run() {
             try {
                 long time = System.currentTimeMillis();
-                dniDateTime.setTimeInMillis(time);
-                offsetDniDateTime.setTimeInMillis(time + 140);
+                dniDateTime.setTimeInMillis(time + preferenceTimeDelta);
+                offsetDniDateTime.setTimeInMillis(time + preferenceTimeDelta + 140);
                 yearDisplay.updateDisplay();
                 monthDisplay.updateDisplay();
                 timeDisplay.updateDisplay();
@@ -116,5 +126,25 @@ public class Watch extends FragmentActivity
             watch1.useDniNums(useDniNums);
             watch2.useDniNums(useDniNums);
         }
+
+        if (key.equals("system_time") || key.equals("custom_date_time")) {
+            boolean useTimeOffsetpreferenceTimeDelta =
+                    !PreferenceManager.getDefaultSharedPreferences(this)
+                            .getBoolean("system_time", false);
+
+            if (useTimeOffsetpreferenceTimeDelta) {
+                preferenceTimeDelta = PreferenceManager.getDefaultSharedPreferences(this)
+                        .getLong("custom_date_time", 0L);
+            } else {
+                preferenceTimeDelta = 0;
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 }

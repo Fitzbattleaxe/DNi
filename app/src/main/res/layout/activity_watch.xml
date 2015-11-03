@@ -83,7 +83,7 @@
             <android.support.percent.PercentRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3.2">
+                android:layout_weight="2.9">
                 <RelativeLayout
                     android:id="@+id/clockTopChrome"
                     android:layout_width="match_parent"
@@ -127,7 +127,7 @@
                             android:shadowDy="2"
                             android:shadowRadius="2"
                             android:shadowColor="#b9b8b5"
-                            android:layout_marginTop="-2dp" />
+                            android:layout_marginTop="-1dp" />
 
                         <com.dane.dni.TimeDisplay
                             android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                             android:gravity="top"
                             android:textAlignment="gravity"
                             android:includeFontPadding="false"
-                            android:layout_marginTop="-5dp"
+                            android:layout_marginTop="-6dp"
                             android:layout_marginLeft="14dp"
                             android:shadowDx="0"
                             android:shadowDy="2"

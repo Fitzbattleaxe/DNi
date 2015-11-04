@@ -29,11 +29,10 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
-                .add(R.id.settings_fragment_container, new SettingsFragment())
+                .replace(android.R.id.content, new SettingsFragment())
                 .commit();
     }
 }

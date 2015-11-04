@@ -93,7 +93,7 @@ public class PolarView extends RelativeLayout {
             if (useDniNums) {
                 textPaint.setTextSize(dniNumberSize);
             } else {
-                textPaint.setTextSize(dniNumberSize * 1.3f);
+                textPaint.setTextSize(dniNumberSize * 1.5f);
             }
 
             addChrome(units,

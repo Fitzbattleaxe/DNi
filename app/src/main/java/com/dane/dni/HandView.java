@@ -189,7 +189,7 @@ public class HandView extends View {
             canvas.drawText(DniNumberUtil.convertToDni(
                     dniDateTime.getNum(unit)), textX, textY, textPaint);
         } else {
-            float textX = bounds.centerX() + textPaint.getTextSize() * 0.4f;
+            float textX = bounds.centerX() + textPaint.getTextSize() * 0.2f;
             float textY = bounds.centerY() - innerRadius - (outerRadius - innerRadius) * 0.3f;
             canvas.drawText(Integer.toString(dniDateTime.getNum(unit)),
                     textX, textY, textPaint);

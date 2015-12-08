@@ -28,12 +28,25 @@ public class DniDateTime {
             "Leenovoo"
     };
 
+    enum Vailee {
+        LEEFO,
+        LEEBRO,
+        LEESAHN,
+        LEETAR,
+        LEEVOT,
+        LEEVOFO,
+        LEEVOBRO,
+        LEEVOSAHN,
+        LEEVOTAR,
+        LEENOVOO
+    }
+
     enum Unit {
         HAHR,
         VAILEE,
         NAMED_VAILEE,
         YAHR,
-        GAHRTAHVOTEE,
+        GAHRTAHVO,
         PAHRTAHVO,
         TAHVO,
         GORAHN,
@@ -64,6 +77,39 @@ public class DniDateTime {
         return dniDateTime;
     }
 
+    public static DniDateTime now(
+            long hahr,
+            long vailee,
+            long yahr,
+            long gahrtahvo,
+            long pahrtahvo,
+            long tahvo,
+            long gorahn,
+            long prorahn) {
+        DniDateTime dniDateTime = new DniDateTime();
+        long totalProrahntee = prorahn
+                + ONE_GORAHN * gorahn
+                + ONE_TAHVO * tahvo
+                + ONE_PAHRTAHVO * pahrtahvo
+                + ONE_GAHRTAHVO * gahrtahvo
+                + ONE_YAHR * yahr
+                + ONE_VAILEE * vailee
+                + ONE_HAHR * hahr;
+        dniDateTime.setTimeInProrahntee(totalProrahntee);
+        return dniDateTime;
+    }
+
+    public void setTimeInProrahntee(long timeInProrahntee) {
+        if (this.timeInProrahntee == timeInProrahntee
+            && isTimeSet) {
+            return;
+        }
+        this.timeInMillis = toMillis(timeInProrahntee);
+        this.timeInProrahntee = timeInProrahntee;
+        computeFields();
+        isTimeSet = true;
+    }
+
     public void setTimeInMillis(long timeInMillis) {
         if (this.timeInMillis == timeInMillis
                 && isTimeSet) {
@@ -77,6 +123,10 @@ public class DniDateTime {
 
     private static long toProrahntee(long millis) {
         return (long) Math.floor(millis / SECS_TO_PRORAHN / 1000 + EPOCH_OFFSET);
+    }
+
+    private static long toMillis(long prorahntee) {
+        return (long) Math.floor((prorahntee - EPOCH_OFFSET) * SECS_TO_PRORAHN * 1000);
     }
 
     protected void computeFields() {
@@ -96,7 +146,7 @@ public class DniDateTime {
                 return 10;
             case YAHR:
                 return 29;
-            case GAHRTAHVOTEE:
+            case GAHRTAHVO:
                 return 5;
             case PAHRTAHVO:
                 return 5;
@@ -117,10 +167,10 @@ public class DniDateTime {
                 return Unit.HAHR;
             case YAHR:
                 return Unit.VAILEE;
-            case GAHRTAHVOTEE:
+            case GAHRTAHVO:
                 return Unit.YAHR;
             case PAHRTAHVO:
-                return Unit.GAHRTAHVOTEE;
+                return Unit.GAHRTAHVO;
             case TAHVO:
                 return Unit.PAHRTAHVO;
             case GORAHN:
@@ -140,7 +190,7 @@ public class DniDateTime {
                 return getVaileetee();
             case YAHR:
                 return getYahrtee();
-            case GAHRTAHVOTEE:
+            case GAHRTAHVO:
                 return getGahrtahvotee();
             case PAHRTAHVO:
                 return getPahrtahvotee();
@@ -189,23 +239,7 @@ public class DniDateTime {
         return hahrtee;
     }
 
-    public String getFormattedString() {
-        return String.format("%d DE\n%02d %s %d\n%d:%d:%02d:%02d",
-                getHahrtee(),
-                getYahrtee(),
-                getVaileeName(),
-                getGahrtahvotee(),
-                getPahrtahvotee(),
-                getTahvotee(),
-                getGorahntee(),
-                getProrahntee());
-//        return String.format("%02d:%02d:%02d:%02d, %s %d, %d DE",
-//                getPahrtahvotee(),
-//                getTahvotee(),
-//                getGorahntee(),
-//                getProrahntee(),
-//                getVaileeName(),
-//                getYahrtee(),
-//                getHahrtee());
+    private long getSystemTimeInMillis() {
+        return timeInMillis;
     }
 }

@@ -20,4 +20,15 @@
             android:title="Set Date/Time"
             android:enabled="false"/>
     </PreferenceScreen>
+    <PreferenceScreen
+        android:key="alarm_category_key"
+        android:persistent="false"
+        android:summary="Alarm settings."
+        android:title="Alarms">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="holiday_alarms"
+            android:title="Enable Holiday Alarms"
+            android:summary="Notify for D'Ni holidays"/>
+    </PreferenceScreen>
 </PreferenceScreen>

@@ -1,22 +1,18 @@
 package com.dane.dni;
 
-import android.app.Activity;
+import android.app.AlarmManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListView;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,6 +29,10 @@ public class Watch extends FragmentActivity
     MenuButton menuButton;
     long preferenceTimeDelta = 0;
     final Handler tickHandler = new Handler();
+
+    List<DniHoliday> holidays;
+
+    AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class Watch extends FragmentActivity
         displayUnits = new LinkedList<DniDateTime.Unit>();
         displayUnits.add(DniDateTime.Unit.NAMED_VAILEE);
         displayUnits.add(DniDateTime.Unit.YAHR);
-        displayUnits.add(DniDateTime.Unit.GAHRTAHVOTEE);
+        displayUnits.add(DniDateTime.Unit.GAHRTAHVO);
         displayUnits.add(DniDateTime.Unit.PAHRTAHVO);
         monthDisplay.setUnits(displayUnits, "%s %02d, %d : %d");
 
@@ -94,6 +94,16 @@ public class Watch extends FragmentActivity
             preferenceTimeDelta = PreferenceManager.getDefaultSharedPreferences(this)
                     .getLong("custom_date_time", 0L);
         }
+
+        try {
+            holidays = new HolidayXmlParser().getHolidays(
+                    this.getApplicationContext().getResources().openRawResource(R.raw.holidays));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        alarmManager =
+                (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
     }
 
     public void openSettings(View view) {
@@ -139,6 +149,22 @@ public class Watch extends FragmentActivity
                 preferenceTimeDelta = 0;
             }
         }
+
+        if (key.equals("holiday_alarms")) {
+            if (sharedPreferences.getBoolean("holiday_alarms", false)) {
+                enableHolidayAlarms();
+            } else {
+                disableHolidayAlarms();
+            }
+        }
+    }
+
+    private void disableHolidayAlarms() {
+
+    }
+
+    private void enableHolidayAlarms() {
+
     }
 
     @Override

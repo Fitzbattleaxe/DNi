@@ -21,6 +21,11 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <receiver android:name=".HolidayAlarmReceiver">
+            <intent-filter>
+                <action android:name="com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.dane.dni;
 
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,11 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.util.Pair;
 import android.view.View;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -148,6 +151,11 @@ public class Watch extends FragmentActivity
             } else {
                 preferenceTimeDelta = 0;
             }
+
+            if (sharedPreferences.getBoolean("holiday_alarms", false)) {
+                disableHolidayAlarms();
+                enableHolidayAlarms();
+            }
         }
 
         if (key.equals("holiday_alarms")) {
@@ -160,11 +168,43 @@ public class Watch extends FragmentActivity
     }
 
     private void disableHolidayAlarms() {
-
+        Context context = this.getApplicationContext();
+        for (int i = 0; i < holidays.size() ; i++) {
+            Intent intent = new Intent(context, HolidayAlarmReceiver.class);
+            PendingIntent pendingIntent =
+                    PendingIntent.getBroadcast(context, i, intent, 0);
+            alarmManager.cancel(pendingIntent);
+        }
     }
 
     private void enableHolidayAlarms() {
-
+        List<Pair<DniHoliday, Long>> nextHolidayTimes = new ArrayList<>();
+        for (DniHoliday holiday : holidays) {
+            long currentHahr = dniDateTime.getHahrtee();
+            DniDateTime holidayDateTime = DniDateTime.now(
+                    currentHahr, holiday.getVailee(), holiday.getYahr(), 0, 0, 0, 0, 0);
+            long currentHahrHolidayInMillis = holidayDateTime.getSystemTimeInMillis();
+            if (currentHahrHolidayInMillis > dniDateTime.getSystemTimeInMillis()) {
+                nextHolidayTimes.add(
+                        Pair.create(holiday, currentHahrHolidayInMillis - preferenceTimeDelta));
+            } else {
+                holidayDateTime = DniDateTime.now(
+                        currentHahr + 1, holiday.getVailee(), holiday.getYahr(), 0, 0, 0, 0, 0);
+                nextHolidayTimes.add(
+                        Pair.create(holiday,
+                                holidayDateTime.getSystemTimeInMillis() - preferenceTimeDelta));
+            }
+        }
+        Context context = this.getApplicationContext();
+        int intentId = 0;
+        for (Pair<DniHoliday, Long> holidayPair : nextHolidayTimes) {
+            Intent intent = new Intent(context, HolidayAlarmReceiver.class)
+                    .putExtra("holiday_name", holidayPair.first.getName())
+                    .setAction("com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY");
+            PendingIntent pendingIntent =
+                    PendingIntent.getBroadcast(context, intentId++, intent, 0);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, holidayPair.second, pendingIntent);
+        }
     }
 
     @Override

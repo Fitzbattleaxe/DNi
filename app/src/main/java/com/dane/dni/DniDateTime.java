@@ -239,7 +239,7 @@ public class DniDateTime {
         return hahrtee;
     }
 
-    private long getSystemTimeInMillis() {
+    public long getSystemTimeInMillis() {
         return timeInMillis;
     }
 }

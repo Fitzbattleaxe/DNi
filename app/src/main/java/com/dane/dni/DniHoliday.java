@@ -5,7 +5,10 @@ import java.io.Serializable;
 /**
  * Created by Dane on 12/7/2015.
  */
-public class DniHoliday {
+public class DniHoliday implements Serializable {
+
+    private static final long serialVersionUID = 0L;
+
     private String name;
     private long vailee;
     private long yahr;

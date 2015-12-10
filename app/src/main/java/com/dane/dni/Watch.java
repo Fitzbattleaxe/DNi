@@ -2,9 +2,11 @@ package com.dane.dni;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -68,9 +70,9 @@ public class Watch extends FragmentActivity
         displayUnits.add(DniDateTime.Unit.PRORAHN);
         timeDisplay.setUnits(displayUnits, "%d : %02d : %02d");
 
-       Float[] easingValues =
+        Float[] easingValues =
                 new DampedHarmonicOscillator(-1.0f, 0.01f, 0.00f, 1.0f)
-                    .getCachedFunctionValues(0, 800);
+                        .getCachedFunctionValues(0, 800);
 
         watch2 = (PolarView)  findViewById(R.id.watch2);
         watch2.setUpEasing(easingValues, 800);
@@ -91,7 +93,7 @@ public class Watch extends FragmentActivity
 
         boolean useTimeOffsetpreferenceTimeDelta =
                 !PreferenceManager.getDefaultSharedPreferences(this)
-                    .getBoolean("system_time", false);
+                        .getBoolean("system_time", false);
 
         if (useTimeOffsetpreferenceTimeDelta) {
             preferenceTimeDelta = PreferenceManager.getDefaultSharedPreferences(this)
@@ -153,22 +155,41 @@ public class Watch extends FragmentActivity
             }
 
             if (sharedPreferences.getBoolean("holiday_alarms", false)) {
-                disableHolidayAlarms();
-                enableHolidayAlarms();
+                disableHolidayAlarms(holidays, alarmManager, this);
+                enableHolidayAlarms(
+                        holidays, dniDateTime, preferenceTimeDelta, alarmManager, this);
             }
         }
 
         if (key.equals("holiday_alarms")) {
+            ComponentName alarmReceiver = new ComponentName(this, HolidayAlarmReceiver.class);
+            ComponentName bootReceiver = new ComponentName(this, AlarmBootReceiver.class);
+            PackageManager pm = this.getPackageManager();
             if (sharedPreferences.getBoolean("holiday_alarms", false)) {
-                enableHolidayAlarms();
+                pm.setComponentEnabledSetting(alarmReceiver,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP);
+                pm.setComponentEnabledSetting(bootReceiver,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP);
+                enableHolidayAlarms(
+                        holidays, dniDateTime, preferenceTimeDelta, alarmManager, this);
             } else {
-                disableHolidayAlarms();
+                pm.setComponentEnabledSetting(alarmReceiver,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP);
+                pm.setComponentEnabledSetting(bootReceiver,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP);
+                disableHolidayAlarms(holidays, alarmManager, this);
             }
         }
     }
 
-    private void disableHolidayAlarms() {
-        Context context = this.getApplicationContext();
+    static void disableHolidayAlarms(
+            List<DniHoliday> holidays,
+            AlarmManager alarmManager,
+            Context context) {
         for (int i = 0; i < holidays.size() ; i++) {
             Intent intent = new Intent(context, HolidayAlarmReceiver.class);
             PendingIntent pendingIntent =
@@ -177,7 +198,12 @@ public class Watch extends FragmentActivity
         }
     }
 
-    private void enableHolidayAlarms() {
+    static void enableHolidayAlarms(
+            List<DniHoliday> holidays,
+            DniDateTime dniDateTime,
+            long preferenceTimeDelta,
+            AlarmManager alarmManager,
+            Context context) {
         List<Pair<DniHoliday, Long>> nextHolidayTimes = new ArrayList<>();
         for (DniHoliday holiday : holidays) {
             long currentHahr = dniDateTime.getHahrtee();
@@ -195,15 +221,16 @@ public class Watch extends FragmentActivity
                                 holidayDateTime.getSystemTimeInMillis() - preferenceTimeDelta));
             }
         }
-        Context context = this.getApplicationContext();
         int intentId = 0;
         for (Pair<DniHoliday, Long> holidayPair : nextHolidayTimes) {
             Intent intent = new Intent(context, HolidayAlarmReceiver.class)
-                    .putExtra("holiday_name", holidayPair.first.getName())
+                    .putExtra("holiday", holidayPair.first)
+                    .putExtra("intentId", intentId)
                     .setAction("com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY");
             PendingIntent pendingIntent =
-                    PendingIntent.getBroadcast(context, intentId++, intent, 0);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, holidayPair.second, pendingIntent);
+                    PendingIntent.getBroadcast(context, intentId, intent, 0);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, holidayPair.second, pendingIntent);
+            intentId++;
         }
     }
 

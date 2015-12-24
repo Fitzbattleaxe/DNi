@@ -242,4 +242,8 @@ public class DniDateTime {
     public long getSystemTimeInMillis() {
         return timeInMillis;
     }
+
+    public static String getVaileeName(int vaileetee) {
+        return VAILEE_NAMES[vaileetee - 1];
+    }
 }

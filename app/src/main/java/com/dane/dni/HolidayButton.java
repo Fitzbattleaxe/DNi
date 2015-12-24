@@ -10,16 +10,12 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.TouchDelegate;
-import android.view.View;
 import android.widget.Button;
 
-import java.io.IOException;
-
 /**
- * Created by Dane on 11/1/2015.
+ * Created by Dane on 12/22/2015.
  */
-public class MenuButton extends Button {
+public class HolidayButton extends Button {
 
     private Paint circlePaint;
     private Paint backgroundPaint1;
@@ -27,7 +23,7 @@ public class MenuButton extends Button {
     private float circleRadius;
     private Rect bounds;
 
-    public MenuButton(Context context, AttributeSet attrs) {
+    public HolidayButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setColor(Color.rgb(244, 242, 239));
@@ -38,10 +34,11 @@ public class MenuButton extends Button {
         backgroundPaint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
         backgroundPaint2.setColor(Color.rgb(196, 194, 188));
 
+        this.setTextScaleX(-1.0f);
         this.setTypeface(Typeface.createFromAsset(context.getAssets(),
                 "fonts/MaterialIcons-Regular.ttf"));
         this.setTextColor(Color.rgb(119, 112, 109));
-        this.setText("\uE3C7");
+        this.setText("\uE8E1");
         this.setTextAlignment(TEXT_ALIGNMENT_CENTER);
     }
 

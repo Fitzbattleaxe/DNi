@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class HolidayXmlParser {
 
-    public List<DniHoliday> getHolidays(InputStream in)
+    public ArrayList<DniHoliday> getHolidays(InputStream in)
             throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
@@ -28,9 +28,9 @@ public class HolidayXmlParser {
         }
     }
 
-    private List<DniHoliday> processFeed(XmlPullParser parser)
+    private ArrayList<DniHoliday> processFeed(XmlPullParser parser)
             throws XmlPullParserException, IOException{
-        List<DniHoliday> holidays = new ArrayList<>();
+        ArrayList<DniHoliday> holidays = new ArrayList<>();
         parser.require(XmlPullParser.START_TAG, null, "Holidays");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {

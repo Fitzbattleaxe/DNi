@@ -183,4 +183,14 @@
         android:adjustViewBounds="false"
         android:onClick="openSettings"
         android:clickable="true" />
+    <com.dane.dni.HolidayButton
+        app:layout_marginRightPercent="5%"
+        app:layout_marginTopPercent="3%"
+        app:layout_heightPercent="8%"
+        app:layout_widthPercent="14%"
+        android:layout_gravity="right"
+        android:id="@+id/holidayButton"
+        android:background="@android:color/transparent"
+        android:adjustViewBounds="false"
+        android:clickable="true" />
 </android.support.percent.PercentFrameLayout>

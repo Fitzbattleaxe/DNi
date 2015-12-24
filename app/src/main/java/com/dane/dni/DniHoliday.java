@@ -1,13 +1,25 @@
 package com.dane.dni;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by Dane on 12/7/2015.
  */
-public class DniHoliday implements Serializable {
+public class DniHoliday implements Parcelable {
 
-    private static final long serialVersionUID = 0L;
+    public static final Parcelable.Creator<DniHoliday> CREATOR
+            = new Parcelable.Creator<DniHoliday>() {
+            public DniHoliday createFromParcel(Parcel in) {
+                return new DniHoliday(in);
+            }
+
+            public DniHoliday[] newArray(int size) {
+                return new DniHoliday[size];
+            }
+    };
 
     private String name;
     private long vailee;
@@ -17,6 +29,14 @@ public class DniHoliday implements Serializable {
         this.name = name;
         this.vailee = vailee;
         this.yahr = yahr;
+    }
+
+    public DniHoliday(Parcel in) {
+        long[] data = new long[2];
+        in.readLongArray(data);
+        name = in.readString();
+        vailee = data[0];
+        yahr = data[1];
     }
 
     public String getName() {
@@ -29,5 +49,19 @@ public class DniHoliday implements Serializable {
 
     public long getYahr() {
         return yahr;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        long[] data = new long[2];
+        data[0] = vailee;
+        data[1] = yahr;
+        dest.writeLongArray(data);
+        dest.writeString(name);
     }
 }

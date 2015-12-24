@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ScaleDrawable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
@@ -21,7 +22,7 @@ public class HolidayAlarmReceiver extends BroadcastReceiver {
         String holidayName = holiday.getName();
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(holidayName)
-                .setSmallIcon(R.drawable.ic_alarm_notification)
+                .setSmallIcon(R.drawable.notific_icn)
                 .setContentText("Happy holidays!")
                 .setAutoCancel(true);
         Intent resultIntent = new Intent(context, Watch.class);

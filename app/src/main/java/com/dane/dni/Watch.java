@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Pair;
 import android.view.View;
 
@@ -32,10 +33,11 @@ public class Watch extends FragmentActivity
     PolarView watch1;
     PolarView watch2;
     MenuButton menuButton;
+    HolidayButton holidayButton;
     long preferenceTimeDelta = 0;
     final Handler tickHandler = new Handler();
 
-    List<DniHoliday> holidays;
+    ArrayList<DniHoliday> holidays;
 
     AlarmManager alarmManager;
 
@@ -85,6 +87,9 @@ public class Watch extends FragmentActivity
         watch1.addOffsetClock(offsetDniDateTime);
 
         menuButton = (MenuButton) findViewById(R.id.menuButton);
+        holidayButton = (HolidayButton) findViewById(R.id.holidayButton);
+
+        holidayButton.setOnClickListener(holidayOnClickListener);
 
         tickHandler.post(myRunnable);
 
@@ -115,6 +120,19 @@ public class Watch extends FragmentActivity
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+
+    final View.OnClickListener holidayOnClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        FragmentManager fm = getSupportFragmentManager();
+                        HolidayDialogFragment holidayDialogFragment =
+                                new HolidayDialogFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("holidays", holidays);
+                    holidayDialogFragment.setArguments(bundle);
+                    holidayDialogFragment.show(fm, "holiday_list");
+                    }
+            };
 
     final Runnable myRunnable = new Runnable() {
         public void run() {
@@ -210,6 +228,7 @@ public class Watch extends FragmentActivity
             DniDateTime holidayDateTime = DniDateTime.now(
                     currentHahr, holiday.getVailee(), holiday.getYahr(), 0, 0, 0, 0, 0);
             long currentHahrHolidayInMillis = holidayDateTime.getSystemTimeInMillis();
+
             if (currentHahrHolidayInMillis > dniDateTime.getSystemTimeInMillis()) {
                 nextHolidayTimes.add(
                         Pair.create(holiday, currentHahrHolidayInMillis - preferenceTimeDelta));

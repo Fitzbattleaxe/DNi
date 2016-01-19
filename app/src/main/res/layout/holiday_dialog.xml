@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/holiday_root">
+    android:layout_height="wrap_content"
+    android:id="@+id/holiday_root"
+    android:background="#f4f2ef">
+
+    <RelativeLayout
+        android:id="@+id/dialogTopChrome"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        app:layout_heightPercent="1.2%"
+        android:background="#ffffff" />
+    <RelativeLayout
+        android:padding="10dp"
+        android:id="@+id/dialogListHolder"
+        android:layout_below="@+id/dialogTopChrome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Holidays                                        "
+        android:id="@+id/holidayHeader"
+        android:textSize="24dp"
+        android:textColor="#3f3329"
+        android:shadowColor="#b7b6b2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:maxLines="1" />
 
     <ListView
+        android:layout_below="@+id/holidayHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/holidayList"
         android:layout_gravity="center_horizontal" />
-</LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/dialogBottomChrome"
+        android:layout_below="@+id/dialogListHolder"
+        android:layout_width="match_parent"
+        app:layout_heightPercent="0.6%"
+        android:background="#c8cfcd" />
+</android.support.percent.PercentRelativeLayout>

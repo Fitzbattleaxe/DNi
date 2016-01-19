@@ -1,11 +1,13 @@
 package com.dane.dni;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,10 +21,14 @@ public class HolidayListAdapter extends ArrayAdapter<DniHoliday> {
 
     private int mResource;
 
-    public HolidayListAdapter(Context context, int resource, List<DniHoliday> objects) {
+    private Typeface typeface;
+
+    public HolidayListAdapter(Context context, int resource, List<DniHoliday> objects,
+                              Typeface typeface) {
         super(context, resource, objects);
         mInflater = LayoutInflater.from(context);
         mResource = resource;
+        this.typeface = typeface;
     }
 
     @Override
@@ -47,7 +53,9 @@ public class HolidayListAdapter extends ArrayAdapter<DniHoliday> {
 
         DniHoliday item = getItem(position);
         nameView.setText(item.getName());
-        dateView.setText((item.getVailee() + 1) + "/" + item.getYahr());
+        nameView.setTypeface(typeface);
+        dateView.setText((item.getVailee() + 1) + ":" + item.getYahr());
+        dateView.setTypeface(typeface);
 
         return view;
     }

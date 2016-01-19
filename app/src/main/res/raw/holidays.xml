@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Holidays>
     <Holiday name="D'ni New Year" vailee="Leefo" yahr="1" />
-    <Holiday name="First Feast of the Maker" vailee="Leenovoo" yahr="10" />
     <Holiday name="Opening of the Common Library" vailee="Leefo" yahr="12" />
     <Holiday name="Second Feast of the Maker" vailee="Leebro" yahr="20" />
     <Holiday name="The Day of Dancing" vailee="Leetar" yahr="21" />
@@ -9,4 +8,5 @@
     <Holiday name="Third Feast of the Maker" vailee="Leevofo" yahr="18" />
     <Holiday name="Coronation of King Kerath" vailee="Leevofo" yahr="27" />
     <Holiday name="Finding of the Lost Book of Birenni" vailee="Leevobro" yahr="12" />
+    <Holiday name="First Feast of the Maker" vailee="Leenovoo" yahr="10" />
 </Holidays>

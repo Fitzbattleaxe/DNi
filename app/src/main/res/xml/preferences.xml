@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="dni_nums"
-        android:summary="Use D'ni numerals on clock hands."
-        android:title="D'ni Numerals" />
     <PreferenceScreen
         android:key="date_time_category_key"
         android:persistent="false"
         android:summary="Date and time settings."
         android:title="Date/Time">
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="system_time"
-            android:title="Use System Time" />
         <com.dane.dni.DateTimePreference
             android:defaultValue="0"
             android:key="custom_date_time"
-            android:title="Set Date/Time"
+            android:title="Time Travel Control"
+            android:summary="Long press values to use keyboard"
             android:enabled="false"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="system_time"
+            android:title="Stay in the Present"
+            android:summary="Run clock according to system time"/>
     </PreferenceScreen>
     <PreferenceScreen
         android:key="alarm_category_key"
@@ -30,5 +27,35 @@
             android:key="holiday_alarms"
             android:title="Enable Holiday Alarms"
             android:summary="Notify for D'Ni holidays"/>
+    </PreferenceScreen>
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="dni_nums"
+        android:summary="Switch between D'ni and surface numerals."
+        android:title="D'ni Numerals" />
+    <PreferenceScreen
+        android:key="about_category_key"
+        android:persistent="false"
+        android:title="App Info">
+        <Preference
+            android:persistent="false"
+            android:selectable="false"
+            android:title="Created By"
+            android:summary="Ellen Rocket &amp; Dane Wallinga"/>
+        <Preference
+            android:persistent="false"
+            android:selectable="false"
+            android:title="Version"
+            android:summary="@string/version_code"/>
+        <Preference android:title="Code Repository"
+            android:summary="https://github.com/Fitzbattleaxe/DNi">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Fitzbattleaxe/DNi" />
+        </Preference>
+        <Preference
+            android:persistent="false"
+            android:selectable="false"
+            android:title="Special thanks"
+            android:summary="to the talented team at Cyan, for creating Myst and the D'ni."/>
     </PreferenceScreen>
 </PreferenceScreen>

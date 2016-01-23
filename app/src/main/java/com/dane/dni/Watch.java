@@ -171,7 +171,8 @@ public class Watch extends FragmentActivity
             } else {
                 preferenceTimeDelta = 0;
             }
-
+            long time = System.currentTimeMillis();
+            dniDateTime.setTimeInMillis(time + preferenceTimeDelta);
             if (sharedPreferences.getBoolean("holiday_alarms", false)) {
                 disableHolidayAlarms(holidays, alarmManager, this);
                 enableHolidayAlarms(
@@ -229,7 +230,8 @@ public class Watch extends FragmentActivity
                     currentHahr, holiday.getVailee(), holiday.getYahr(), 0, 0, 0, 0, 0);
             long currentHahrHolidayInMillis = holidayDateTime.getSystemTimeInMillis();
 
-            if (currentHahrHolidayInMillis > dniDateTime.getSystemTimeInMillis()) {
+            if (currentHahrHolidayInMillis
+                    > dniDateTime.getSystemTimeInMillis()) {
                 nextHolidayTimes.add(
                         Pair.create(holiday, currentHahrHolidayInMillis - preferenceTimeDelta));
             } else {
@@ -243,8 +245,8 @@ public class Watch extends FragmentActivity
         int intentId = 0;
         for (Pair<DniHoliday, Long> holidayPair : nextHolidayTimes) {
             Intent intent = new Intent(context, HolidayAlarmReceiver.class)
-                    .putExtra("holiday", holidayPair.first)
-                    .putExtra("intentId", intentId)
+                    .putExtra("com.dane.dni.holiday", holidayPair.first)
+                    .putExtra("com.dane.dni.intentId", intentId)
                     .setAction("com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY");
             PendingIntent pendingIntent =
                     PendingIntent.getBroadcast(context, intentId, intent, 0);

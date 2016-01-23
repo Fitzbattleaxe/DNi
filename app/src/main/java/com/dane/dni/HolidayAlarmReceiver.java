@@ -18,7 +18,7 @@ import android.support.v4.app.NotificationCompat;
 public class HolidayAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        DniHoliday holiday = (DniHoliday) intent.getSerializableExtra("holiday");
+        DniHoliday holiday = (DniHoliday) intent.getParcelableExtra("com.dane.dni.holiday");
         String holidayName = holiday.getName();
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(holidayName)
@@ -47,7 +47,7 @@ public class HolidayAlarmReceiver extends BroadcastReceiver {
             Intent newIntent = new Intent(context, HolidayAlarmReceiver.class)
                     .putExtra("holiday", holiday)
                     .setAction("com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY");
-            int intentId = intent.getIntExtra("intentId", 0);
+            int intentId = intent.getIntExtra("com.dane.dni.intentId", 0);
             PendingIntent pendingIntent =
                     PendingIntent.getBroadcast(context, intentId, newIntent, 0);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,

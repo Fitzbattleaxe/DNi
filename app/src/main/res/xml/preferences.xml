@@ -39,12 +39,10 @@
         android:title="App Info">
         <Preference
             android:persistent="false"
-            android:selectable="false"
             android:title="Created By"
-            android:summary="Ellen Rocket &amp; Dane Wallinga"/>
+            android:summary="Ellen Rockett &amp; Dane Wallinga"/>
         <Preference
             android:persistent="false"
-            android:selectable="false"
             android:title="Version"
             android:summary="@string/version_code"/>
         <Preference android:title="Code Repository"
@@ -54,7 +52,6 @@
         </Preference>
         <Preference
             android:persistent="false"
-            android:selectable="false"
             android:title="Special thanks"
             android:summary="to the talented team at Cyan, for creating Myst and the D'ni."/>
     </PreferenceScreen>

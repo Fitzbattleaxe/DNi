@@ -3,8 +3,7 @@
     <PreferenceScreen
         android:key="date_time_category_key"
         android:persistent="false"
-        android:summary="Date and time settings."
-        android:title="Date/Time">
+        android:title="Date &amp; Time">
         <com.dane.dni.DateTimePreference
             android:defaultValue="0"
             android:key="custom_date_time"
@@ -25,8 +24,7 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="holiday_alarms"
-            android:title="Enable Holiday Alarms"
-            android:summary="Notify for D'Ni holidays"/>
+            android:title="D'ni Holiday Alarms"/>
     </PreferenceScreen>
     <CheckBoxPreference
         android:defaultValue="true"

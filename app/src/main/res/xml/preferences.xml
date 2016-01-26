@@ -19,7 +19,6 @@
     <PreferenceScreen
         android:key="alarm_category_key"
         android:persistent="false"
-        android:summary="Alarm settings."
         android:title="Alarms">
         <CheckBoxPreference
             android:defaultValue="false"

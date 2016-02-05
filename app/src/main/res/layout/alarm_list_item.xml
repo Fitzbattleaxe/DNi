@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete"
-            android:id="@+id/button"
+            android:id="@+id/alarmDelete"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4 : 4 : 4 : 24 : 24"
-            android:id="@+id/textView5"
+            android:id="@+id/alarmDisplay"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:textSize="24dp"
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enable"
-            android:id="@+id/switch1"
+            android:id="@+id/enableAlarm"
             android:layout_alignParentTop="false"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />
@@ -62,8 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tomorrow"
-            android:id="@+id/textView6"
-            android:layout_below="@+id/textView5"
+            android:id="@+id/alarmDay"
+            android:layout_below="@+id/alarmDisplay"
             android:layout_alignParentStart="true"
             android:textSize="16dp" />
 

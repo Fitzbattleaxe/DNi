@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class HolidayDialogFragment extends DialogFragment {
                 Typeface.createFromAsset(getContext().getAssets(), "fonts/EBGaramond-Regular.ttf");
 
         View view = inflater.inflate(R.layout.holiday_dialog, container);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow()
                 .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 

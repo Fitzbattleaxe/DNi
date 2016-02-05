@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.widget.Button;
 
@@ -61,7 +62,7 @@ public class HolidayButton extends Button {
         float availableHeight = bounds.height();
         float backgroundPadding = availableHeight / 30;
         circleRadius = availableHeight / 2  - backgroundPadding;
-        float fontSize = circleRadius / 1.5f;
+        float fontSize = circleRadius * 1.5f;
 
         float backgroundMajorAxis = circleRadius + backgroundPadding;
 
@@ -91,7 +92,7 @@ public class HolidayButton extends Button {
         path.offset(bounds.centerX(), bounds.centerY());
         canvas.drawPath(path, circlePaint);
 
-        this.setTextSize(fontSize);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize);
         this.setShadowLayer(4, 0, availableHeight / 35, Color.rgb(199, 197, 194));
 
         super.onDraw(canvas);

@@ -3,7 +3,9 @@
     package="com.dane.dni"
     android:versionCode="1"
     android:versionName="@string/version_code" >
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,32 +17,46 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/SettingsTheme"
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:theme="@style/SettingsTheme" >
         </activity>
-        <receiver android:name=".HolidayAlarmReceiver"
-            android:enabled="false">
+
+        <receiver
+            android:name=".HolidayAlarmReceiver"
+            android:enabled="false" >
             <intent-filter>
-                <action android:name="com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY"></action>
+                <action android:name="com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".AlarmBootReceiver"
-            android:enabled="false">
+        <receiver
+            android:name=".AlarmBootReceiver"
+            android:enabled="false" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".SystemTimeChangeReceiver"
-            android:enabled="false">
+        <receiver
+            android:name=".SystemTimeChangeReceiver"
+            android:enabled="false" >
             <intent-filter>
-                <action android:name="android.intent.action.TIME_SET"></action>
+                <action android:name="android.intent.action.TIME_SET" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".AlarmActivity"
+            android:label="@string/title_activity_alarm"
+            android:parentActivityName=".Watch" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dane.dni.SettingsActivity" />
+        </activity>
     </application>
 
 </manifest>

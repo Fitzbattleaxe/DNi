@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.watch.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,6 +10,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
 import android.view.View;
+
+import com.dane.dni.common.data.DniDateTime;
+import com.dane.dni.common.utils.DniNumberUtil;
+import com.dane.dni.watch.views.utils.GradientShiftingColor;
 
 /**
  * Created by Dane on 8/22/2015.

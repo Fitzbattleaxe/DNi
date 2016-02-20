@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.watch;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -15,9 +15,20 @@ import android.support.v4.app.FragmentManager;
 import android.util.Pair;
 import android.view.View;
 
-import org.xmlpull.v1.XmlPullParserException;
+import com.dane.dni.alarms.AlarmActivity;
+import com.dane.dni.alarms.external.AlarmBootReceiver;
+import com.dane.dni.watch.views.utils.DampedHarmonicOscillator;
+import com.dane.dni.common.data.DniDateTime;
+import com.dane.dni.common.data.DniHoliday;
+import com.dane.dni.alarms.external.HolidayAlarmReceiver;
+import com.dane.dni.common.utils.HolidayXmlParser;
+import com.dane.dni.R;
+import com.dane.dni.watch.views.HolidayButton;
+import com.dane.dni.watch.views.HolidayDialogFragment;
+import com.dane.dni.watch.views.MenuButton;
+import com.dane.dni.watch.views.PolarView;
+import com.dane.dni.watch.views.TimeDisplay;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -117,7 +128,7 @@ public class Watch extends FragmentActivity
     }
 
     public void openSettings(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(this, /*SettingsActivity.class*/AlarmActivity.class);
         startActivity(intent);
     }
 
@@ -205,7 +216,7 @@ public class Watch extends FragmentActivity
         }
     }
 
-    static void disableHolidayAlarms(
+    public static void disableHolidayAlarms(
             List<DniHoliday> holidays,
             AlarmManager alarmManager,
             Context context) {
@@ -217,7 +228,7 @@ public class Watch extends FragmentActivity
         }
     }
 
-    static void enableHolidayAlarms(
+    public static void enableHolidayAlarms(
             List<DniHoliday> holidays,
             DniDateTime dniDateTime,
             long preferenceTimeDelta,

@@ -1,14 +1,15 @@
-package com.dane.dni;
+package com.dane.dni.watch.views;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.dane.dni.common.data.DniHoliday;
+import com.dane.dni.R;
 
 import java.util.List;
 

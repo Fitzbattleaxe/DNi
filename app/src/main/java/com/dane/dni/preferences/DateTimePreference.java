@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.preferences;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+
+import com.dane.dni.R;
 
 import java.util.Calendar;
 import java.util.Date;

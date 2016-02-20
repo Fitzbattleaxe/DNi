@@ -1,8 +1,8 @@
 package com.dane.dni;
 
-import org.junit.Test;
+import com.dane.dni.watch.views.utils.DampedHarmonicOscillator;
 
-import java.util.Map;
+import org.junit.Test;
 
 /**
  * Created by Dane on 8/26/2015.

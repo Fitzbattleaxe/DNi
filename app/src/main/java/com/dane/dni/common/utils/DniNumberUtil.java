@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.common.utils;
 
 import java.util.HashMap;
 import java.util.Map;

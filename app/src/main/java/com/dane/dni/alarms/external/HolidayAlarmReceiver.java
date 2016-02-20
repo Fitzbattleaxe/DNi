@@ -1,6 +1,5 @@
-package com.dane.dni;
+package com.dane.dni.alarms.external;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,9 +7,13 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ScaleDrawable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+
+import com.dane.dni.common.data.DniDateTime;
+import com.dane.dni.common.data.DniHoliday;
+import com.dane.dni.R;
+import com.dane.dni.watch.Watch;
 
 /**
  * Created by Dane on 12/8/2015.

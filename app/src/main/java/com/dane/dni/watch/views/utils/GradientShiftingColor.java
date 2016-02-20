@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.watch.views.utils;
 
 import android.graphics.Color;
 import android.graphics.Shader;

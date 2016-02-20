@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.watch.views;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.dane.dni.common.data.DniHoliday;
+import com.dane.dni.R;
 
 import java.util.ArrayList;
 
@@ -28,7 +31,6 @@ public class HolidayDialogFragment extends DialogFragment {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow()
                 .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
 
         ArrayList<DniHoliday> holidays = getArguments().getParcelableArrayList("holidays");
         HolidayListAdapter adapter = new HolidayListAdapter(

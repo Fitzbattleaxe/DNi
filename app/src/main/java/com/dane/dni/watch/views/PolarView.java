@@ -1,24 +1,21 @@
-package com.dane.dni;
+package com.dane.dni.watch.views;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.dane.dni.common.data.DniDateTime;
+import com.dane.dni.R;
+
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Dane on 8/21/2015.

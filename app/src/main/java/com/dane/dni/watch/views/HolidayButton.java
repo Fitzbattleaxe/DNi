@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.watch.views;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -1,6 +1,9 @@
-package com.dane.dni;
+package com.dane.dni.common.utils;
 
 import android.util.Xml;
+
+import com.dane.dni.common.data.DniDateTime;
+import com.dane.dni.common.data.DniHoliday;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -8,7 +11,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Dane on 12/7/2015.

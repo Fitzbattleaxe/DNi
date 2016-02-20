@@ -1,17 +1,20 @@
-package com.dane.dni;
+package com.dane.dni.alarms;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.widget.ListView;
+
+import com.dane.dni.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AlarmActivity extends Activity {
+public class AlarmActivity extends Activity implements DniTimePicker.DniTimePickerListener {
 
     private ListView alarmListView;
     private AlarmListAdapter alarmListAdapter;
@@ -39,5 +42,27 @@ public class AlarmActivity extends Activity {
         alarmListView = (ListView) findViewById(R.id.alarmList);
         alarmListAdapter = new AlarmListAdapter(this, R.layout.alarm_list_item, alarmDataList);
         alarmListView.setAdapter(alarmListAdapter);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        DniTimePicker dniTimePicker = (DniTimePicker) dialog;
+        AlarmData oldAlarmData = alarmListAdapter.getItem(dniTimePicker.getAlarmId());
+        AlarmData newAlarmData = new AlarmData(
+                dniTimePicker.getShift(),
+                dniTimePicker.getHour(),
+                dniTimePicker.getQuarter(),
+                dniTimePicker.getMinute(),
+                dniTimePicker.getSecond(),
+                oldAlarmData.isEnabled());
+        alarmListAdapter.insert(newAlarmData, dniTimePicker.getAlarmId());
+        if (oldAlarmData.isEnabled()) {
+
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
     }
 }

@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Watch"
+            android:name=".watch.Watch"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -22,27 +22,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".preferences.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme" >
         </activity>
 
         <receiver
-            android:name=".HolidayAlarmReceiver"
+            android:name=".alarms.external.HolidayAlarmReceiver"
             android:enabled="false" >
             <intent-filter>
                 <action android:name="com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".AlarmBootReceiver"
+            android:name=".alarms.external.AlarmBootReceiver"
             android:enabled="false" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".SystemTimeChangeReceiver"
+            android:name=".alarms.external.SystemTimeChangeReceiver"
             android:enabled="false" >
             <intent-filter>
                 <action android:name="android.intent.action.TIME_SET" />
@@ -50,12 +50,12 @@
         </receiver>
 
         <activity
-            android:name=".AlarmActivity"
+            android:name=".alarms.AlarmActivity"
             android:label="@string/title_activity_alarm"
-            android:parentActivityName=".Watch" >
+            android:parentActivityName=".watch.Watch" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dane.dni.SettingsActivity" />
+                android:value=".preferences.SettingsActivity" />
         </activity>
     </application>
 

@@ -1,12 +1,15 @@
-package com.dane.dni;
+package com.dane.dni.alarms;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import com.dane.dni.R;
 
 import java.util.List;
 
@@ -40,15 +43,15 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
             view = convertView;
         }
 
-        AlarmData item = getItem(position);
+        AlarmData alarmData = getItem(position);
 
         TextView alarmDisplay = (TextView) view.findViewById(R.id.alarmDisplay);
         alarmDisplay.setText(String.format("%d : %d : %d : %02d : %02d",
-                item.getShift(), item.getHour(), item.getQuarter(), item.getMinute(),
-                item.getSecond()));
+                alarmData.getShift(), alarmData.getHour(), alarmData.getQuarter(),
+                alarmData.getMinute(), alarmData.getSecond()));
 
         Switch enabledSwitch = (Switch) view.findViewById(R.id.enableAlarm);
-        enabledSwitch.setChecked(item.isEnabled());
+        enabledSwitch.setChecked(alarmData.isEnabled());
 
         return view;
     }

@@ -25,7 +25,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
                 android:id="@+id/spacer1"></RelativeLayout>
-            <com.dane.dni.PolarView
+            <com.dane.dni.watch.views.PolarView
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:id="@+id/watch1"
@@ -50,7 +50,7 @@
                 custom:units="PAHRTAHVO,GAHRTAHVO,YAHR,VAILEE"
                 custom:colors="s(#12285e:0.0;#38131f:0.1;#6d0606:0.15;#9b3a10:0.2;#bc5827:0.24;#ea852a:0.3;#f4b17a:0.5;#ea852a:0.7;#bc5827:0.76;#9b3a10:0.8;#6d0606:0.85;#38131f:0.9;#12285e:1.0),g(#12285e:0.0;#38131f:0.1;#6d0606:0.15;#9b3a10:0.2;#bc5827:0.24;#ea852a:0.3;#f4b17a:0.5;#ea852a:0.7;#bc5827:0.76;#9b3a10:0.8;#6d0606:0.85;#38131f:0.9;#12285e:1.0),t(#30251d:0.0;#3f3329:0.0431;#4f4136:0.0862;#544339:0.1293;#59483d:0.1724;#66564e:0.2155;#685c59:0.2586;#6b625f:0.3017;#77706d:0.3448;#827b78:0.3879;#918c88:0.4310;#99938f:0.4741;#a39f9b:0.5172;#99938f:0.5575;#918c88:0.5977;#827b78:0.6379;#77706d:0.6782;#6b625f:0.7184;#685c59:0.7586;#66564e:0.7989;#59483d:0.8391;#544339:0.8793;#4f4136:0.9195;#3f3329:0.9598;#30251d:1.0),t(#30251d:0.0;#3f3329:0.0417;#4f4136:0.0833;#544339:0.125;#59483d:0.1667;#66564e:0.2083;#685c59:0.25;#6b625f:0.2917;#77706d:0.3333;#827b78:0.375;#918c88:0.4167;#99938f:0.4583;#a39f9b:0.5;#99938f:0.5417;#918c88:0.5833;#827b78:0.625;#77706d:0.6667;#6b625f:0.7083;#685c59:0.75;#66564e:0.7917;#59483d:0.8333;#544339:0.875;#4f4136:0.9167;#3f3329:0.9583;#30251d:1.0)"/>
 
-            <com.dane.dni.PolarView
+            <com.dane.dni.watch.views.PolarView
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:id="@+id/watch2"
@@ -112,7 +112,7 @@
                         android:animationCache="false"
                         android:layout_alignParentLeft="true">
 
-                        <com.dane.dni.TimeDisplay
+                        <com.dane.dni.watch.views.TimeDisplay
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/month_display"
@@ -129,7 +129,7 @@
                             android:shadowColor="#b9b8b5"
                             android:layout_marginTop="-1dp" />
 
-                        <com.dane.dni.TimeDisplay
+                        <com.dane.dni.watch.views.TimeDisplay
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/time_display"
@@ -146,7 +146,7 @@
                             android:shadowColor="#b9b8b5" />
                     </LinearLayout>
 
-                    <com.dane.dni.TimeDisplay
+                    <com.dane.dni.watch.views.TimeDisplay
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/year_display"
@@ -173,7 +173,7 @@
             </android.support.percent.PercentRelativeLayout>
         </LinearLayout>
     </FrameLayout>
-    <com.dane.dni.MenuButton
+    <com.dane.dni.watch.views.MenuButton
         app:layout_marginLeftPercent="5%"
         app:layout_marginTopPercent="3%"
         app:layout_heightPercent="8%"
@@ -183,7 +183,7 @@
         android:adjustViewBounds="false"
         android:onClick="openSettings"
         android:clickable="true" />
-    <com.dane.dni.HolidayButton
+    <com.dane.dni.watch.views.HolidayButton
         app:layout_marginRightPercent="5%"
         app:layout_marginTopPercent="3%"
         app:layout_heightPercent="8%"

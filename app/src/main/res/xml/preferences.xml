@@ -4,7 +4,7 @@
         android:key="date_time_category_key"
         android:persistent="false"
         android:title="Date &amp; Time">
-        <com.dane.dni.DateTimePreference
+        <com.dane.dni.preferences.DateTimePreference
             android:defaultValue="0"
             android:key="custom_date_time"
             android:title="Time Travel Control"

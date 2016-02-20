@@ -1,5 +1,7 @@
 package com.dane.dni;
 
+import com.dane.dni.common.data.DniDateTime;
+
 import org.junit.Test;
 
 import java.util.Calendar;

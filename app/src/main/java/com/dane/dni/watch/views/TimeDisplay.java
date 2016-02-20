@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.watch.views;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,6 +12,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.dane.dni.common.data.DniDateTime;
 
 import java.util.List;
 

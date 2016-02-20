@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.common.data;
 
 /**
  * Created by Dane on 8/16/2015.
@@ -28,7 +28,7 @@ public class DniDateTime {
             "Leenovoo"
     };
 
-    enum Vailee {
+    public enum Vailee {
         LEEFO,
         LEEBRO,
         LEESAHN,
@@ -41,7 +41,7 @@ public class DniDateTime {
         LEENOVOO
     }
 
-    enum Unit {
+    public enum Unit {
         HAHR,
         VAILEE,
         NAMED_VAILEE,

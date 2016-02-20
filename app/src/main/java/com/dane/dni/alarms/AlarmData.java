@@ -1,4 +1,4 @@
-package com.dane.dni;
+package com.dane.dni.alarms;
 
 /**
  * Created by Dane on 2/4/2016.

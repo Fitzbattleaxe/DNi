@@ -1,10 +1,16 @@
-package com.dane.dni;
+package com.dane.dni.alarms.external;
 
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+
+import com.dane.dni.common.data.DniDateTime;
+import com.dane.dni.common.data.DniHoliday;
+import com.dane.dni.common.utils.HolidayXmlParser;
+import com.dane.dni.R;
+import com.dane.dni.watch.Watch;
 
 import java.util.List;
 

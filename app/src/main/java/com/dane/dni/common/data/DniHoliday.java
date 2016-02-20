@@ -1,9 +1,7 @@
-package com.dane.dni;
+package com.dane.dni.common.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 /**
  * Created by Dane on 12/7/2015.

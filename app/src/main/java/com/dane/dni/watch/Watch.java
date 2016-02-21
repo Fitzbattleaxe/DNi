@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.dane.dni.alarms.AlarmActivity;
 import com.dane.dni.alarms.external.AlarmBootReceiver;
+import com.dane.dni.preferences.SettingsActivity;
 import com.dane.dni.watch.views.utils.DampedHarmonicOscillator;
 import com.dane.dni.common.data.DniDateTime;
 import com.dane.dni.common.data.DniHoliday;
@@ -128,7 +129,7 @@ public class Watch extends FragmentActivity
     }
 
     public void openSettings(View view) {
-        Intent intent = new Intent(this, /*SettingsActivity.class*/AlarmActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
@@ -253,16 +254,16 @@ public class Watch extends FragmentActivity
                                 holidayDateTime.getSystemTimeInMillis() - preferenceTimeDelta));
             }
         }
-        int intentId = 0;
+        int holidayId = 0;
         for (Pair<DniHoliday, Long> holidayPair : nextHolidayTimes) {
             Intent intent = new Intent(context, HolidayAlarmReceiver.class)
                     .putExtra("com.dane.dni.holiday", holidayPair.first)
-                    .putExtra("com.dane.dni.intentId", intentId)
+                    .putExtra("com.dane.dni.holidayId", holidayId)
                     .setAction("com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY");
             PendingIntent pendingIntent =
-                    PendingIntent.getBroadcast(context, intentId, intent, 0);
+                    PendingIntent.getBroadcast(context, holidayId, intent, 0);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, holidayPair.second, pendingIntent);
-            intentId++;
+            holidayId++;
         }
     }
 

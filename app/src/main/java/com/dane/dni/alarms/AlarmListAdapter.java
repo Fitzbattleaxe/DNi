@@ -2,6 +2,8 @@ package com.dane.dni.alarms;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +21,15 @@ import java.util.List;
 public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
 
     private final LayoutInflater mInflater;
-
     private int mResource;
+    private FragmentManager fm;
 
-    public AlarmListAdapter(Context context, int resource, List<AlarmData> objects) {
+    public AlarmListAdapter(Context context, int resource, List<AlarmData> objects,
+                            FragmentManager fm) {
         super(context, resource, objects);
         mInflater = LayoutInflater.from(context);
         mResource = resource;
+        this.fm = fm;
     }
 
     @Override
@@ -43,7 +47,7 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
             view = convertView;
         }
 
-        AlarmData alarmData = getItem(position);
+        final AlarmData alarmData = getItem(position);
 
         TextView alarmDisplay = (TextView) view.findViewById(R.id.alarmDisplay);
         alarmDisplay.setText(String.format("%d : %d : %d : %02d : %02d",
@@ -52,6 +56,22 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
 
         Switch enabledSwitch = (Switch) view.findViewById(R.id.enableAlarm);
         enabledSwitch.setChecked(alarmData.isEnabled());
+
+        alarmDisplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DniTimePicker dniTimePicker = new DniTimePicker();
+                Bundle bundle = new Bundle();
+                bundle.putInt("alarmId", alarmData.getAlarmId());
+                bundle.putInt("shift", alarmData.getShift());
+                bundle.putInt("hour", alarmData.getHour());
+                bundle.putInt("quarter", alarmData.getQuarter());
+                bundle.putInt("minute", alarmData.getMinute());
+                bundle.putInt("second", alarmData.getSecond());
+                dniTimePicker.show(fm, "AlarmDialogFragment");
+                dniTimePicker.setArguments(bundle);
+            }
+        });
 
         return view;
     }

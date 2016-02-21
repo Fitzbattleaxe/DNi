@@ -12,17 +12,22 @@ public class AlarmData {
     private int second;
     private boolean enabled;
 
-    public AlarmData(int shift, int hour, int quarter, int minute, int second, boolean enabled) {
+    private int alarmId;
+
+    public AlarmData(int shift, int hour, int quarter, int minute, int second, boolean enabled,
+                     int alarmId) {
         this.shift = shift;
         this.hour = hour;
         this.quarter = quarter;
         this.minute = minute;
         this.second = second;
         this.enabled = enabled;
+        this.alarmId = alarmId;
     }
 
     public String toStringRepresentation() {
-        return String.format("%d:%d:%d:%d:%d:%b", shift, hour, quarter, minute, second, enabled);
+        return String.format("%d:%d:%d:%d:%d:%b%d",
+                shift, hour, quarter, minute, second, enabled, alarmId);
     }
 
     public static AlarmData fromStringRepresentation(String rawData) {
@@ -33,7 +38,8 @@ public class AlarmData {
                 Integer.parseInt(parts[2]),
                 Integer.parseInt(parts[3]),
                 Integer.parseInt(parts[4]),
-                Boolean.valueOf(parts[0]));
+                Boolean.valueOf(parts[5]),
+                Integer.parseInt(parts[6]));
     }
 
     public boolean isEnabled() {
@@ -58,5 +64,9 @@ public class AlarmData {
 
     public int getSecond() {
         return second;
+    }
+
+    public int getAlarmId() {
+        return alarmId;
     }
 }

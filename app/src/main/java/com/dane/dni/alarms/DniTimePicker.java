@@ -34,10 +34,11 @@ public class DniTimePicker extends DialogFragment {
     NumberPicker secondPicker;
 
     int alarmId;
+    Bundle bundle;
 
     @Override
     public void setArguments(Bundle bundle) {
-        alarmId = bundle.getInt("alarmId");
+        this.bundle = bundle;
     }
 
     @Override
@@ -63,15 +64,20 @@ public class DniTimePicker extends DialogFragment {
                 .setPositiveButton("Set", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        listener.onDialogPositiveClick(DniTimePicker.this);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        listener.onDialogNegativeClick(DniTimePicker.this);
                     }
                 });
+        setTime(bundle.getInt("shift"),
+                bundle.getInt("hour"),
+                bundle.getInt("quarter"),
+                bundle.getInt("minute"),
+                bundle.getInt("second"));
         return builder.create();
     }
 
@@ -115,7 +121,7 @@ public class DniTimePicker extends DialogFragment {
     }
 
     public int getAlarmId() {
-        return alarmId;
+        return bundle.getInt("alarmId");
     }
 
     private void initPicker(NumberPicker picker, int min, int max) {

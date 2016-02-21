@@ -24,6 +24,9 @@
             android:defaultValue="false"
             android:key="holiday_alarms"
             android:title="D'ni Holiday Alarms"/>
+        <Preference android:title="Custom Alarms">
+            <intent android:action="com.dane.dni.CUSTOM_ALARMS" />
+        </Preference>
     </PreferenceScreen>
     <CheckBoxPreference
         android:defaultValue="true"

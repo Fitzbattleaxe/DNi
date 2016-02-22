@@ -26,7 +26,7 @@ public class AlarmData {
     }
 
     public String toStringRepresentation() {
-        return String.format("%d:%d:%d:%d:%d:%b%d",
+        return String.format("%d:%d:%d:%d:%d:%b:%d",
                 shift, hour, quarter, minute, second, enabled, alarmId);
     }
 

@@ -21,22 +21,20 @@ public class AlarmActivity extends FragmentActivity implements DniTimePicker.Dni
     private AlarmListAdapter alarmListAdapter;
     private List<AlarmData> alarmDataList;
 
+    private SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
-
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         initView();
     }
 
     private void initView() {
         alarmDataList = new ArrayList<>();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Set<String> rawAlarmDataSet =
-            new HashSet();
-        rawAlarmDataSet.add("3:1:2:14:21:true:1");
-        /*preferences.getStringSet("custom_alarm_data",
-                new HashSet<String>());*/
+        Set<String> rawAlarmDataSet = preferences.getStringSet("custom_alarm_data",
+                new HashSet<String>());
         for (String rawAlarmData : rawAlarmDataSet) {
             alarmDataList.add(AlarmData.fromStringRepresentation(rawAlarmData));
         }
@@ -70,6 +68,15 @@ public class AlarmActivity extends FragmentActivity implements DniTimePicker.Dni
         int alarmPosition = alarmListAdapter.getPosition(oldAlarmData);
         alarmListAdapter.insert(newAlarmData, alarmPosition);
         alarmListAdapter.remove(oldAlarmData);
+        updateAlarmPreferences();
+    }
+
+    private void updateAlarmPreferences() {
+        Set<String> alarmSet = new HashSet<>();
+        for (AlarmData alarmData : alarmDataList) {
+            alarmSet.add(alarmData.toStringRepresentation());
+        }
+        preferences.edit().putStringSet("custom_alarm_data", alarmSet).apply();
     }
 
     @Override

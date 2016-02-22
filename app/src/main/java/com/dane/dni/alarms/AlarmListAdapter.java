@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -23,13 +25,15 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
     private final LayoutInflater mInflater;
     private int mResource;
     private FragmentManager fm;
+    private final AlarmActivity alarmActivity;
 
     public AlarmListAdapter(Context context, int resource, List<AlarmData> objects,
-                            FragmentManager fm) {
+                            FragmentManager fm, AlarmActivity alarmActivity) {
         super(context, resource, objects);
         mInflater = LayoutInflater.from(context);
         mResource = resource;
         this.fm = fm;
+        this.alarmActivity = alarmActivity;
     }
 
     @Override
@@ -56,6 +60,21 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
 
         Switch enabledSwitch = (Switch) view.findViewById(R.id.enableAlarm);
         enabledSwitch.setChecked(alarmData.isEnabled());
+
+        enabledSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                alarmActivity.setEnabled(alarmData.getAlarmId(), isChecked);
+            }
+        });
+
+        Button deleteButton = (Button) view.findViewById(R.id.alarmDelete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alarmActivity.deleteAlarm(alarmData.getAlarmId());
+            }
+        });
 
         alarmDisplay.setOnClickListener(new View.OnClickListener() {
             @Override

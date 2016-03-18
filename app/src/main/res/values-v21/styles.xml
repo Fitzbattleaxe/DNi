@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+            <!-- Customize your theme here. -->
+            <item name="android:colorBackground">@color/background_material_light</item>
+            <item name="android:textColorPrimary">@color/primary_text_dni</item>
+            <item name="android:colorPrimary">@color/primary_material_light</item>
+            <item name="android:colorAccent">@color/accent_material_light</item>
+        </style>
+        <style name="SettingsTheme" parent="android:Theme.Material.Light">
+            <!-- Customize your theme here. -->
+            <item name="android:colorBackground">@color/background_material_light</item>
+            <item name="android:textColorPrimary">@color/primary_text_dni</item>
+            <item name="android:colorPrimary">@color/primary_material_light</item>
+            <item name="android:colorAccent">@color/accent_material_light</item>
+            <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+        </style>
+        <style name="ActionBarTheme" parent="android:Widget.Material.Light.ActionBar">
+            <item name="android:background">@color/dni_text_box_background</item>
+        </style>
+    </resources>

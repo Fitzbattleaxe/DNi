@@ -105,16 +105,17 @@ public class HandView extends View {
             lastTime = curTime;
             tickStartMsec = curTimeMsec;
             lastAngle = angle;
-            float arcProgress = lastTime / (1.0f * dniDateTime.getMax(unit));
+            float arcProgress = lastTime / (1.0f * offsetDniDateTime.getMax(unit));
             angle = 360.0f * arcProgress;
 
             if (gradientShiftingColor != null) {
                 lastColorPosition = colorPosition < 1.0 ? colorPosition : 0;
-                DniDateTime.Unit largerUnit = dniDateTime.getLarger(unit);
+                DniDateTime.Unit largerUnit = offsetDniDateTime.getLarger(unit);
                 if (gradientShiftingColor.useLargerUnitPosition()) {
-                    int largerCurTime = dniDateTime.getNum(largerUnit);
-                    int largerMaxTime = dniDateTime.getMax(largerUnit);
-                    colorPosition = (largerCurTime + arcProgress) / (1.0f * largerMaxTime);
+                    int largerCurTime = offsetDniDateTime.getNum(largerUnit);
+                    int largerMaxTime = offsetDniDateTime.getMax(largerUnit);
+                    colorPosition = arcProgress > 0
+                            ? (largerCurTime + arcProgress) / (1.0f * largerMaxTime) : 1.0f;
                 } else {
                     colorPosition = arcProgress > 0 ? arcProgress : 1.0f;
                 }

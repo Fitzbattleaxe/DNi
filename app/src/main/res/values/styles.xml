@@ -15,4 +15,9 @@
     <style name="ActionBarTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         <item name="android:background">@color/dni_text_box_background</item>
     </style>
+    <style name="CustomDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

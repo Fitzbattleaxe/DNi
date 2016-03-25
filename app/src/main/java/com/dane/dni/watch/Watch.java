@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Pair;
@@ -139,6 +140,8 @@ public class Watch extends FragmentActivity
                         FragmentManager fm = getSupportFragmentManager();
                         HolidayDialogFragment holidayDialogFragment =
                                 new HolidayDialogFragment();
+                    holidayDialogFragment
+                            .setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialogTheme);
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("holidays", holidays);
                     holidayDialogFragment.setArguments(bundle);

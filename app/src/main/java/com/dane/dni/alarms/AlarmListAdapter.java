@@ -87,8 +87,8 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
                 bundle.putInt("quarter", alarmData.getQuarter());
                 bundle.putInt("minute", alarmData.getMinute());
                 bundle.putInt("second", alarmData.getSecond());
-                dniTimePicker.show(fm, "AlarmDialogFragment");
                 dniTimePicker.setArguments(bundle);
+                dniTimePicker.show(fm, "AlarmDialogFragment");
             }
         });
 

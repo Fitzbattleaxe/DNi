@@ -139,12 +139,10 @@ public class Watch extends FragmentActivity
                 public void onClick(View v) {
                         FragmentManager fm = getSupportFragmentManager();
                         HolidayDialogFragment holidayDialogFragment =
-                                new HolidayDialogFragment();
+                                HolidayDialogFragment.newInstance(dniDateTime, holidays);
                     holidayDialogFragment
                             .setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialogTheme);
                     Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList("holidays", holidays);
-                    holidayDialogFragment.setArguments(bundle);
                     holidayDialogFragment.show(fm, "holiday_list");
                     }
             };

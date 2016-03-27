@@ -7,18 +7,39 @@
     android:background="#c83f3329">
 
     <android.support.percent.PercentRelativeLayout
-        app:layout_marginPercent="10%"
+        app:layout_marginPercent="5%"
+        android:background="@android:color/transparent"
+        android:id="@+id/holidayDialogFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.dane.dni.watch.views.CloseButton
+        app:layout_marginBottomPercent="3.75%"
+        app:layout_heightPercent="8.889%"
+        app:layout_widthPercent="15.556%"
+        android:layout_alignParentTop="false"
+        android:id="@+id/holidayDialogClose"
+        android:background="@android:color/transparent"
+        android:adjustViewBounds="false"
+        android:clickable="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/holiday_root" />
+
+    <android.support.percent.PercentRelativeLayout
         android:background="#f4f2ef"
         android:id="@+id/holiday_root"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
 
-    <RelativeLayout
+        <RelativeLayout
         android:id="@+id/dialogTopChrome"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         app:layout_heightPercent="1.2%"
-        android:background="#ffffff" />
+        android:background="#ffffff" >
+
+        </RelativeLayout>
     <RelativeLayout
         android:padding="10dp"
         android:id="@+id/dialogListHolder"
@@ -51,6 +72,6 @@
         android:layout_width="match_parent"
         app:layout_heightPercent="0.6%"
         android:background="#c8cfcd" />
-
+</android.support.percent.PercentRelativeLayout>
     </android.support.percent.PercentRelativeLayout>
 </android.support.percent.PercentRelativeLayout>

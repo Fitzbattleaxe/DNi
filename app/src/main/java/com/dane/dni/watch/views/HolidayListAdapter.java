@@ -2,6 +2,10 @@ package com.dane.dni.watch.views;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +59,17 @@ public class HolidayListAdapter extends ArrayAdapter<DniHoliday> {
         DniHoliday item = getItem(position);
         nameView.setText(item.getName());
         nameView.setTypeface(typeface);
-        dateView.setText((item.getVailee() + 1) + ":" + item.getYahr());
+
+        String dateString = (item.getVailee() + 1) + " : " + item.getYahr();
+        SpannableStringBuilder finalDateString = new SpannableStringBuilder(dateString);
+        int colonIndex = dateString.indexOf(':');
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(nameView.getCurrentTextColor());
+        finalDateString.setSpan(colorSpan, colonIndex, colonIndex + 1,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        AbsoluteSizeSpan sizeSpan = new AbsoluteSizeSpan((int) nameView.getTextSize());
+        finalDateString.setSpan(sizeSpan, colonIndex, colonIndex + 1,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        dateView.setText(finalDateString);
         dateView.setTypeface(typeface);
 
         return view;

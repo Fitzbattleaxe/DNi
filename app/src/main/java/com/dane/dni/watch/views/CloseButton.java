@@ -16,14 +16,13 @@ import android.widget.Button;
 import com.dane.dni.common.views.CircularButton;
 
 /**
- * Created by Dane on 12/22/2015.
+ * Created by Dane on 3/27/2016.
  */
-public class HolidayButton extends CircularButton {
+public class CloseButton extends CircularButton {
 
-    public HolidayButton(Context context, AttributeSet attrs) {
+    public CloseButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTextScaleX(-1.0f);
-        this.setText("\uE8E1");
+        this.setText("\uE14C");
         this.setTextAlignment(TEXT_ALIGNMENT_CENTER);
     }
 }

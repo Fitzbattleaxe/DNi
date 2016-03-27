@@ -36,16 +36,17 @@ public class DniTimePicker extends DialogFragment {
     int alarmId;
     Bundle bundle;
 
-    @Override
+ /*   @Override
     public void setArguments(Bundle bundle) {
         this.bundle = bundle;
-    }
+    }*/
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dni_time_picker, null);
 
+        bundle = getArguments();
         shiftPicker = (NumberPicker) view.findViewById(R.id.shiftPicker);
         hourPicker = (NumberPicker) view.findViewById(R.id.hourPicker);
         quarterPicker = (NumberPicker) view.findViewById(R.id.quarterPicker);

@@ -1,9 +1,11 @@
 package com.dane.dni.common.data;
 
+import java.util.Objects;
+
 /**
  * Created by Dane on 8/16/2015.
  */
-public class DniDateTime {
+public class DniDateTime implements Comparable<DniDateTime> {
     private static final double SECS_TO_PRORAHN = 1.392857389;
     private static final double EPOCH_OFFSET = 218082198186.06136478628394597259088094624739790930598997;
 
@@ -243,7 +245,59 @@ public class DniDateTime {
         return timeInMillis;
     }
 
-    public static String getVaileeName(int vaileetee) {
-        return VAILEE_NAMES[vaileetee - 1];
+    @Override
+    public int compareTo(DniDateTime another) {
+        int i = Integer.compare(hahrtee, another.hahrtee);
+        if (i != 0) return i;
+
+        i = Integer.compare(vaileetee, another.vaileetee);
+        if (i != 0) return i;
+
+        i = Integer.compare(yahrtee, another.yahrtee);
+        if (i != 0) return i;
+
+        i = Integer.compare(gahrtahvotee, another.gahrtahvotee);
+        if (i != 0) return i;
+
+        i = Integer.compare(pahrtahvotee, another.pahrtahvotee);
+        if (i != 0) return i;
+
+        i = Integer.compare(tahvotee, another.tahvotee);
+        if (i != 0) return i;
+
+        i = Integer.compare(gorahntee, another.gorahntee);
+        if (i != 0) return i;
+
+        i = Integer.compare(prorahntee, another.prorahntee);
+        return i;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof DniDateTime) {
+            DniDateTime otherDataTime = (DniDateTime) other;
+            return this.gahrtahvotee == otherDataTime.gahrtahvotee
+                    && this.gorahntee == otherDataTime.gorahntee
+                    && this.hahrtee == otherDataTime.hahrtee
+                    && this.pahrtahvotee == otherDataTime.pahrtahvotee
+                    && this.prorahntee == otherDataTime.prorahntee
+                    && this.tahvotee == otherDataTime.tahvotee
+                    && this.vaileetee == otherDataTime.vaileetee
+                    && this.yahrtee == otherDataTime.yahrtee;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                gahrtahvotee,
+                gorahntee,
+                hahrtee,
+                pahrtahvotee,
+                prorahntee,
+                tahvotee,
+                vaileetee,
+                yahrtee);
     }
 }

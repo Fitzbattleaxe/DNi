@@ -44,16 +44,27 @@ public class DniDateTime implements Comparable<DniDateTime> {
     }
 
     public enum Unit {
-        HAHR,
-        VAILEE,
-        NAMED_VAILEE,
-        YAHR,
-        GAHRTAHVO,
-        PAHRTAHVO,
-        TAHVO,
-        GORAHN,
-        PRORAHN
+        HAHR("Hahr"),
+        VAILEE("Vailee"),
+        NAMED_VAILEE("Vailee"),
+        YAHR("Yahr"),
+        GAHRTAHVO("Gahrtahvo"),
+        PAHRTAHVO("Pahrtahvo"),
+        TAHVO("Tahvo"),
+        GORAHN("Gorahn"),
+        PRORAHN("Prorahn");
+
+        String displayName;
+
+        Unit(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
     }
+
 
     private boolean isTimeSet;
 
@@ -129,6 +140,10 @@ public class DniDateTime implements Comparable<DniDateTime> {
 
     private static long toMillis(long prorahntee) {
         return (long) Math.floor((prorahntee - EPOCH_OFFSET) * SECS_TO_PRORAHN * 1000);
+    }
+
+    public static String getVaileeName(Integer vailee) {
+        return VAILEE_NAMES[vailee - 1];
     }
 
     protected void computeFields() {

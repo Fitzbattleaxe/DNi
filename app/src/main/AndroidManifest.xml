@@ -52,8 +52,7 @@
         <activity
             android:name=".alarms.AlarmActivity"
             android:label="@string/title_activity_alarm"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".watch.Watch" >
+            android:theme="@style/AlarmTheme" >
             <intent-filter>
                 <action android:name="com.dane.dni.CUSTOM_ALARMS" />
                 <category android:name="android.intent.category.DEFAULT" />

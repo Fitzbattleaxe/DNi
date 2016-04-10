@@ -10,11 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.dane.dni.R;
+import com.dane.dni.alarms.views.AlarmTimeDisplay;
+import com.dane.dni.common.data.DniDateTime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,12 +57,24 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
 
         final AlarmData alarmData = getItem(position);
 
-        TextView alarmDisplay = (TextView) view.findViewById(R.id.alarmDisplay);
-        alarmDisplay.setText(String.format("%d : %d : %d : %02d : %02d",
-                alarmData.getShift(), alarmData.getHour(), alarmData.getQuarter(),
-                alarmData.getMinute(), alarmData.getSecond()));
+        View displayRoot = view.findViewById(R.id.alarmDisplayRoot);
 
-        Switch enabledSwitch = (Switch) view.findViewById(R.id.enableAlarm);
+        AlarmTimeDisplay alarmDisplay1 = (AlarmTimeDisplay) view.findViewById(R.id.alarmDisplay1);
+        ArrayList<DniDateTime.Unit> units = new ArrayList<DniDateTime.Unit>();
+        units.add(DniDateTime.Unit.NAMED_VAILEE);
+        units.add(DniDateTime.Unit.YAHR);
+        units.add(DniDateTime.Unit.GAHRTAHVO);
+        units.add(DniDateTime.Unit.PAHRTAHVO);
+        alarmDisplay1.setData(units, "%s %s , %s : %s", alarmData);
+
+        AlarmTimeDisplay alarmDisplay2 = (AlarmTimeDisplay) view.findViewById(R.id.alarmDisplay2);
+        units = new ArrayList<DniDateTime.Unit>();
+        units.add(DniDateTime.Unit.TAHVO);
+        units.add(DniDateTime.Unit.GORAHN);
+        units.add(DniDateTime.Unit.PRORAHN);
+        alarmDisplay2.setData(units, "%s : %s : %s", alarmData);
+
+/*        Switch enabledSwitch = (Switch) view.findViewById(R.id.enableAlarm);
         enabledSwitch.setChecked(alarmData.isEnabled());
 
         enabledSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -74,9 +90,9 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
             public void onClick(View v) {
                 alarmActivity.deleteAlarm(alarmData.getAlarmId());
             }
-        });
+        });*/
 
-        alarmDisplay.setOnClickListener(new View.OnClickListener() {
+        displayRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DniTimePicker dniTimePicker = new DniTimePicker();

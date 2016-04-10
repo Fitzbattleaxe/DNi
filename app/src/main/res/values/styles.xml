@@ -6,14 +6,19 @@
         <item name="android:colorBackground">@color/background_material_light</item>
         <item name="android:textColorPrimary">@color/primary_text_dni</item>
     </style>
+    <style name="AlarmTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="android:colorBackground">@color/settings_background</item>
+        <item name="android:textColorPrimary">@color/primary_text_dni</item>
+        <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+    </style>
     <style name="SettingsTheme" parent="@style/Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="android:colorBackground">@color/background_material_light</item>
+        <item name="android:colorBackground">@color/settings_background</item>
         <item name="android:textColorPrimary">@color/primary_text_dni</item>
         <item name="android:actionBarStyle">@style/ActionBarTheme</item>
     </style>
     <style name="ActionBarTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background">@color/dni_text_box_background</item>
+        <item name="android:background">@color/action_bar_background</item>
     </style>
     <style name="CustomDialogTheme" parent="android:Theme.Dialog">
         <item name="android:windowNoTitle">true</item>

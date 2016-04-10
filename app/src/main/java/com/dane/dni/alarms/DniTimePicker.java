@@ -27,6 +27,8 @@ public class DniTimePicker extends DialogFragment {
 
     DniTimePickerListener listener;
 
+    NumberPicker monthPicker;
+    NumberPicker dayPicker;
     NumberPicker shiftPicker;
     NumberPicker hourPicker;
     NumberPicker quarterPicker;
@@ -47,12 +49,16 @@ public class DniTimePicker extends DialogFragment {
         View view = inflater.inflate(R.layout.dni_time_picker, null);
 
         bundle = getArguments();
+        monthPicker = (NumberPicker) view.findViewById(R.id.monthPicker);
+        dayPicker = (NumberPicker) view.findViewById(R.id.dayPicker);
         shiftPicker = (NumberPicker) view.findViewById(R.id.shiftPicker);
         hourPicker = (NumberPicker) view.findViewById(R.id.hourPicker);
         quarterPicker = (NumberPicker) view.findViewById(R.id.quarterPicker);
         minutePicker = (NumberPicker) view.findViewById(R.id.minutePicker);
         secondPicker = (NumberPicker) view.findViewById(R.id.secondPicker);
 
+        initPicker(monthPicker, 1, 10);
+        initPicker(dayPicker, 1, 29);
         initPicker(shiftPicker, 0, 4);
         initPicker(hourPicker, 0, 4);
         initPicker(quarterPicker, 0, 4);
@@ -74,7 +80,9 @@ public class DniTimePicker extends DialogFragment {
                         listener.onDialogNegativeClick(DniTimePicker.this);
                     }
                 });
-        setTime(bundle.getInt("shift"),
+        setTime(bundle.getInt("month"),
+                bundle.getInt("day"),
+                bundle.getInt("shift"),
                 bundle.getInt("hour"),
                 bundle.getInt("quarter"),
                 bundle.getInt("minute"),
@@ -93,13 +101,20 @@ public class DniTimePicker extends DialogFragment {
         }
     }
 
-    public void setTime(int shift, int hour, int quarter, int minute, int second) {
+    public void setTime(int month, int day, int shift, int hour, int quarter, int minute,
+                        int second) {
+        monthPicker.setValue(month);
+        dayPicker.setValue(day);
         shiftPicker.setValue(shift);
         hourPicker.setValue(hour);
         quarterPicker.setValue(quarter);
         minutePicker.setValue(minute);
         secondPicker.setValue(second);
     }
+
+    public int getMonth() { return monthPicker.getValue(); }
+
+    public int getDay() { return dayPicker.getValue(); }
 
     public int getShift() {
         return shiftPicker.getValue();

@@ -98,6 +98,8 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
                 DniTimePicker dniTimePicker = new DniTimePicker();
                 Bundle bundle = new Bundle();
                 bundle.putInt("alarmId", alarmData.getAlarmId());
+                bundle.putInt("month", alarmData.getMonth());
+                bundle.putInt("day", alarmData.getDay());
                 bundle.putInt("shift", alarmData.getShift());
                 bundle.putInt("hour", alarmData.getHour());
                 bundle.putInt("quarter", alarmData.getQuarter());

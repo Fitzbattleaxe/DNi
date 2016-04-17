@@ -53,7 +53,7 @@ public class AlarmData {
     }
 
     private static String toStringValue(Integer value) {
-        return value == null ? "*" : value.toString();
+        return value == -1 ? "*" : value.toString();
     }
 
     public static AlarmData fromStringRepresentation(String rawData) {
@@ -74,7 +74,7 @@ public class AlarmData {
     }
 
     private static Integer fromStringValue(String value) {
-        return value.equals("*") ? null : Integer.parseInt(value);
+        return value.equals("*") ? -1 : Integer.parseInt(value);
     }
 
     public boolean isEnabled() {
@@ -102,31 +102,31 @@ public class AlarmData {
         }
     }
 
-    public Integer getMonth() { return month; }
+    public int getMonth() { return month; }
 
-    public Integer getDay() { return day; }
+    public int getDay() { return day; }
 
-    public Integer getShift() {
+    public int getShift() {
         return shift;
     }
 
-    public Integer getHour() {
+    public int getHour() {
         return hour;
     }
 
-    public Integer getQuarter() {
+    public int getQuarter() {
         return quarter;
     }
 
-    public Integer getMinute() {
+    public int getMinute() {
         return minute;
     }
 
-    public Integer getSecond() {
+    public int getSecond() {
         return second;
     }
 
-    public Integer getAlarmId() {
+    public int getAlarmId() {
         return alarmId;
     }
 }

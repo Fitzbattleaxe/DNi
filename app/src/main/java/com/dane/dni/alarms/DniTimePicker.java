@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 
 import com.dane.dni.R;
+import com.dane.dni.alarms.views.DniAlarmUnitPicker;
 
 /**
  * Created by Dane on 1/21/2016.
@@ -27,13 +28,13 @@ public class DniTimePicker extends DialogFragment {
 
     DniTimePickerListener listener;
 
-    NumberPicker monthPicker;
-    NumberPicker dayPicker;
-    NumberPicker shiftPicker;
-    NumberPicker hourPicker;
-    NumberPicker quarterPicker;
-    NumberPicker minutePicker;
-    NumberPicker secondPicker;
+    DniAlarmUnitPicker monthPicker;
+    DniAlarmUnitPicker dayPicker;
+    DniAlarmUnitPicker shiftPicker;
+    DniAlarmUnitPicker hourPicker;
+    DniAlarmUnitPicker quarterPicker;
+    DniAlarmUnitPicker minutePicker;
+    DniAlarmUnitPicker secondPicker;
 
     int alarmId;
     Bundle bundle;
@@ -46,24 +47,16 @@ public class DniTimePicker extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dni_time_picker, null);
+        View view = inflater.inflate(R.layout.alarm_setter, null);
 
         bundle = getArguments();
-        monthPicker = (NumberPicker) view.findViewById(R.id.monthPicker);
-        dayPicker = (NumberPicker) view.findViewById(R.id.dayPicker);
-        shiftPicker = (NumberPicker) view.findViewById(R.id.shiftPicker);
-        hourPicker = (NumberPicker) view.findViewById(R.id.hourPicker);
-        quarterPicker = (NumberPicker) view.findViewById(R.id.quarterPicker);
-        minutePicker = (NumberPicker) view.findViewById(R.id.minutePicker);
-        secondPicker = (NumberPicker) view.findViewById(R.id.secondPicker);
-
-        initPicker(monthPicker, 1, 10);
-        initPicker(dayPicker, 1, 29);
-        initPicker(shiftPicker, 0, 4);
-        initPicker(hourPicker, 0, 4);
-        initPicker(quarterPicker, 0, 4);
-        initPicker(minutePicker, 0, 24);
-        initPicker(secondPicker, 0, 24);
+        monthPicker = (DniAlarmUnitPicker) view.findViewById(R.id.monthPicker);
+        dayPicker = (DniAlarmUnitPicker) view.findViewById(R.id.dayPicker);
+        shiftPicker = (DniAlarmUnitPicker) view.findViewById(R.id.shiftPicker);
+        hourPicker = (DniAlarmUnitPicker) view.findViewById(R.id.hourPicker);
+        quarterPicker = (DniAlarmUnitPicker) view.findViewById(R.id.quarterPicker);
+        minutePicker = (DniAlarmUnitPicker) view.findViewById(R.id.minutePicker);
+        secondPicker = (DniAlarmUnitPicker) view.findViewById(R.id.secondPicker);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Set alarm time")
@@ -103,46 +96,40 @@ public class DniTimePicker extends DialogFragment {
 
     public void setTime(int month, int day, int shift, int hour, int quarter, int minute,
                         int second) {
-        monthPicker.setValue(month);
-        dayPicker.setValue(day);
-        shiftPicker.setValue(shift);
-        hourPicker.setValue(hour);
-        quarterPicker.setValue(quarter);
-        minutePicker.setValue(minute);
-        secondPicker.setValue(second);
+        monthPicker.setValue(Integer.toString(month));
+        dayPicker.setValue(Integer.toString(day));
+        shiftPicker.setValue(Integer.toString(shift));
+        hourPicker.setValue(Integer.toString(hour));
+        quarterPicker.setValue(Integer.toString(quarter));
+        minutePicker.setValue(Integer.toString(minute));
+        secondPicker.setValue(Integer.toString(second));
     }
 
-    public int getMonth() { return monthPicker.getValue(); }
+    public Integer getMonth() { return monthPicker.getValue(); }
 
-    public int getDay() { return dayPicker.getValue(); }
+    public Integer getDay() { return dayPicker.getValue(); }
 
-    public int getShift() {
+    public Integer getShift() {
         return shiftPicker.getValue();
     }
 
-    public int getHour() {
+    public Integer getHour() {
         return hourPicker.getValue();
     }
 
-    public int getQuarter() {
+    public Integer getQuarter() {
         return quarterPicker.getValue();
     }
 
-    public int getMinute() {
+    public Integer getMinute() {
         return minutePicker.getValue();
     }
 
-    public int getSecond() {
+    public Integer getSecond() {
         return secondPicker.getValue();
     }
 
     public int getAlarmId() {
         return bundle.getInt("alarmId");
-    }
-
-    private void initPicker(NumberPicker picker, int min, int max) {
-        picker.setWrapSelectorWheel(true);
-        picker.setMinValue(min);
-        picker.setMaxValue(max);
     }
 }

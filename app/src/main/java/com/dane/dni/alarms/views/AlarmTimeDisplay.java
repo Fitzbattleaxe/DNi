@@ -8,6 +8,8 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.dane.dni.alarms.AlarmData;
@@ -56,13 +58,13 @@ public class AlarmTimeDisplay extends TextView {
             Object arg;
             if (unit.equals(DniDateTime.Unit.NAMED_VAILEE)) {
                 arg = alarmData.getMonth();
-                if (arg != null) {
+                if ((Integer) arg != -1) {
                     arg = DniDateTime.getVaileeName((Integer) arg);
                 }
             } else {
                 arg = alarmData.getNum(unit);
             }
-            if (arg == null) {
+            if (arg.equals(-1)) {
                 arg = unit.getDisplayName();
             }
             formatArgs[i] = arg;

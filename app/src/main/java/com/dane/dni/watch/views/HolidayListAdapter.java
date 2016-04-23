@@ -60,7 +60,7 @@ public class HolidayListAdapter extends ArrayAdapter<DniHoliday> {
         nameView.setText(item.getName());
         nameView.setTypeface(typeface);
 
-        String dateString = (item.getVailee() + 1) + " : " + item.getYahr();
+        String dateString = (item.getVailee() + 1) + " : " + item.getYahr() + 1;
         SpannableStringBuilder finalDateString = new SpannableStringBuilder(dateString);
         int colonIndex = dateString.indexOf(':');
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(nameView.getCurrentTextColor());

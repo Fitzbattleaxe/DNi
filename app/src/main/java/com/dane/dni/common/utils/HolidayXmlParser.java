@@ -55,7 +55,7 @@ public class HolidayXmlParser {
         long vailee = DniDateTime.Vailee.valueOf(
                 parser.getAttributeValue(null, "vailee").toUpperCase())
                 .ordinal();
-        long yahr = Long.parseLong(parser.getAttributeValue(null, "yahr"));
+        long yahr = Long.parseLong(parser.getAttributeValue(null, "yahr")) - 1;
         parser.nextTag();
         parser.require(XmlPullParser.END_TAG, null, "Holiday");
         return new DniHoliday(name, vailee, yahr);

@@ -100,18 +100,6 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
         return randomId;
     }
 
-    public void deleteAlarm(int alarmId) {
-        AlarmData oldAlarmData = null;
-        for (AlarmData alarmData : alarmDataList) {
-            if (alarmData.getAlarmId() == alarmId) {
-                oldAlarmData = alarmData;
-                break;
-            }
-        }
-        alarmListAdapter.remove(oldAlarmData);
-        updateAlarmPreferences();
-    }
-
     public void setEnabled(int alarmId, boolean isEnabled) {
         AlarmData oldAlarmData = null;
         for (AlarmData alarmData : alarmDataList) {
@@ -131,7 +119,7 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
+    public void onAlarmSet(DialogFragment dialog) {
         DniTimePicker dniTimePicker = (DniTimePicker) dialog;
         int alarmId = dniTimePicker.getAlarmId();
         AlarmData oldAlarmData = null;
@@ -168,7 +156,17 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
     }
 
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-
+    public void onAlarmDelete(DialogFragment dialog) {
+        DniTimePicker dniTimePicker = (DniTimePicker) dialog;
+        int alarmId = dniTimePicker.getAlarmId();
+        AlarmData oldAlarmData = null;
+        for (AlarmData alarmData : alarmDataList) {
+            if (alarmData.getAlarmId() == alarmId) {
+                oldAlarmData = alarmData;
+                break;
+            }
+        }
+        alarmListAdapter.remove(oldAlarmData);
+        updateAlarmPreferences();
     }
 }

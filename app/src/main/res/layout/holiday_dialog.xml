@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/holiday_background"
     android:background="#c83f3329">
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.dane.dni.watch.views.CloseButton
+    <com.dane.dni.common.views.CloseButton
         app:layout_marginBottomPercent="3.75%"
         app:layout_heightPercent="8.889%"
         app:layout_widthPercent="15.556%"

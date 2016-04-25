@@ -1,9 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:id="@+id/alarm_setter_backgound"
+    android:background="#c83f3329">
+
+    <android.support.percent.PercentRelativeLayout
+        custom:layout_marginPercent="5%"
+        android:background="@android:color/transparent"
+        android:id="@+id/alarmSetterFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.dane.dni.common.views.CloseButton
+            custom:layout_marginBottomPercent="3.75%"
+            custom:layout_heightPercent="8.889%"
+            custom:layout_widthPercent="15.556%"
+            android:layout_alignParentTop="false"
+            android:id="@+id/alarmSetterClose"
+            android:background="@android:color/transparent"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_centerHorizontal="true"
+            custom:layout_marginLeftPercent="5%"
+            custom:layout_marginRightPercent="5%"
+            android:layout_above="@+id/alarm_setter_root" />
+
+        <com.dane.dni.alarms.views.SetAlarmButton
+            custom:layout_marginBottomPercent="3.75%"
+            custom:layout_heightPercent="8.889%"
+            custom:layout_widthPercent="15.556%"
+            android:layout_alignParentTop="false"
+            android:id="@+id/alarmSetterSet"
+            android:background="@android:color/transparent"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_toRightOf="@id/alarmSetterClose"
+            android:layout_above="@+id/alarm_setter_root" />
+
+        <com.dane.dni.alarms.views.DeleteAlarmButton
+            custom:layout_marginBottomPercent="3.75%"
+            custom:layout_heightPercent="8.889%"
+            custom:layout_widthPercent="15.556%"
+            android:layout_alignParentTop="false"
+            android:id="@+id/alarmDelete"
+            android:background="@android:color/transparent"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_toLeftOf="@id/alarmSetterClose"
+            android:layout_above="@+id/alarm_setter_root" />
+
+        <android.support.percent.PercentRelativeLayout
+            android:background="#f4f2ef"
+            android:id="@+id/alarm_setter_root"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <RelativeLayout
+                android:id="@+id/dialogTopChrome"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                custom:layout_heightPercent="1.2%"
+                android:background="#ffffff" >
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:id="@+id/alarmSettersHolder"
+                android:layout_below="@+id/dialogTopChrome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
     <com.dane.dni.alarms.views.DniAlarmUnitPicker
         android:layout_width="fill_parent"
@@ -47,11 +117,22 @@
         android:layout_gravity="center_horizontal"
         custom:unit="YAHR"
         custom:options="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29"/>
-    <com.dane.dni.alarms.views.DniAlarmUnitPicker
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/monthPicker"
-        android:layout_gravity="center_horizontal"
-        custom:unit="VAILEE"
-        custom:options="1,2,3,4,5,6,7,8,9,10"/>
-</LinearLayout>
+                <com.dane.dni.alarms.views.DniAlarmUnitPicker
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/monthPicker"
+                    android:layout_gravity="center_horizontal"
+                    custom:unit="VAILEE"
+                    custom:options="1,2,3,4,5,6,7,8,9,10"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/dialogBottomChrome"
+                android:layout_below="@+id/alarmSettersHolder"
+                android:layout_width="match_parent"
+                custom:layout_heightPercent="0.6%"
+                android:background="#c8cfcd" />
+
+        </android.support.percent.PercentRelativeLayout>
+        </android.support.percent.PercentRelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

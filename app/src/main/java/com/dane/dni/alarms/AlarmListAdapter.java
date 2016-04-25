@@ -3,6 +3,7 @@ package com.dane.dni.alarms;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,7 +96,6 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
         displayRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DniTimePicker dniTimePicker = new DniTimePicker();
                 Bundle bundle = new Bundle();
                 bundle.putInt("alarmId", alarmData.getAlarmId());
                 bundle.putInt("month", alarmData.getMonth());
@@ -105,6 +105,9 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
                 bundle.putInt("quarter", alarmData.getQuarter());
                 bundle.putInt("minute", alarmData.getMinute());
                 bundle.putInt("second", alarmData.getSecond());
+                DniTimePicker dniTimePicker = DniTimePicker.newInstance(bundle);
+                dniTimePicker
+                        .setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialogTheme);
                 dniTimePicker.setArguments(bundle);
                 dniTimePicker.show(fm, "AlarmDialogFragment");
             }

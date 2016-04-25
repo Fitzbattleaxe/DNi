@@ -1,17 +1,14 @@
 package com.dane.dni.alarms;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.NumberPicker;
+import android.view.Window;
 
 import com.dane.dni.R;
 import com.dane.dni.alarms.views.DniAlarmUnitPicker;
@@ -19,11 +16,11 @@ import com.dane.dni.alarms.views.DniAlarmUnitPicker;
 /**
  * Created by Dane on 1/21/2016.
  */
-public class DniTimePicker extends DialogFragment {
+public class DniTimePicker extends DialogFragment implements View.OnClickListener {
 
     public interface DniTimePickerListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
-        public void onDialogNegativeClick(DialogFragment dialog);
+        public void onAlarmSet(DialogFragment dialog);
+        public void onAlarmDelete(DialogFragment dialog);
     }
 
     DniTimePickerListener listener;
@@ -36,18 +33,44 @@ public class DniTimePicker extends DialogFragment {
     DniAlarmUnitPicker minutePicker;
     DniAlarmUnitPicker secondPicker;
 
-    int alarmId;
+    View setButton;
+    View deleteButton;
+
     Bundle bundle;
 
- /*   @Override
-    public void setArguments(Bundle bundle) {
-        this.bundle = bundle;
-    }*/
+    public static DniTimePicker newInstance(Bundle bundle) {
+        DniTimePicker frag = new DniTimePicker();
+        frag.setArguments(bundle);
+        return frag;
+    }
+
+//    @Override
+//    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder
+//                .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        listener.onAlarmSet(DniTimePicker.this);
+//                    }
+//                })
+//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        listener.onAlarmDelete(DniTimePicker.this);
+//                    }
+//                });
+//        return builder.create();
+//    }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.alarm_setter, null);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow()
+                .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         bundle = getArguments();
         monthPicker = (DniAlarmUnitPicker) view.findViewById(R.id.monthPicker);
@@ -58,21 +81,15 @@ public class DniTimePicker extends DialogFragment {
         minutePicker = (DniAlarmUnitPicker) view.findViewById(R.id.minutePicker);
         secondPicker = (DniAlarmUnitPicker) view.findViewById(R.id.secondPicker);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Set alarm time")
-                .setView(view)
-                .setPositiveButton("Set", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        listener.onDialogPositiveClick(DniTimePicker.this);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        listener.onDialogNegativeClick(DniTimePicker.this);
-                    }
-                });
+        View cancelButton = view.findViewById(R.id.alarmSetterClose);
+        cancelButton.setOnClickListener(this);
+
+        setButton = view.findViewById(R.id.alarmSetterSet);
+        setButton.setOnClickListener(this);
+
+        deleteButton = view.findViewById(R.id.alarmDelete);
+        deleteButton.setOnClickListener(this);
+
         setTime(bundle.getInt("month"),
                 bundle.getInt("day"),
                 bundle.getInt("shift"),
@@ -80,7 +97,8 @@ public class DniTimePicker extends DialogFragment {
                 bundle.getInt("quarter"),
                 bundle.getInt("minute"),
                 bundle.getInt("second"));
-        return builder.create();
+
+        return view;
     }
 
     @Override
@@ -131,5 +149,16 @@ public class DniTimePicker extends DialogFragment {
 
     public int getAlarmId() {
         return bundle.getInt("alarmId");
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (setButton.equals(v)) {
+            listener.onAlarmSet(DniTimePicker.this);
+        }
+        if (deleteButton.equals(v)) {
+            listener.onAlarmDelete(DniTimePicker.this);
+        }
+        getDialog().dismiss();
     }
 }

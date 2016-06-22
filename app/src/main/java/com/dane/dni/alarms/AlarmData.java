@@ -18,6 +18,28 @@ public class AlarmData {
 
     private int alarmId;
 
+    public static DniDateTime.Unit[] SORTED_ALARM_UNITS =
+            {
+                    DniDateTime.Unit.PRORAHN,
+                    DniDateTime.Unit.GORAHN,
+                    DniDateTime.Unit.TAHVO,
+                    DniDateTime.Unit.PAHRTAHVO,
+                    DniDateTime.Unit.GAHRTAHVO,
+                    DniDateTime.Unit.YAHR,
+                    DniDateTime.Unit.VAILEE,
+            };
+
+    public static DniDateTime.Unit[] REVERSE_SORTED_ALARM_UNITS =
+            {
+                    DniDateTime.Unit.VAILEE,
+                    DniDateTime.Unit.YAHR,
+                    DniDateTime.Unit.GAHRTAHVO,
+                    DniDateTime.Unit.PAHRTAHVO,
+                    DniDateTime.Unit.TAHVO,
+                    DniDateTime.Unit.GORAHN,
+                    DniDateTime.Unit.PRORAHN,
+            };
+
     public AlarmData(
             Integer month,
             Integer day,

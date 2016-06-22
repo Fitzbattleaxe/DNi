@@ -159,6 +159,8 @@ public class DniDateTime implements Comparable<DniDateTime> {
 
     public int getMax(Unit unit) {
         switch (unit) {
+            case HAHR:
+                return Integer.MAX_VALUE;
             case VAILEE:
                 return 10;
             case YAHR:
@@ -196,6 +198,29 @@ public class DniDateTime implements Comparable<DniDateTime> {
                 return Unit.GORAHN;
             default:
                 throw new RuntimeException("no larger unit");
+        }
+    }
+
+    public int getZeroIndexedNum(Unit unit) {
+        switch (unit) {
+            case HAHR:
+                return getHahrtee();
+            case VAILEE:
+                return getVaileetee() - 1;
+            case YAHR:
+                return getYahrtee() - 1;
+            case GAHRTAHVO:
+                return getGahrtahvotee();
+            case PAHRTAHVO:
+                return getPahrtahvotee();
+            case TAHVO:
+                return getTahvotee();
+            case GORAHN:
+                return getGorahntee();
+            case PRORAHN:
+                return getProrahntee();
+            default:
+                return -1;
         }
     }
 

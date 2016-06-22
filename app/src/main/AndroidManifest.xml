@@ -35,6 +35,13 @@
             </intent-filter>
         </receiver>
         <receiver
+            android:name=".alarms.external.CustomAlarmReceiver"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="com.dane.dni.ACTION_NOTIFY_FOR_CUSTOM_ALARM" />
+            </intent-filter>
+        </receiver>
+        <receiver
             android:name=".alarms.external.AlarmBootReceiver"
             android:enabled="false" >
             <intent-filter>

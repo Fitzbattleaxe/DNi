@@ -59,8 +59,10 @@ public class AlarmTimeDisplay extends TextView {
             if (unit.equals(DniDateTime.Unit.NAMED_VAILEE)) {
                 arg = alarmData.getMonth();
                 if ((Integer) arg != -1) {
-                    arg = DniDateTime.getVaileeName((Integer) arg);
+                    arg = DniDateTime.getVaileeName((Integer) arg + 1);
                 }
+            } else if (unit.equals(DniDateTime.Unit.YAHR)) {
+                arg = alarmData.getNum(unit) + 1;
             } else {
                 arg = alarmData.getNum(unit);
             }

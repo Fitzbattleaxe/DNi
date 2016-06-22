@@ -75,24 +75,6 @@ public class AlarmListAdapter extends ArrayAdapter<AlarmData> {
         units.add(DniDateTime.Unit.PRORAHN);
         alarmDisplay2.setData(units, "%s : %s : %s", alarmData);
 
-/*        Switch enabledSwitch = (Switch) view.findViewById(R.id.enableAlarm);
-        enabledSwitch.setChecked(alarmData.isEnabled());
-
-        enabledSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                alarmActivity.setEnabled(alarmData.getAlarmId(), isChecked);
-            }
-        });
-
-        Button deleteButton = (Button) view.findViewById(R.id.alarmDelete);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alarmActivity.deleteAlarm(alarmData.getAlarmId());
-            }
-        });*/
-
         displayRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

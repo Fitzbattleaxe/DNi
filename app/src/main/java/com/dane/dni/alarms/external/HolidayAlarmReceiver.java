@@ -57,6 +57,5 @@ public class HolidayAlarmReceiver extends BroadcastReceiver {
                     holidayDateTime.getSystemTimeInMillis(),
                     pendingIntent);
         }
-
     }
 }

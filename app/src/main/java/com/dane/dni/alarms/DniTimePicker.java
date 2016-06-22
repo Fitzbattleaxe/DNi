@@ -44,26 +44,6 @@ public class DniTimePicker extends DialogFragment implements View.OnClickListene
         return frag;
     }
 
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder
-//                .setPositiveButton("Set", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        listener.onAlarmSet(DniTimePicker.this);
-//                    }
-//                })
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        listener.onAlarmDelete(DniTimePicker.this);
-//                    }
-//                });
-//        return builder.create();
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -114,8 +94,8 @@ public class DniTimePicker extends DialogFragment implements View.OnClickListene
 
     public void setTime(int month, int day, int shift, int hour, int quarter, int minute,
                         int second) {
-        monthPicker.setValue(Integer.toString(month));
-        dayPicker.setValue(Integer.toString(day));
+        monthPicker.setValue(Integer.toString(month + 1));
+        dayPicker.setValue(Integer.toString(day + 1));
         shiftPicker.setValue(Integer.toString(shift));
         hourPicker.setValue(Integer.toString(hour));
         quarterPicker.setValue(Integer.toString(quarter));
@@ -123,9 +103,9 @@ public class DniTimePicker extends DialogFragment implements View.OnClickListene
         secondPicker.setValue(Integer.toString(second));
     }
 
-    public Integer getMonth() { return monthPicker.getValue(); }
+    public Integer getMonth() { return monthPicker.getValue() - 1; }
 
-    public Integer getDay() { return dayPicker.getValue(); }
+    public Integer getDay() { return dayPicker.getValue() - 1; }
 
     public Integer getShift() {
         return shiftPicker.getValue();

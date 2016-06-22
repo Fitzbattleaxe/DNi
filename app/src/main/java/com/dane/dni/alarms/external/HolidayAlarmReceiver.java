@@ -41,6 +41,17 @@ public class HolidayAlarmReceiver extends BroadcastReceiver {
 
         // if alarms are still enabled, reschedule this one for the following year.
         if (holidayAlarmsEnabled) {
+            boolean useTimeOffsetpreferenceTimeDelta =
+                    !PreferenceManager.getDefaultSharedPreferences(context)
+                            .getBoolean("system_time", false);
+            long preferenceTimeDelta;
+            if (useTimeOffsetpreferenceTimeDelta) {
+                preferenceTimeDelta = PreferenceManager.getDefaultSharedPreferences(context)
+                        .getLong("custom_date_time", 0L);
+            } else {
+                preferenceTimeDelta = 0;
+            }
+
             AlarmManager alarmManager =
                     (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             DniDateTime dniDateTime = DniDateTime.now();
@@ -54,7 +65,7 @@ public class HolidayAlarmReceiver extends BroadcastReceiver {
             PendingIntent pendingIntent =
                     PendingIntent.getBroadcast(context, intentId, newIntent, 0);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,
-                    holidayDateTime.getSystemTimeInMillis(),
+                    holidayDateTime.getSystemTimeInMillis() - preferenceTimeDelta,
                     pendingIntent);
         }
     }

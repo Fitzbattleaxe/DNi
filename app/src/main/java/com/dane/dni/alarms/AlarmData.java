@@ -1,11 +1,26 @@
 package com.dane.dni.alarms;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.dane.dni.common.data.DniDateTime;
 
 /**
  * Created by Dane on 2/4/2016.
  */
-public class AlarmData {
+public class AlarmData implements Parcelable {
+
+    public static final Parcelable.Creator<AlarmData> CREATOR
+            = new Parcelable.Creator<AlarmData>() {
+        public AlarmData createFromParcel(Parcel in) {
+            return new AlarmData(in);
+        }
+
+        public AlarmData[] newArray(int size) {
+            return new AlarmData[size];
+        }
+    };
 
     private Integer month;
     private Integer day;
@@ -50,15 +65,35 @@ public class AlarmData {
             Integer second,
             boolean enabled,
             int alarmId) {
-        this.month = month;
-        this.day = day;
-        this.shift = shift;
-        this.hour = hour;
-        this.quarter = quarter;
-        this.minute = minute;
-        this.second = second;
-        this.enabled = enabled;
-        this.alarmId = alarmId;
+            this.month = month;
+            this.day = day;
+            this.shift = shift;
+            this.hour = hour;
+            this.quarter = quarter;
+            this.minute = minute;
+            this.second = second;
+            this.enabled = enabled;
+            this.alarmId = alarmId;
+    }
+
+    public AlarmData(Parcel in) {
+        this(in.readString());
+    }
+
+    public AlarmData(String stringRepresentation) {
+        String[] parts = stringRepresentation.split(":");
+        if (parts.length != 9) {
+            throw new RuntimeException("Invalid alarm format");
+        }
+        this.month = fromStringValue(parts[0]);
+        this.day = fromStringValue(parts[1]);
+        this.shift = fromStringValue(parts[2]);
+        this.hour = fromStringValue(parts[3]);
+        this.quarter = fromStringValue(parts[4]);
+        this.minute = fromStringValue(parts[5]);
+        this.second = fromStringValue(parts[6]);
+        this.enabled = Boolean.valueOf(parts[7]);
+        this.alarmId = Integer.parseInt(parts[8]);
     }
 
     public String toStringRepresentation() {
@@ -79,20 +114,7 @@ public class AlarmData {
     }
 
     public static AlarmData fromStringRepresentation(String rawData) {
-        String[] parts = rawData.split(":");
-        if (parts.length != 9) {
-            throw new RuntimeException("Invalid alarm format");
-        }
-        return new AlarmData(
-                fromStringValue(parts[0]),
-                fromStringValue(parts[1]),
-                fromStringValue(parts[2]),
-                fromStringValue(parts[3]),
-                fromStringValue(parts[4]),
-                fromStringValue(parts[5]),
-                fromStringValue(parts[6]),
-                Boolean.valueOf(parts[7]),
-                Integer.parseInt(parts[8]));
+        return new AlarmData(rawData);
     }
 
     private static Integer fromStringValue(String value) {
@@ -150,5 +172,15 @@ public class AlarmData {
 
     public int getAlarmId() {
         return alarmId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(toStringRepresentation());
     }
 }

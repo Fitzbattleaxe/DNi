@@ -215,11 +215,12 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
             long preferenceTimeDelta,
             AlarmManager alarmManager,
             Context context) {
-        long nextAlarmTimeInMillis = getNextAlarmTimeInMillis(alarmData, dniDateTime);
+        long nextAlarmTimeInMillis =
+                getNextAlarmTimeInMillis(alarmData, dniDateTime, preferenceTimeDelta);
 
         Intent intent = new Intent(context, CustomAlarmReceiver.class)
-                .putExtra(
-                        "com.dane.dni.alarmId", alarmData.getAlarmId())
+                .putExtra("com.dane.dni.alarmData", alarmData)
+                .putExtra("com.dane.dni.alarmId", alarmData.getAlarmId())
                 .setAction("com.dane.dni.ACTION_NOTIFY_FOR_CUSTOM_ALARM");
         PendingIntent pendingIntent =
                 PendingIntent.getBroadcast(context, alarmData.getAlarmId(), intent, 0);
@@ -228,7 +229,8 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
     }
 
     @VisibleForTesting
-    static long getNextAlarmTimeInMillis(AlarmData alarmData, DniDateTime dniDateTime) {
+    static long getNextAlarmTimeInMillis(AlarmData alarmData, DniDateTime dniDateTime,
+                                         long preferenceTimeDelta) {
         Map<DniDateTime.Unit, Integer> completeTime =
                 new HashMap<>();
 
@@ -296,6 +298,6 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
             }
             completeTime.put(unsetUnit, 0);
         }
-        return nextAlarmTimeInMillis;
+        return nextAlarmTimeInMillis - preferenceTimeDelta;
     }
 }

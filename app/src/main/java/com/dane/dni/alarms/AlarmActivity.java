@@ -96,7 +96,7 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
             public void onClick(View v) {
                 if (alarmDataList.size() < 50) {
                     AlarmData newAlarmData = new AlarmData(
-                            1, 1, 0, 0, 0, 0, 0, true, generateAlarmId());
+                            0, 0, 0, 0, 0, 0, 0, true, generateAlarmId());
                     alarmListAdapter.add(newAlarmData);
                     updateAlarmPreferences();
                 }
@@ -200,6 +200,26 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
         updateAlarmPreferences();
     }
 
+    public static void deregisterAllAlarmsWithOs(
+            Iterable<AlarmData> alarmDataList,
+            AlarmManager alarmManager,
+            Context context) {
+        for (AlarmData alarm : alarmDataList) {
+            deregisterAlarmWithOS(alarm, alarmManager, context);
+        }
+    }
+
+    public static void registerAllAlarmsWithOs(
+            Iterable<AlarmData> alarmDataList,
+            DniDateTime dniDateTime,
+            long preferenceTimeDelta,
+            AlarmManager alarmManager,
+            Context context) {
+        for (AlarmData alarm : alarmDataList) {
+            registerAlarmWithOS(alarm, dniDateTime, preferenceTimeDelta, alarmManager, context);
+        }
+    }
+
     public static void deregisterAlarmWithOS(
             AlarmData alarmData,
             AlarmManager alarmManager,
@@ -247,7 +267,7 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
             DniDateTime.Unit unit = unitsToProcess.remove(0);
             int alarmUnitTime = alarmData.getNum(unit);
             int curUnitTime = dniDateTime.getZeroIndexedNum(unit);
-            if (alarmUnitTime != -1) {
+            if (alarmUnitTime > -1) {
                 if (curUnitTime <= alarmUnitTime) {
                     completeTime.put(unit, alarmUnitTime);
                 } else {
@@ -255,7 +275,7 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
                     while (!unitsToProcess.isEmpty()) {
                         unit = unitsToProcess.remove(0);
                         alarmUnitTime = alarmData.getNum(unit);
-                        if (alarmUnitTime != -1) {
+                        if (alarmUnitTime > -1) {
                             completeTime.put(unit, alarmUnitTime);
                         } else {
                             completeTime.put(unit, 0);

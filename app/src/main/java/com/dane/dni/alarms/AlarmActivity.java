@@ -162,7 +162,9 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
 
-        registerAlarmWithOS(newAlarmData, DniDateTime.now(), preferenceTimeDelta, alarmManager, this);
+        long time = System.currentTimeMillis();
+        DniDateTime dniDateTime = DniDateTime.now(time + preferenceTimeDelta);
+        registerAlarmWithOS(newAlarmData, dniDateTime, preferenceTimeDelta, alarmManager, this);
         updateAlarmPreferences();
     }
 

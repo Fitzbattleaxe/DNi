@@ -17,7 +17,9 @@ import android.util.Pair;
 import android.view.View;
 
 import com.dane.dni.alarms.AlarmActivity;
+import com.dane.dni.alarms.AlarmData;
 import com.dane.dni.alarms.external.AlarmBootReceiver;
+import com.dane.dni.alarms.external.SystemTimeChangeReceiver;
 import com.dane.dni.preferences.SettingsActivity;
 import com.dane.dni.watch.views.utils.DampedHarmonicOscillator;
 import com.dane.dni.common.data.DniDateTime;
@@ -32,8 +34,10 @@ import com.dane.dni.watch.views.PolarView;
 import com.dane.dni.watch.views.TimeDisplay;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class Watch extends FragmentActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -174,13 +178,11 @@ public class Watch extends FragmentActivity
         }
 
         if (key.equals("system_time") || key.equals("custom_date_time")) {
-            boolean useTimeOffsetpreferenceTimeDelta =
-                    !PreferenceManager.getDefaultSharedPreferences(this)
-                            .getBoolean("system_time", false);
+            boolean useTimeOffsetPreferenceTimeDelta =
+                    !sharedPreferences.getBoolean("system_time", false);
 
-            if (useTimeOffsetpreferenceTimeDelta) {
-                preferenceTimeDelta = PreferenceManager.getDefaultSharedPreferences(this)
-                        .getLong("custom_date_time", 0L);
+            if (useTimeOffsetPreferenceTimeDelta) {
+                preferenceTimeDelta = sharedPreferences.getLong("custom_date_time", 0L);
             } else {
                 preferenceTimeDelta = 0;
             }
@@ -191,17 +193,34 @@ public class Watch extends FragmentActivity
                 enableHolidayAlarms(
                         holidays, dniDateTime, preferenceTimeDelta, alarmManager, this);
             }
+
+            Set<String> rawAlarmDataSet = sharedPreferences.getStringSet("custom_alarm_data",
+                    new HashSet<String>());
+            List<AlarmData> alarmDataList = new ArrayList<>();
+            for (String rawAlarmData : rawAlarmDataSet) {
+                alarmDataList.add(AlarmData.fromStringRepresentation(rawAlarmData));
+            }
+            AlarmActivity.deregisterAllAlarmsWithOs(alarmDataList, alarmManager, this);
+            AlarmActivity.registerAllAlarmsWithOs(alarmDataList, dniDateTime,
+                    preferenceTimeDelta, alarmManager, this);
         }
 
-        if (key.equals("holiday_alarms")) {
+        if (key.equals("holiday_alarms") || key.equals("custom_alarm_data")) {
             ComponentName alarmReceiver = new ComponentName(this, HolidayAlarmReceiver.class);
             ComponentName bootReceiver = new ComponentName(this, AlarmBootReceiver.class);
+            ComponentName timeChangeReceiver =
+                    new ComponentName(this, SystemTimeChangeReceiver.class);
             PackageManager pm = this.getPackageManager();
-            if (sharedPreferences.getBoolean("holiday_alarms", false)) {
+            if (sharedPreferences.getBoolean("holiday_alarms", false) ||
+                    !sharedPreferences.getStringSet("custom_alarm_data",
+                            new HashSet<String>()).isEmpty()) {
                 pm.setComponentEnabledSetting(alarmReceiver,
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);
                 pm.setComponentEnabledSetting(bootReceiver,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP);
+                pm.setComponentEnabledSetting(timeChangeReceiver,
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);
                 enableHolidayAlarms(
@@ -211,6 +230,9 @@ public class Watch extends FragmentActivity
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
                 pm.setComponentEnabledSetting(bootReceiver,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP);
+                pm.setComponentEnabledSetting(timeChangeReceiver,
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
                 disableHolidayAlarms(holidays, alarmManager, this);

@@ -33,13 +33,16 @@ public class SystemTimeChangeReceiver extends BroadcastReceiver {
                     (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             boolean useTimeOffsetPreferenceTimeDelta =
-                    preferences.getBoolean("system_time", false);
+                    !preferences.getBoolean("system_time", false);
             long preferenceTimeDelta;
             if (useTimeOffsetPreferenceTimeDelta) {
                 preferenceTimeDelta = preferences.getLong("custom_date_time", 0L);
             } else {
                 preferenceTimeDelta = 0;
             }
+
+            long time = System.currentTimeMillis();
+            DniDateTime dniDateTime = DniDateTime.now(time + preferenceTimeDelta);
             if (holidayAlarmsEnabled) {
                 try {
                     List<DniHoliday> holidays = new HolidayXmlParser().getHolidays(
@@ -48,7 +51,7 @@ public class SystemTimeChangeReceiver extends BroadcastReceiver {
                     Watch.disableHolidayAlarms(holidays, alarmManager, context);
 
                     Watch.enableHolidayAlarms(holidays,
-                            DniDateTime.now(),
+                            dniDateTime,
                             preferenceTimeDelta,
                             alarmManager,
                             context);
@@ -64,7 +67,7 @@ public class SystemTimeChangeReceiver extends BroadcastReceiver {
                 alarmDataList.add(AlarmData.fromStringRepresentation(rawAlarmData));
             }
             AlarmActivity.deregisterAllAlarmsWithOs(alarmDataList, alarmManager, context);
-            AlarmActivity.registerAllAlarmsWithOs(alarmDataList, DniDateTime.now(),
+            AlarmActivity.registerAllAlarmsWithOs(alarmDataList, dniDateTime,
                     preferenceTimeDelta, alarmManager, context);
         }
     }

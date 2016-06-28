@@ -41,13 +41,14 @@ public class AlarmBootReceiver extends BroadcastReceiver {
             }
             AlarmManager alarmManager =
                     (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
+            long time = System.currentTimeMillis();
+            DniDateTime dniDateTime = DniDateTime.now(time + preferenceTimeDelta);
             if (holidayAlarmsEnabled) {
                 try {
                     List<DniHoliday> holidays = new HolidayXmlParser().getHolidays(
                             context.getResources().openRawResource(R.raw.holidays));
                     Watch.enableHolidayAlarms(holidays,
-                            DniDateTime.now(),
+                            dniDateTime,
                             preferenceTimeDelta,
                             alarmManager,
                             context);
@@ -62,7 +63,7 @@ public class AlarmBootReceiver extends BroadcastReceiver {
             for (String rawAlarmData : rawAlarmDataSet) {
                 alarmDataList.add(AlarmData.fromStringRepresentation(rawAlarmData));
             }
-            AlarmActivity.registerAllAlarmsWithOs(alarmDataList, DniDateTime.now(),
+            AlarmActivity.registerAllAlarmsWithOs(alarmDataList, dniDateTime,
                     preferenceTimeDelta, alarmManager, context);
         }
     }

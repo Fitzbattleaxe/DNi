@@ -50,7 +50,8 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
         AlarmData alarmData = (AlarmData) intent.getParcelableExtra("com.dane.dni.alarmData");
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        DniDateTime dniDateTime = DniDateTime.now();
+        long time = System.currentTimeMillis();
+        DniDateTime dniDateTime = DniDateTime.now(time + preferenceTimeDelta);
         AlarmActivity.registerAlarmWithOS(alarmData, dniDateTime, preferenceTimeDelta,
                 alarmManager, context);
     }

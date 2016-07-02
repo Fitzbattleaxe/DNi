@@ -165,7 +165,7 @@ public class Watch extends FragmentActivity
             } catch (Exception e) {
                 System.exit(-1);
             }
-            tickHandler.postDelayed(this, 20);
+            tickHandler.postDelayed(this, 30);
         }
     };
 

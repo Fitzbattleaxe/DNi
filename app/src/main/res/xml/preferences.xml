@@ -16,18 +16,9 @@
             android:title="Stay in the Present"
             android:summary="Run clock according to system time"/>
     </PreferenceScreen>
-    <PreferenceScreen
-        android:key="alarm_category_key"
-        android:persistent="false"
-        android:title="Alarms">
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="holiday_alarms"
-            android:title="D'ni Holiday Alarms"/>
-        <Preference android:title="Custom Alarms">
-            <intent android:action="com.dane.dni.CUSTOM_ALARMS" />
-        </Preference>
-    </PreferenceScreen>
+    <Preference android:title="Alarms">
+        <intent android:action="com.dane.dni.CUSTOM_ALARMS" />
+    </Preference>
     <CheckBoxPreference
         android:defaultValue="true"
         android:key="dni_nums"

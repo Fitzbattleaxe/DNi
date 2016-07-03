@@ -155,13 +155,17 @@ public class Watch extends FragmentActivity
         public void run() {
             try {
                 long time = System.currentTimeMillis();
-                dniDateTime.setTimeInMillis(time + preferenceTimeDelta);
                 offsetDniDateTime.setTimeInMillis(time + preferenceTimeDelta + 140);
-                yearDisplay.updateDisplay();
-                monthDisplay.updateDisplay();
-                timeDisplay.updateDisplay();
                 watch1.updateTime();
                 watch2.updateTime();
+
+                long prevProrahntee = dniDateTime.getProrahntee();
+                dniDateTime.setTimeInMillis(time + preferenceTimeDelta);
+                if (dniDateTime.getProrahntee() != prevProrahntee) {
+                    yearDisplay.updateDisplay();
+                    monthDisplay.updateDisplay();
+                    timeDisplay.updateDisplay();
+                }
             } catch (Exception e) {
                 System.exit(-1);
             }

@@ -61,10 +61,12 @@
 
     <ListView
         android:layout_below="@+id/holidayHeader"
+        android:listSelector="@drawable/transparant_drawable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/holidayList"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:clickable="false" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/dialogBottomChrome"

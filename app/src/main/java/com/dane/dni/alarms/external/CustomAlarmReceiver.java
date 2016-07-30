@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
@@ -16,12 +17,20 @@ import com.dane.dni.alarms.AlarmData;
 import com.dane.dni.common.data.DniDateTime;
 import com.dane.dni.watch.Watch;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Created by Dane on 5/25/2016.
  */
 public class CustomAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle("Be alarmed!")
                 .setSmallIcon(R.drawable.notific_icn)
@@ -37,22 +46,32 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 0, builder.build());
 
         boolean useTimeOffsetpreferenceTimeDelta =
-                !PreferenceManager.getDefaultSharedPreferences(context)
-                        .getBoolean("system_time", false);
+                !preferences.getBoolean("system_time", false);
         long preferenceTimeDelta;
         if (useTimeOffsetpreferenceTimeDelta) {
-            preferenceTimeDelta = PreferenceManager.getDefaultSharedPreferences(context)
-                    .getLong("custom_date_time", 0L);
+            preferenceTimeDelta = preferences.getLong("custom_date_time", 0L);
         } else {
             preferenceTimeDelta = 0;
         }
 
         AlarmData alarmData = (AlarmData) intent.getParcelableExtra("com.dane.dni.alarmData");
-        AlarmManager alarmManager =
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        long time = System.currentTimeMillis();
-        DniDateTime dniDateTime = DniDateTime.now(time + preferenceTimeDelta);
-        AlarmActivity.registerAlarmWithOS(alarmData, dniDateTime, preferenceTimeDelta,
-                alarmManager, context);
+
+        Set<String> rawAlarmDataSet = preferences.getStringSet("custom_alarm_data",
+                new HashSet<String>());
+        Map<Integer, AlarmData> alarmDataMap = new HashMap<>();
+        for (String rawAlarmData : rawAlarmDataSet) {
+            AlarmData parsedAlarmData = AlarmData.fromStringRepresentation(rawAlarmData);
+            alarmDataMap.put(parsedAlarmData.getAlarmId(), parsedAlarmData);
+        }
+
+        int alarmId = alarmData.getAlarmId();
+        if (alarmDataMap.containsKey(alarmId)) {
+            AlarmManager alarmManager =
+                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            long time = System.currentTimeMillis();
+            DniDateTime dniDateTime = DniDateTime.now(time + preferenceTimeDelta);
+            AlarmActivity.registerAlarmWithOS(alarmDataMap.get(alarmId), dniDateTime,
+                    preferenceTimeDelta, alarmManager, context);
+        }
     }
 }

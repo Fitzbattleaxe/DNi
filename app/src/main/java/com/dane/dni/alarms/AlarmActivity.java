@@ -9,22 +9,18 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.app.Activity;
 import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dane.dni.R;
 import com.dane.dni.alarms.external.CustomAlarmReceiver;
-import com.dane.dni.alarms.external.HolidayAlarmReceiver;
 import com.dane.dni.common.data.DniDateTime;
 
 import java.util.ArrayList;
@@ -73,9 +69,10 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
 
         typeface = Typeface.createFromAsset(this.getAssets(), "fonts/EBGaramond-Regular.ttf");
 
+        final FragmentManager fm = getSupportFragmentManager();
         alarmListView = (ListView) findViewById(R.id.alarmList);
         alarmListAdapter = new AlarmListAdapter(
-                this, R.layout.alarm_list_item, alarmDataList, getSupportFragmentManager(), this);
+                this, R.layout.alarm_list_item, alarmDataList, fm, this);
         alarmListView.setAdapter(alarmListAdapter);
 
         CheckBox holidayAlarmCheckbox = (CheckBox) findViewById(R.id.enableHolidaysCheck);
@@ -95,10 +92,21 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
             @Override
             public void onClick(View v) {
                 if (alarmDataList.size() < 50) {
-                    AlarmData newAlarmData = new AlarmData(
-                            0, 0, 0, 0, 0, 0, 0, true, generateAlarmId());
-                    alarmListAdapter.add(newAlarmData);
-                    updateAlarmPreferences();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("alarmId", generateAlarmId());
+                    bundle.putInt("month", 0);
+                    bundle.putInt("day", 0);
+                    bundle.putInt("shift", 0);
+                    bundle.putInt("hour", 0);
+                    bundle.putInt("quarter", 0);
+                    bundle.putInt("minute", 0);
+                    bundle.putInt("second", 0);
+                    bundle.putBoolean("isNewAlarm", true);
+                    DniTimePicker dniTimePicker = DniTimePicker.newInstance(bundle);
+                    dniTimePicker
+                            .setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialogTheme);
+                    dniTimePicker.setArguments(bundle);
+                    dniTimePicker.show(fm, "AlarmDialogFragment");
                 }
             }
         });
@@ -140,11 +148,16 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
                     ? oldAlarmData.isEnabled()
                     : true,
                 alarmId);
-        int alarmPosition = alarmListAdapter.getPosition(oldAlarmData);
+        int alarmPosition;
+        if (oldAlarmData != null) {
+            alarmPosition = alarmListAdapter.getPosition(oldAlarmData);
+            alarmListAdapter.remove(oldAlarmData);
+            deregisterAlarmWithOS(oldAlarmData,
+                    alarmManager, this);
+        }  else {
+            alarmPosition = alarmListAdapter.getCount();
+        }
         alarmListAdapter.insert(newAlarmData, alarmPosition);
-        alarmListAdapter.remove(oldAlarmData);
-        deregisterAlarmWithOS(oldAlarmData,
-                alarmManager, this);
 
         boolean useTimeOffsetpreferenceTimeDelta =
                 !PreferenceManager.getDefaultSharedPreferences(this)
@@ -186,6 +199,9 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
                 oldAlarmData = alarmData;
                 break;
             }
+        }
+        if (oldAlarmData == null) {
+            return;
         }
         alarmListAdapter.remove(oldAlarmData);
         deregisterAlarmWithOS(oldAlarmData,

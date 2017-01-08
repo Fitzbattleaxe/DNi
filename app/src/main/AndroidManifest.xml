@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dane.dni"
-    android:versionCode="1"
-    android:versionName="@string/version_code" >
+    android:versionCode="2"
+    android:versionName="@string/version_code">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".watch.Watch"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,33 +25,32 @@
         <activity
             android:name=".preferences.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/SettingsTheme" >
-        </activity>
+            android:theme="@style/SettingsTheme"></activity>
 
         <receiver
             android:name=".alarms.external.HolidayAlarmReceiver"
-            android:enabled="false" >
+            android:enabled="false">
             <intent-filter>
                 <action android:name="com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".alarms.external.CustomAlarmReceiver"
-            android:enabled="false" >
+            android:enabled="false">
             <intent-filter>
                 <action android:name="com.dane.dni.ACTION_NOTIFY_FOR_CUSTOM_ALARM" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".alarms.external.AlarmBootReceiver"
-            android:enabled="false" >
+            android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".alarms.external.SystemTimeChangeReceiver"
-            android:enabled="false" >
+            android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.TIME_SET" />
             </intent-filter>
@@ -59,15 +59,18 @@
         <activity
             android:name=".alarms.AlarmActivity"
             android:label="@string/title_activity_alarm"
-            android:theme="@style/AlarmTheme" >
+            android:theme="@style/AlarmTheme">
             <intent-filter>
                 <action android:name="com.dane.dni.CUSTOM_ALARMS" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".preferences.SettingsActivity" />
         </activity>
+        <activity android:name=".alarms.handler.AlarmHandler"></activity>
     </application>
 
 </manifest>

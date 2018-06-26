@@ -117,8 +117,17 @@
             </android.support.percent.PercentRelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0"
-                android:layout_weight="18.5"></RelativeLayout>
+                android:layout_height="0dp"
+                android:layout_weight="18.5">
+
+                <Button
+                    android:text="Silence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/silenceAlarmButton" />
+            </RelativeLayout>
         </LinearLayout>
     </FrameLayout>
 </android.support.percent.PercentFrameLayout>

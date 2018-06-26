@@ -54,7 +54,8 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             preferenceTimeDelta = 0;
         }
 
-        AlarmData alarmData = (AlarmData) intent.getParcelableExtra("com.dane.dni.alarmData");
+        AlarmData alarmData = AlarmData.unmarshall(
+                intent.getByteArrayExtra("com.dane.dni.alarmData"));
 
         Set<String> rawAlarmDataSet = preferences.getStringSet("custom_alarm_data",
                 new HashSet<String>());

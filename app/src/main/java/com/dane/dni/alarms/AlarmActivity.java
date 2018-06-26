@@ -257,7 +257,7 @@ public class AlarmActivity extends AppCompatActivity implements DniTimePicker.Dn
                 getNextAlarmTimeInMillis(alarmData, dniDateTime, preferenceTimeDelta);
 
         Intent intent = new Intent(context, CustomAlarmReceiver.class)
-                .putExtra("com.dane.dni.alarmData", alarmData)
+                .putExtra("com.dane.dni.alarmData", AlarmData.marshall(alarmData))
                 .putExtra("com.dane.dni.alarmId", alarmData.getAlarmId())
                 .setAction("com.dane.dni.ACTION_NOTIFY_FOR_CUSTOM_ALARM");
         PendingIntent pendingIntent =

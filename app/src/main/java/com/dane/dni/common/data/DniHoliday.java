@@ -54,6 +54,21 @@ public class DniHoliday implements Parcelable {
         return 0;
     }
 
+    public static byte[] marshall(DniHoliday parcelable) {
+        Parcel parcel = Parcel.obtain();
+        parcelable.writeToParcel(parcel, 0);
+        byte[] bytes = parcel.marshall();
+        parcel.recycle();
+        return bytes;
+    }
+
+    public static DniHoliday unmarshall(byte[] bytes) {
+        Parcel parcel = Parcel.obtain();
+        parcel.unmarshall(bytes, 0, bytes.length);
+        parcel.setDataPosition(0); // This is extremely important!
+        return new DniHoliday(parcel);
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         long[] data = new long[2];

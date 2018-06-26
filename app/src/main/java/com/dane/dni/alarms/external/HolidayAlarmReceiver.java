@@ -21,7 +21,8 @@ import com.dane.dni.watch.Watch;
 public class HolidayAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        DniHoliday holiday = (DniHoliday) intent.getParcelableExtra("com.dane.dni.holiday");
+        DniHoliday holiday = DniHoliday.unmarshall(
+                intent.getByteArrayExtra("com.dane.dni.holiday"));
         String holidayName = holiday.getName();
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(holidayName)

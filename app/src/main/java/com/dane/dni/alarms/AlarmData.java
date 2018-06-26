@@ -183,4 +183,19 @@ public class AlarmData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(toStringRepresentation());
     }
+
+    public static byte[] marshall(AlarmData parcelable) {
+        Parcel parcel = Parcel.obtain();
+        parcelable.writeToParcel(parcel, 0);
+        byte[] bytes = parcel.marshall();
+        parcel.recycle();
+        return bytes;
+    }
+
+    public static AlarmData unmarshall(byte[] bytes) {
+        Parcel parcel = Parcel.obtain();
+        parcel.unmarshall(bytes, 0, bytes.length);
+        parcel.setDataPosition(0); // This is extremely important!
+        return new AlarmData(parcel);
+    }
 }

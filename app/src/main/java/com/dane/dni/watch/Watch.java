@@ -284,7 +284,7 @@ public class Watch extends FragmentActivity
         int holidayId = 0;
         for (Pair<DniHoliday, Long> holidayPair : nextHolidayTimes) {
             Intent intent = new Intent(context, HolidayAlarmReceiver.class)
-                    .putExtra("com.dane.dni.holiday", holidayPair.first)
+                    .putExtra("com.dane.dni.holiday", DniHoliday.marshall(holidayPair.first))
                     .putExtra("com.dane.dni.holidayId", holidayId)
                     .setAction("com.dane.dni.ACTION_NOTIFY_FOR_HOLIDAY");
             PendingIntent pendingIntent =
